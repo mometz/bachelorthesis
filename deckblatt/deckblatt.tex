@@ -15,10 +15,10 @@
 % evenside: left 15 mm, right 25 mm
 %
 % Eingaben
-\newcommand{\Bearbeiter}{$<\,$Moritz Mühlhausen$\,>$}
-\newcommand{\Thema}{$<\,$Fehleranalyse mithilfe von Unsupervised Learning in der Verkehrstechnik$\,>$}
-\newcommand{\Referent}{$<\,$Prof. Dr.-Ing. Michael Voigt$\,>$}
-\newcommand{\Korreferent}{$<\,$M. Sc. Felix Becker, Vitronic Machine Vision GmbH$\,>$}
+\newcommand{\Bearbeiter}{Moritz Mühlhausen}
+\newcommand{\Thema}{Predictive Maintenance mithilfe von Unsupervised Learning in der Verkehrstechnik}
+\newcommand{\Referent}{Prof.\ Dr.-Ing. Michael Voigt}
+\newcommand{\Korreferent}{M. Sc. Felix Becker, Vitronic Machine Vision GmbH}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,7 +27,7 @@
 %
 \vspace{-20mm}
 \begin{minipage}[t]{8cm}  
-\epsfig{file=Logo-HsRm-1.eps,width=6cm}
+\epsfig{file=deckblatt/Logo-HsRm-1.eps,width=6cm}
 \end{minipage}
 \hfill
 \raisebox{4.3ex}{\small \begin{tabular}[t]{l}
@@ -42,19 +42,25 @@ Elektrotechnik \& Informationstechnik
 \end{tabular}}
 \vspace{30mm}
 \begin{center}{\Huge\bf Bachelor Thesis} \par
-\vspace{20mm} \baselineskip 35pt
+\vspace{20mm}
 {\LARGE\bf  \Thema} \par
 \vspace{16mm}
 {\LARGE\bf  \Bearbeiter} \par
 \end{center}
 % 
 \vspace{15mm}
-vorgelegt am (Stempel des Studienbereichs): \\
+\begin{flushright}
+    Vorgelegt am (Stempel des Studienbereichs): \\
+    \vspace{20mm} % Wenn mehr Platz nötig ist
+    \rule[0ex]{\textwidth}{0.4pt} \hspace{5mm} (Ort / Datum) \hspace{30ex} (Unterschrift Student)
+\end{flushright}
 \vfill
-\begin{tabular}{lp{382pt}}
-Referent/in:	 &  \Referent \\[0.5ex]
-Korreferent/in:	 &  \Korreferent 
-\end{tabular}
+\begin{flushleft}
+\begin{tabular}{ll}
+    Referent:	 &  \Referent \\[0.5ex]
+    Korreferent:	 &  \Korreferent
+\end{tabular}        
+\end{flushleft}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Blankoseite
 \newpage
@@ -85,7 +91,7 @@ unrichtig erweist.
 \par
 \vspace{25mm}
 \rule[0ex]{\textwidth}{0.4pt}
-(Ort / Datum)\hspace{30ex}	(Unterschrift Studentin/Student)
+(Ort / Datum)\hspace{30ex}	(Unterschrift Student)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Erklärung zur Einsicht in die Arbeit
 \newpage
@@ -105,17 +111,16 @@ Begr\"undung (bei Verweigerung): \\[5ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[2ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[2ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[5ex]
-Nur von der Betreuerin / vom Betreuer auszuf\"ullen: \\[2ex]
+Nur vom Betreuer auszuf\"ullen: \\[2ex]
 Gegen die Einsicht in die Bachelor Thesis  und gegen die Ausleihe eines Exemplars der Thesis wird / kein* Einspruch 
 erhoben.
 \par \vspace{10mm}
 \rule[0ex]{\textwidth}{0.4pt}\\
-(Ort / Datum)\hspace{30ex} (Unterschrift Betreuerin / Betreuer)
+(Ort / Datum)\hspace{30ex} (Unterschrift Betreuer)
 \par
 Begr\"undung (bei Einspruch): \\[5ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[2ex]
-\rule[0ex]{\textwidth}{0.4pt} \\[2ex]
-\rule[0ex]{\textwidth}{0.4pt} \\[2ex]
+\rule[0ex]{\textwidth}{0.0pt} \\[2ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[2ex]
 \rule[0ex]{\textwidth}{0.4pt} \\[5ex]
 *Nichtzutreffendes bitte streichen
