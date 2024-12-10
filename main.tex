@@ -1,10 +1,10 @@
 \documentclass[11pt,a4paper,twoside]{book}
 
-% Sprach- und Grafikpakete
 \usepackage{ngerman}
-\usepackage{graphicx} % Allgemeines Grafikpaket
+\usepackage{graphicx}
 \usepackage{epsfig}
 \usepackage{epstopdf}
+\usepackage[onehalfspacing]{setspace}
 
 % Seitenlayout anpassen
 \setlength{\textheight}{25cm}
@@ -12,13 +12,26 @@
 \setlength{\topmargin}{-15mm}
 \setlength{\parindent}{0ex}
 \setlength{\parskip}{2ex}
-% \raggedbottom
 \setlength{\oddsidemargin}{-6.5mm}
-\setlength{\evensidemargin}{-16.5mm}  % ggf. anpassen
+\setlength{\evensidemargin}{-16.5mm}
+
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{Thesis_BIB.bib}
 
 \begin{document}
 
 % Deckblatt einfügen
+\pagenumbering{roman}
 \include{deckblatt/deckblatt}
 
+\tableofcontents
+\listoffigures
+\listoftables
+
+\pagenumbering{arabic}
+\onehalfspacing
+\include{einleitung/einleitung}
+
+
+\printbibliography
 \end{document}
