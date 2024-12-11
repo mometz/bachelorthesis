@@ -5,6 +5,8 @@
 \usepackage{epsfig}
 \usepackage{epstopdf}
 \usepackage[onehalfspacing]{setspace}
+\usepackage[hidelinks]{hyperref} % Verlinkte Verzeichnisse
+\usepackage{tocloft}
 
 % Seitenlayout anpassen
 \setlength{\textheight}{25cm}
@@ -15,23 +17,38 @@
 \setlength{\oddsidemargin}{-6.5mm}
 \setlength{\evensidemargin}{-16.5mm}
 
-\usepackage[backend=biber,style=numeric]{biblatex}
+% Inhaltsverzeichnis anpassen
+\renewcommand{\cftchapfont}{\bfseries} % Kapitel fett
+\renewcommand{\cftsecfont}{}           % Sektionen nicht fett
+\renewcommand{\cftdotsep}{2}           % Punkte zwischen Titel und Seitenzahl
+
+% Literaturverzeichnis alphabetisch und mit anderem Titel
+\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
 \addbibresource{Thesis_BIB.bib}
+\AtBeginDocument{
+  \renewcommand{\bibname}{Literaturverzeichnis}
+}
 
 \begin{document}
 
-% Deckblatt einfügen
+% Deckblatt und Verzeichnisse
 \pagenumbering{roman}
 \include{deckblatt/deckblatt}
-
 \tableofcontents
+\newpage
 \listoffigures
+\newpage
 \listoftables
+\newpage
 
+% Wechsel zu arabischer Nummerierung, Kapitel
 \pagenumbering{arabic}
-\onehalfspacing
-\include{einleitung/einleitung}
+\include{ch1_einleitung/einleitung}
+\newpage
+\include{ch2_theorie/theorie}
 
+% Literaturverzeichnis hinzufügen und verlinken
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\printbibliography[]
 
-\printbibliography
 \end{document}

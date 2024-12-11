@@ -1,0 +1,62 @@
+\chapter{Einleitung und Motivation}
+In modernen Verkehrssystemen ist die Sicherstellung von Zuverlässigkeit, Sicherheit und Verfügbarkeit essenziell,
+da Störungen nicht nur hohe wirtschaftliche Kosten, sondern auch erhebliche Risiken für die Funktionsfähigkeit
+kritischer Infrastrukturen mit sich bringen. Dies macht effektive Wartungsstrategien zu einem unverzichtbaren
+Bestandteil der Instandhaltungsplanung zur Einhaltung der genannten Gütefaktoren.
+
+Dabei gibt es mehrere Ansätze, die historisch gewachsen sind. Die reaktive bzw.~kurative Wartung greift dann ein,
+wenn Fehler auftreten oder Komponenten nicht mehr ihre Funktionalität erfüllen können. Dies hat den offensichtlichen
+Nachteil, dass erst durch Systemausfälle der Wartungseinsatz herbeigeführt wird. Dementsprechend zieht dies einen
+finanziellen Nachteil mit sich und sorgt für Ausfallzeiten im System. Zudem gibt es den Ansatz der präventiven oder
+auch zeitbasierten Wartung. Hier erfolgt der Wartungseinsatz auf Grundlage von festgelegten Wartungsintervallen, die entweder auf einem
+Zeitplan oder einer Betriebsdauer basieren. Diese finden also unabhängig vom tatsächlichen Zustand des Systems statt
+und können dementsprechend leicht umgesetzt werden, aber gleichzeitig überflüssige Wartungsarbeiten verursachen, sollte das
+System noch in einem guten Zustand sein. Unerwartete oder plötzlich eintretende Ausfälle können so auch nicht
+verhindert werden.
+
+% Traditionelle Ansätze wie reaktive Wartung, die erst bei Fehlern eingreift,
+% oder präventive Wartung, die fixe Intervalle einhält, stoßen jedoch an ihre Grenzen. Predictive Maintenance bietet
+% hier eine innovative Alternative, indem sie den Systemzustand auf Grundlage von Echtzeit- und historischen Daten
+% vorhersagt und bedarfsgerechte Wartungsmaßnahmen ermöglicht.
+% 
+% Verkehrsinfrastrukturen und Indusatriesysteme im Allgmeinen werden durch ihre wachsende Komplexität und die
+% Integration neuer Technologien zunehmend anfälliger für Ausfälle. Mit zunehmendem Alter wird ihre Instandhaltung
+% nicht nur kostenintensiver, sondern auch schwieriger. Die Überwachung signifikanter Systemparameter ermöglicht zwar in einem
+% zustandsbasierten Wartungsansatz (Condition-Based Maintenance) gezielte Eingriffe, stößt jedoch an Grenzen, wenn
+% Ressourcen oder Ersatzteile nicht verfügbar sind.
+
+Verkehrsinfrastrukturen und auch Industriesysteme im Allgemein werden durch ihre wachsende Komplexität und die Integration neuer
+Technologien zunehmend anfälliger für Ausfälle und Defekte. Mit steigendem Alter wird ihre Instandhaltung nicht nur kostenintensiver,
+sondern auch schwieriger. Diese traditionellen Wartungsansätze stoßen jedoch in komplexen und zunehmend vernetzten Systemen an ihre
+Grenzen. Um der steigenden Komplexität und den damit verbundenen Herausforderungen in der Wartung zu begegnen, ist es notwendig,
+fortschrittlichere Methoden zu integrieren, die präzisere Vorhersagen über den Zustand von Systemen ermöglichen.
+
+Die prädiktive Wartung bzw.~\textbf{Predictive Maintenance} setzt an dieser Stelle an. Sie basiert auf der Analyse
+von Echtzeitdaten, die aus einer Vielzahl von Sensoren entnommen werden können. Maschinelles Lernen stellt sich hier als ideale
+Herangehensweise heraus, um sich anbahnende Fehler und Ausfälle vorherzusagen. Wartungsmaßnahmen werden
+also erst dann ergriffen, wenn der Systemzustand auf einen bevorstehenden Ausfall hindeutet. So können Ressourcen effizient
+genutzt und Ausfallzeiten minimiert werden~\cite{TobonMejia2012}.
+
+Durch immer mehr verfügbare Mess- und Leistungsdaten steht eine entsprechend große Datenmenge zur Analyse bereit, die zur
+Zustandsfeststellung und -vorhersage herangezogen werden kann. Diese Datensätze werden über einen OPC UA Server zur
+Verfügung gestellt. OPC UA steht für \textit{Open Platform Communication Unified Architecture} und ist ein Industriestandard
+für Datenaustausch sowie horizontale und vertikale Kommunikation. Ein großer Vorteil von OPC UA besteht in seiner
+Herstellerunabhängigkeit durch semantische Interoperabilität sowie seiner Vielzahl an Sicherheitsmechanismen~\cite{Babel2024}.
+Die Datenerfassung erfolgt lokal auf jedem Gerät, welches im Zuge dessen auch einen eigenen Server betreibt, um die aufgenommenen
+Daten bereitzustellen. Auf diese Weise wird eine dezentrale Sammlung relevanter Parameter wie Temperatur,
+Leistung und Systemauslastung ermöglicht. Die kontinuierliche Überwachung und Speicherung dieser Daten in einer Datenbank
+bildet die Grundlage für die Entwicklung und Anwendung prädiktiver Wartungsstrategien.
+
+Ein zentraler Aspekt dabei ist die Detektion von Anomalien, die als Abweichungen vom normalen Verhalten definiert
+werden~\cite{Chandola2009}. In multivariaten Systemen erschwert die hohe Dimensionalität und Komplexität der Daten ihre Erkennung.
+Unüberwachte maschinelle Lernverfahren bzw.~\textbf{Unsupervised Learning} erweisen sich hier als besonders vielversprechend,
+da sie Muster und Zusammenhänge in hochdimensionalen, unstrukturierten Datensätzen identifizieren können, ohne auf eine vorherige
+Datenkennzeichnung angewiesen zu sein.
+
+Ziel dieser Arbeit ist es, Unsupervised Learning Algorithmen für die Erkennung und Interpretation von Anomalien in
+heterogenen Datensätzen eines Systems in der Verkehrstechnik zu nutzen und damit die Effizienz von Predictive Maintenance
+in der Verkehrstechnik zu optimieren. Dies soll durch eine frühzeitige Identifikation potenzieller Fehler erreicht werden.
+
+Dabei wird zunächst in~\hyperref[ch:theorie]{Kap.~\ref*{ch:theorie}} ein theoretischer Hintergrund über die Grundlagen
+der Anomalieerkennung, Predictive Maintenance und verschiedener Machine Learning Ansätze gegeben und warum sich Unsupervised
+Learning optimal für die hier genannten Zwecke eignet.
