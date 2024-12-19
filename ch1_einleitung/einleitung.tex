@@ -5,8 +5,7 @@ Bereitstellung spezialisierter Techniker und Geräte, sondern auch eine präzise
 minimieren und die Sicherheit sowohl der Wartungsteams als auch der Verkehrsteilnehmer zu gewährleisten.
 
 Ein technischer Defekt erfordert häufig eine komplexe Koordination mehrerer Teams und führt zu Verkehrsstörungen. Dadurch
-entsteht die Notwendigkeit, Wartungseinsätze effizienter zu gestalten, um die Funktionalität der Infrastruktur und die
-Sicherheit der Verkehrsteilnehmenden sowie der Servicemitarbeitenden zu gewährleisten. Gleichzeitig wächst der Druck, diese
+entsteht die Notwendigkeit, Wartungseinsätze effizienter zu gestalten und diese
 Einsätze planbarer und seltener durchzuführen. Genau hier setzt die Motivation dieser Arbeit an: neue Methoden zu entwickeln, die
 eine präzise Überwachung des Zustands der Brücken ermöglichen, ohne ständige physische Präsenz vor Ort.
 
@@ -17,14 +16,14 @@ eine Stromversorgungshardware mit Weitbereichsspannungseingang. Die SSPX1 nutzt 
 kontinuierlichen und sorgfältigen Überwachung des Systemzustands.
 
 \textbf{Predictive Maintenance} nutzt diese Daten, um Ausfälle vorherzusagen. Sie basiert auf der Analyse
-von Echtzeitdaten, die aus einer Vielzahl von Sensoren entnommen werden können. Maschinelles Lernen bietet sich hier als effektive
-Methode an, um sich anbahnende Fehler und Ausfälle vorherzusagen und abzufangen. So können Ressourcen effizient
+von Echtzeitdaten, die aus einer Vielzahl von Sensoren entnommen werden können. Mithilfe von maschinellem Lernen können
+sich anbahnende Fehler und Ausfälle vorhergesagt und abgefangen werden. So können Ressourcen effizient
 genutzt und Ausfallzeiten minimiert werden~\cite{TobonMejia2012}.
 
-Diese großen Datensätze werden über einen OPC UA Server zur Verfügung gestellt. OPC UA steht für \textit{Open Platform Communication
+In diesem Kontext spielt OPC UA eine wichtige Rolle. OPC UA steht für \textit{Open Platform Communication
 Unified Architecture} und ist ein Industriestandard für Datenaustausch sowie horizontale und vertikale Kommunikation, unter Anderem
 aufgrund seiner Herstellerunabhängigkeit~\cite{Babel2024}.
-Die Datenerfassung erfolgt lokal auf jeder SSPX1, welche im Zuge dessen auch einen eigenen Server betreibt, um die aufgenommenen
+Die Datenerfassung erfolgt lokal auf jeder SSPX1, welche im Zuge dessen auch einen eigenen OPC UA Server betreibt, um die aufgenommenen
 Daten bereitzustellen. Auf diese Weise wird eine dezentrale Sammlung relevanter Parameter wie Temperatur,
 Leistung und Systemauslastung ermöglicht. Die kontinuierliche Überwachung und Speicherung dieser Daten in einer Datenbank
 bildet die Grundlage für die Entwicklung und Anwendung prädiktiver Wartungsstrategien.
@@ -40,6 +39,6 @@ heterogenen Datensätzen eines Systems in der Verkehrstechnik zu nutzen und dami
 in der Verkehrstechnik zu optimieren. Dies soll durch eine frühzeitige Identifikation potenzieller Fehler erreicht werden.
 
 Dabei wird zunächst in~\hyperref[ch:pdm_theorie]{Kap.~\ref*{ch:pdm_theorie}} ein theoretischer Hintergrund über die Grundlagen
-von Predictive Maintenance und verschiedener Machine Learning Ansätze gegeben und warum sich Unsupervised Learning optimal für
-die hier genannten Zwecke eignet.
+von Predictive Maintenance sowie die grundsätzlichen Rahmenbedingungen gegeben, auf denen die weitere Entwicklung des Wartungssystems
+in dieser Arbeit basiert.
 % weitere Kapitel vorstellen ...

@@ -3,6 +3,7 @@
 Anmeldung*
 .vscode/
 /sonstiges
+*.jpg
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

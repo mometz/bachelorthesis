@@ -5,8 +5,11 @@
 \usepackage{epsfig}
 \usepackage{epstopdf}
 \usepackage[onehalfspacing]{setspace}
-\usepackage[hidelinks]{hyperref} % Verlinkte Verzeichnisse
+\usepackage[hidelinks]{hyperref}
 \usepackage{tocloft}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{amsmath}
 
 % Seitenlayout anpassen
 \setlength{\textheight}{25cm}
@@ -33,19 +36,23 @@
 
 % Deckblatt und Verzeichnisse
 \pagenumbering{roman}
-% \include{deckblatt/deckblatt}
-% \tableofcontents
-% \newpage
-% \listoffigures
-% \newpage
-% \listoftables
-% \newpage
+\include{deckblatt/deckblatt}
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
 
 % Wechsel zu arabischer Nummerierung, Kapitel
 \pagenumbering{arabic}
 \include{ch1_einleitung/einleitung}
 \newpage
-\include{ch2_pdm_theorie/pdm_theorie}
+\include{ch2_zielsetzung/zielsetzung}
+\newpage
+\include{ch3_pdm_theorie/pdm_theorie}
+\newpage
+\include{ch4_framework/framework}
 
 % Literaturverzeichnis hinzufügen und verlinken
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}

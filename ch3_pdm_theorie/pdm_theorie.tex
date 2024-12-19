@@ -1,0 +1,32 @@
+\chapter{Predictive Maintenance}\label{ch:pdm_theorie}
+Die zunehmende Komplexität und Vernetzung moderner Systeme erfordert effizientere Wartungsstrategien. Predictive Maintenance nutzt die
+enormen Datenmengen solcher Systeme, um drohende Defekte frühzeitig zu erkennen und Ausfälle zu verhindern. Dadurch können
+Ausfallzeiten minimiert und die Lebensdauer der Systeme verlängert werden.
+
+Nach dem ISO 13379{-}1 Standard~\cite{ISO2012} wird Predictive Maintenance als Wartungsstrategie definiert, die die Zustandsüberwachung
+eines Systems oder einer Komponente nutzt, um Zustandsänderungen zu detektieren, die auf bevorstehende Ausfälle hinweisen können.
+Eine passende Analogie findet sich in der Medizin: Wenn der menschliche Körper Anzeichen einer bevorstehenden Krankheit zeigt, können
+diese Symptome vom Arzt genutzt werden, um eine Diagnose zu stellen und entsprechende Maßnahmen zu ergreifen.
+Diese Zustandsüberwachung erlaubt es, dass Wartungsarbeiten zu einem Zeitpunkt stattfinden können, der für alle Beteiligte passend ist
+und minimale Einschnitte in Produktions- oder Prozesslaufzeiten bedeutet~\cite{Scheffer2004}.
+
+Im Vergleich zu traditionellen Ansätzen bietet Predictive Maintenance signifikante Vorteile,
+doch auch die klassischen Methoden haben ihre Berechtigungen. Diese werden im Folgenden diskutiert.
+
+\section{Traditionelle Wartungsansätze}\label{sec:trad_maintenance}
+Zu den traditionellen Wartungsansätzen gehören die reaktive und die präventive Wartung. Bei der reaktiven oder auch korrektiven
+Wartung wird, gemäß der Namensgebung, erst bei vollständigem Ausfall von Komponenten gehandelt.
+Der Vorteil dieser Methode liegt in der sehr geringen Planung und Überwachung. Für Komponenten,
+die nicht kritisch oder essenziell sind, oder die ein sehr geringes Ausfallrisiko aufweisen, kann die reaktive Wartung sinnvoll sein.
+Für alle anderen Bestandteile bzw.~die Gesamtheit eines Systems ist sie jedoch höchst ineffizient, da Wartungsmaßnahmen erst dann
+veranlasst und geplant werden, wenn das System ausfällt. Zudem gestaltet sich die Diagnose dann auch als potenziell schwierig, da die
+Fehlerquelle noch gefunden werden muss~\cite{Abdelli2022}.
+
+Demgegenüber steht die präventive Wartung, die Maßnahmen am Ende eines vorher festgelegten Zeitintervalls oder nach Ablauf einer
+bestimmten Betriebsdauer festlegt. Üblicherweise orientieren sich diese Wartungsintervalle entweder an der MTTF (\textit{Mean Time
+To Failure}) oder an der Badewannenkurve~\cite{Andrews2002}. Dieser Ansatz hat gewisse Vorteile für Komponenten, die nicht im
+dauerhaften Betrieb sind, sofern ausreichend geschultes Personal vorhanden ist mit genügend Zeit, die Wartungsarbeiten durchzuführen.
+Nachteile liegen im potenziell schlechten Timing der Wartungsarbeiten, die entweder zu früh oder zu spät stattfinden. Ohne Überwachung
+des Systemzustands ist schwer absehbar, in welchem Stadium seiner Lebensdauer sich ein System befindet, und Komponenten, die noch
+eine gewisse Zeit weiterlaufen könnten, werden zu früh ausgetauscht. Durch die Wartung verkürzt sich auch die Betriebsdauer des ganzen
+Systems und verursacht vermeidbare Kosten~\cite{Scheffer2004}.
