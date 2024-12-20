@@ -1,4 +1,4 @@
-\chapter{Framework}
+\chapter{Framework}\label{ch:framework}
 Im Gegensatz zu diesen etablierten Methoden basiert Predictive Maintenance auf einem völlig anderen Ansatz, der auf kontinuierlicher
 Überwachung und Datenanalyse beruht. In Anlehnung an Krupitzer et al.~\cite{Krupitzer2020} werden für die Entwicklung einer Predictive
 Maintenance Lösung im Kontext des SSPX1 Mautüberwachungssystems einige Rahmenbedingungen skizziert. Diese lassen sich gem.
@@ -24,7 +24,7 @@ Maintenance Lösung im Kontext des SSPX1 Mautüberwachungssystems einige Rahmenb
 ~\label{fig:pdm_framework}
 \end{figure}
 
-\section{Technologische Grundlagen}
+\section{Technologische Grundlagen}\label{sec:technologische_grundlagen}
 Die technologischen Grundlagen dieser Arbeit stützen sich auf die in der SSPX1 verbauten Sensoren, die präzise Systemdaten erfassen
 und kontinuierlich überwachen. Zu den erfassten Parametern gehören unter anderem die Temperatur und Auslastung von GPU und CPU,
 die Auslastung des Arbeitsspeichers sowie die Strom- und Leistungsaufnahme des Blitzermoduls.
@@ -85,24 +85,30 @@ laufenden Betrieb optimal und effizient genutzt werden.
 \section{Datenverarbeitung}
 Durch die kontinuierliche Aggregation von Messdaten der SSPX1 entstehen sehr große, hochdimensionale Datensätze. Jeder Datenpunkt in
 der Zeitserie $S$ ist mehrdimensional. Formell lässt sich eine Zeitserie $S$ der Länge $n$ und Dimensionalität $d$ wie in
-\hyperref[eq:timeseries_matrix]{Gl. \Ref*{eq:timeseries_matrix}} definieren. $x_{i}^{j}$ ist der $i$-te Skalar der $j$-ten Dimension einer Serie $S$.
-Für die Dimension $j={0,\dots,d}$ der Zeitserie $S$ entspricht jede Dimension einem Messwert im Datensatz. Da es sich um eine Zeitserie
-handelt, entsprechen die Indizes $i={0, \dots, n}$ den Zeitstempeln der aufgenommenen Messwerte~\cite{Wenig2024}.
+\hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}a} definieren. $x_{i}^{j}$ ist der $i$-te Skalar der $j$-ten
+Dimension einer Serie $S$. Für die Dimension $j={0,\dots,d}$ der Zeitserie $S$ entspricht jede Dimension einem Messwert im Datensatz. Da es
+sich um eine Zeitserie handelt, entsprechen die Indizes $i={0, \dots, n}$ den Zeitstempeln der aufgenommenen Messwerte~\cite{Wenig2024}.
 
 \begin{equation}
-    S = \begin{bmatrix} 
-        x_{0}^{0} & \hdots & x_{0}^{d} \\
-        \vdots & \ddots & \vdots \\
-        x_{n}^{0} & \hdots & x_{n}^{d} 
-        \end{bmatrix}
-\label{eq:timeseries_matrix}
+    \setcounter{equation}{0}
+        \begin{subequations}
+        \renewcommand{\arraystretch}{1.5}
+        \begin{aligned}
+            S &=
+            \begin{bmatrix} 
+                x_{0}^{0} & \cdots & x_{0}^{d} \\
+                \vdots & \ddots & \vdots \\
+                x_{n}^{0} & \cdots & x_{n}^{d} 
+            \end{bmatrix} 
+            && \text{(a)} \\[1.5em]
+            S &= \sum_{i=0}^{n}\,\sum_{j=0}^{d}\,x_{i}^{j} \cdot E_{ij}
+            && \text{(b)}
+        \end{aligned}
+    \end{subequations}
+\label{eq:timeseries_matrix_sum}
 \end{equation}
 
-Alternativ kann die Zeitserie $S$ auch als Linearkombination von Standardmatrizen geschrieben werden~\cite{Voigt2012}. Die elementweise
-Darstellung beschreibt die Matrix $S$ als Summe von gewichteten Standardmatrizen $E_{ij}$, wobei jede Standardmatrix $E_{ij}$ genau
-an der Position $(i,j)$ den Wert 1 hat und sonst 0 ist.
 
-\begin{equation}
-    S=\sum_{i=0}^{n}\sum_{j=0}^{d}x_{i}^{j}\cdot E_{ij}
-\end{equation}
-
+Alternativ kann die Zeitserie $S$ wie \hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}b} in auch als Linearkombination
+von Standardmatrizen geschrieben werden~\cite[S.~8]{Voigt2012}. Die elementweise Darstellung beschreibt die Matrix $S$ als Summe von
+gewichteten Standardmatrizen $E_{ij}$, wobei jede Standardmatrix $E_{ij}$ genau an der Position $(i,j)$ den Wert 1 hat und sonst 0 ist.

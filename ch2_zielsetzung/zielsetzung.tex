@@ -1,17 +1,31 @@
-\chapter{Zielsetzung}
+\chapter{Zielsetzung}\label{ch:zielsetzung}
 Eine effiziente Ressourcennutzung ist für Unternehmen von zentraler Bedeutung. Produktionsprobleme können dabei enorme finanzielle
 Verluste verursachen, wie das Beispiel von Volkswagen im Jahr 2016 zeigt: Durch Störungen im Fertigungsprozess entstand ein wöchentlicher
-Schaden von bis zu 400 Millionen Euro~\cite{Krupitzer2020}. Zudem belegen Studien, dass je nach Branche zwischen 15 und 70~\% der
-Produktionskosten auf wartungstechnische Ursachen zurückzuführen sind~\cite{You2010}.
+Schaden von bis zu 400 Millionen Euro~\cite{Krupitzer2020}. Zudem zeigen Studien, dass je nach Branche zwischen 15 und 70~\% der
+Produktionskosten auf wartungstechnische Ursachen zurückzuführen sind~\cite{Bevilacqua2000}.
 
 Jedoch liegt der Fokus dieser Arbeit nicht auf wirtschaftlichen Faktoren, trotzdem ist zu erwähnen, dass neue, effiziente
-Wartungsstrategien basierend auf der Überwachung wichtiger Systemparameter insgesamt eine wirtschaftlichere, kostengünstigere
-Alternative zu klassischen Wartungsstrategien %(vgl.~\hyperref[sec:trad_maintenance]{Abs.~\Ref*{sec:trad_maintenance}})
-darstellen~\cite{Deloux2009}.
+Wartungsstrategien basierend auf der Überwachung wichtiger Systemparameter insgesamt eine wirtschaftlichere und kostengünstigere
+Alternative zu klassischen Wartungsstrategien (vgl.~\hyperref[sec:trad_maintenance]{Abs.~\Ref*{sec:trad_maintenance}})
+darstellen~\cite{Deloux2009}~\Cite[S.~64--65]{Mobley2002}.
 
 Der Fokus liegt vielmehr in der Entwicklung, Erprobung und Umsetzung der zugrundeliegenden technischen Fragestellung: \textbf{Wie können
-Unsupervised Learning Algorithmen zur Anomaliedetektion genutzt werden, um ein effizientes Wartungssystem zu entwickeln?}
+Unsupervised Learning Algorithmen zur Anomaliedetektion genutzt werden, um zur Entwicklung effizientes Wartungssystem beizutragen?}
 
 Alle weiteren, impliziten Konsequenzen, wie eine Reduzierung der Downtime, Verbesserung der Systemzuverlässigkeit
-und Gerätelaufzeit oder die Redundanz eines großen Ersatzteillagers~\cite{Abdelli2022, Mobley2002, Scheffer2004}
-wollen im beschränkten Rahmen dieser Arbeit nicht betrachtet werden.
+und Gerätelaufzeit, eine Verbesserung der Produktqualität oder die Redundanz eines großen
+Ersatzteillagers~\cite[S.~61--62]{Mobley2002}~\Cite[S.~5]{Scheffer2004} wollen im Rahmen dieser Arbeit nicht betrachtet werden.
+
+Die starke Eingrenzung der Zielsetzung erfolgt auch aufgrund des gegebenen zeitlichen Rahmens der Arbeit von zehn Wochen. Das primäre
+Ziel ist also vielmehr die Erprobung verschiedener, sich als potenziell geeignet heraustellender, Machine Learning Algorithmen zur
+Anomaliedetektion. Dabei gibt es aufgrund der sich zum Teil sehr grundlegend unterscheidenden Arten von Anomalien entsprechend pro
+Anomalietyp separate Kandidaten. Die voneinander abweichenden Anomaliearten und die dafür jeweils nominierten Algorithmen werden in
+\hyperref[ch:anomaliedetektion]{Kap.~\Ref*{ch:anomaliedetektion}} vorgestellt und erläutert.
+
+Zur Bewertung und Einordnung der Ergebnisse der Algorithmen ist auch eine Evaluierungsmethode notwendig. Allerdings soll diese nicht
+vollautomatisiert sein, sondern nach dem sog.~\textit{Human-in-the-Loop} Ansatz geschehen. So kann die Expertise geschulter und
+erfahrener Mitarbeitenden in die Evaluierung miteingebunden werden, zur besseren Beurteilung und Korrektur der Ergebnisse~\cite{Deng2024}.
+
+Schlussendlich und ausblickend soll diese Arbeit einen Beitrag zu besser getimten Wartungseinsätzen beitragen~-~nicht nur für die SSPX1,
+sondern für viele, weitere Systeme der Vitronic Produktfamilie, da die zu Grunde liegenden, analysierten Parameter nicht SSPX1-exklusiv
+sind.
