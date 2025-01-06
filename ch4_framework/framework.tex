@@ -1,8 +1,11 @@
 \chapter{Framework}\label{ch:framework}
-Im Gegensatz zu diesen etablierten Methoden basiert Predictive Maintenance auf einem völlig anderen Ansatz, der auf kontinuierlicher
-Überwachung und Datenanalyse beruht. In Anlehnung an Krupitzer et al.~\cite{Krupitzer2020} werden für die Entwicklung einer Predictive
-Maintenance Lösung im Kontext des SSPX1 Mautüberwachungssystems einige Rahmenbedingungen skizziert. Diese lassen sich gem.
-\hyperref[fig:pdm_framework]{Abb.~\Ref*{fig:pdm_framework}} kategorisieren.
+Die Notwendigkeit und Bedeutung eines Predictive Maintenance Systems wurde nun in~\hyperref[ch:pdm_theorie]{Kap.~\Ref*{ch:pdm_theorie}}
+beleuchtet, sowie der Fokus der Arbeit. Daher steht die Entwicklung eines funktionierenden Sytsems zur Anomaliedetektion an erster Stelle.
+In Anlehnung an Krupitzer et al.~\cite{Krupitzer2020} werden für die Entwicklung einer Predictive Maintenance Lösung im Kontext des SSPX1
+Mautüberwachungssystems einige Rahmenbedingungen skizziert. Diese lassen sich gem.
+\hyperref[fig:pdm_framework]{Abb.~\Ref*{fig:pdm_framework}} kategorisieren und werden in diesem Kapitel näher beschrieben und offengelegt.
+Die Zielsetzung wurde bereits in~\hyperref[ch:zielsetzung]{Kap.~\Ref*{ch:zielsetzung}} erläutert und wird daher in diesem Kapitel nicht
+noch einmal besprochen.
 
 \begin{figure}[H]
     \centering
@@ -11,37 +14,37 @@ Maintenance Lösung im Kontext des SSPX1 Mautüberwachungssystems einige Rahmenb
         % Koordinatensystem für die Grafik
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             % Textpositionen anpassen:
-            \node at (0.5,0.45) {\Large\parbox{6cm}{\centering\textbf{Predictive Maintenance\\System Framework}}};
+            \node at (0.5,0.45) {\LARGE\parbox{8cm}{\centering\textbf{Framework\\Anomaliedetektion}}};
             \node at (0.13,0.65) {\large Evaluation};
-            \node at (0.87,0.65) {\large \parbox{3cm}{\centering Technologische\\Grundlagen}};
-            \node at (0.5,0.87) {\large Zielsetzung};
-            \node at (0.28,0.13) {\large \parbox{3cm}{\centering Daten-\\verarbeitung}};
-            \node at (0.72,0.13) {\large \parbox{3cm}{\centering Zustands-\\überwachung}};
-            
+            \node at (0.87,0.65) {\large \parbox{3cm}{\centering\hyperref[sec:technologische_grundlagen]{Technologische\\Grundlagen}}};
+            \node at (0.5,0.87) {\large\hyperref[ch:zielsetzung]{Zielsetzung}};
+            \node at (0.28,0.13) {\large \parbox{3cm}{\centering\hyperref[sec:datenverarbeitung]{Daten-\\verarbeitung}}};
+            \node at (0.72,0.13) {\large \parbox{3cm}{\centering\hyperref[sec:zustandsueberwachung]{Zustands-\\überwachung}}};
         \end{scope}
     \end{tikzpicture}
-    \caption{Framework zur Entwicklung eines Predictive Maintenance Systems}
+    \caption{Framework der Entwicklung eines Systems zur Anomaliedetektion}
 ~\label{fig:pdm_framework}
 \end{figure}
 
 \section{Technologische Grundlagen}\label{sec:technologische_grundlagen}
 Die technologischen Grundlagen dieser Arbeit stützen sich auf die in der SSPX1 verbauten Sensoren, die präzise Systemdaten erfassen
 und kontinuierlich überwachen. Zu den erfassten Parametern gehören unter anderem die Temperatur und Auslastung von GPU und CPU,
-die Auslastung des Arbeitsspeichers sowie die Strom- und Leistungsaufnahme des Blitzermoduls.
+die Auslastung des Arbeitsspeichers sowie die Strom- und Leistungsaufnahme des Blitzmoduls.
 
 Ein zentraler Baustein ist die Nutzung moderner IoT-Technologien in Kombination mit dem industriellen Kommunikationsstandard OPC UA.\
-Dieser Standard ermöglicht einen effizienten und sicheren Zugriff auf die Sensordaten der SSPX1 und deren Übertragung an eine
-Anwenderschnittstelle nach dem Client-Server-Prinzip~\cite{Babel2024}.
+Dieser Standard basiert auf Ethernet TCP/IP und ermöglicht einen effizienten und sicheren Zugriff auf die Sensordaten der SSPX1 und
+deren Übertragung an eine Anwenderschnittstelle nach dem Client-Server-Prinzip~\cite[S.~470]{Babel2024}.
 
 Da die Sensoren teilweise von unterschiedlichen Herstellern stammen und Messdaten in verschiedenen Formaten bereitstellen, sorgt OPC
 UA für eine einheitliche und standardisierte Kommunikation. Die Daten werden dabei im kompakten \textit{OPC UA Binary}-Format~\cite{iec62541}
 erfasst, wodurch eine performante und ressourcenschonende Datenübertragung ermöglicht wird. Anschließend werden die Daten an den OPC
 UA-Server übermittelt und in der zugrundeliegenden SQL-Datenbank gespeichert. 
 
-Durch diese Architektur wird eine herstellerübergreifende Interoperabilität gewährleistet, die OPC UA besonders für den betrachteten
-Anwendungsfall geeignet macht. Die hohe Skalierbarkeit und Erweiterbarkeit des Standards ermöglicht zudem die einfache Integration
+Durch diese Architektur wird eine herstellerübergreifende Interoperabilität gewährleistet, weshalb OPC UA besonders für den betrachteten
+Anwendungsfall geeignet ist. Die hohe Skalierbarkeit und Erweiterbarkeit des Standards ermöglicht zudem die einfache Integration
 weiterer Sensoren und Systeme, wodurch zukünftige Erweiterungen ohne grundlegende Anpassungen der bestehenden Infrastruktur möglich
-sind.
+sind. Diese sog.~\textit{Cyber Physical Systems} ermöglichen also die Verbindung von mechanischen Komponenten über Netzwerke und sind
+essentiell für die Architektur dieser Arbeit.
 
 Ein weiterer Vorteil der Nutzung von OPC UA liegt in der serviceorientierten Architektur, die eine flexible Kommunikation
 zwischen Client und Server ermöglicht. Der Client fungiert hierbei als Kommunikationsbrücke, die Anfragen und Antworten zwischen
@@ -56,33 +59,35 @@ wesentlichen Ereignissen der Client-Server-Kommunikation gehören~\cite{Babel202
 \end{itemize}
 
 Darüber hinaus kann der OPC UA-Server als Bindeglied zwischen mehreren physischen Geräten oder auch als Cloud-Service fungieren,
-was die Skalierbarkeit weiter erhöht und die Nutzung in verteilten Systemen erlaubt. Die Kombination aus präzisen Sensordaten,
-standardisierter Kommunikation und einer skalierbaren Architektur bildet die technologische Grundlage für die Analyse und Umsetzung
-von Predictive Maintenance im Rahmen dieser Arbeit.
+was die Skalierbarkeit weiter erhöht und die Nutzung in verteilten Systemen erlaubt. Im Rahmen dieser Arbeit wird auf diese Funktionalität
+jedoch verzichtet, da jedes SSPX1 Gerät einen eigenen Server betreibt, der sämtliche aufgenommenen Messdaten bereitstellt.
 
 \section{Zustandsüberwachung}\label{sec:zustandsueberwachung}
 Ein wesentlicher Grund für ineffiziente Wartungsmaßnahmen liegt im unzureichenden Zugang zu Daten, die frühe Hinweise auf
-potenzielle Schäden oder Ausfälle liefern könnten~\cite{Mobley2002}. Predictive Maintenance basiert auf der Voraussetzung, dass
+potenzielle Schäden oder Ausfälle liefern könnten~\cite[S.~2]{Mobley2002}. Predictive Maintenance basiert auf der Voraussetzung, dass
 Daten über den Zustand des betreffenden Systems oder der betreffenden Komponente zuverlässig verfügbar sind. Die Bereitstellung der
 Daten erfolgt wie oben beschrieben mithilfe von OPC UA und die Zustandsüberwachung sensorbasiert.
 
 Zu Beginn der Arbeit und in der Entwicklungsphase wird die Zustandsüberwachung einen inspektionsbasierten Ansatz verfolgen. Das
-bedeutet, dass nach willkürlichen Intervallen immer auf die vom OPC UA Server zur Verfügung gestellten Daten zugegriffen wird und
-diese Datensätze dann analysiert und weiterverarbeitet werden. Die Wahl dieser Methode basiert auf der geringeren Komplexität der
-Implementierung in frühen Entwicklungsphasen und hat zur Folge, dass ein konsistenter Datensatz einen besseren Vergleich und
-Feinabstimmung von Parametern der Analysetools ermöglicht.
+bedeutet, dass nach willkürlichen oder festelegten Intervallen immer auf die vom OPC UA Server zur Verfügung gestellten Daten
+zugegriffen wird und diese Datensätze dann analysiert und weiterverarbeitet werden. Die Wahl dieser Methode basiert auf der
+geringeren Komplexität der Implementierung in frühen Entwicklungsphasen und hat zur Folge, dass ein konsistenter Datensatz einen
+besseren Vergleich und Feinabstimmung von Parametern der Analysetools ermöglicht.
 
-Online Predictive Maintenance erweitert diesen Ansatz, indem sie eine kontinuierliche Überwachung des Systemzustands in Echtzeit
+Online Predictive Maintenance erweitert diesen Ansatz, indem sie eine Überwachung des Systemzustands in Echtzeit im laufenden Betrieb
 ermöglicht. Dabei werden Daten oder andere relevante Parameter in regelmäßigen Abständen automatisch erfasst. Nicht alle erfassten
 Daten werden analysiert; vielmehr wird gezielt ausgewählt, welche Informationen für die Analyse und die Ableitung von Wartungsmaßnahmen
-notwendig sind~\cite{Lindstroem2017}.
+notwendig sind~\cite{Lindstroem2017}. 
+% hier könnte man zu einem späteren zeitpunkt schreiben, wie genau die zustandsüberwachung durchgeführt wurde
 
-Die automatisierte Datenweiterverarbeitung als Teil der Online Predictive Maintenance erfolgt zu einem späteren Zeitpunkt und wird zu
-Beginn noch nicht verfolgt, kann aber als schlussendliches Ziel gesetzt werden. So kann das in dieser Arbeit entwickelte System im
-laufenden Betrieb optimal und effizient genutzt werden.
+Die aufgenommenen Messdaten zur Zustandsüberwachung liegen als multivariate Zeitserie vor. Das bedeutet, dass alle aufgenommenen Messwerte
+mit einem Zeitstempel versehen sind. Dabei besteht die Möglichkeit, die Intervalle für die Messdatenaufnahme unterschiedlich einzustellen.
+Ein Temperaturwert unterliegt langsameren Schwankungen und kann daher in größeren Intervallen aufgenommen werden, als beispielsweise die
+Strom- oder Leistungsaufnahme des Blitzmoduls, wo auch kurzzeitige Spitzen und Ausreißer zuverlässig erkannt werden müssen.
+% Für den Moment sind jedoch alle Messintervalle gleich. auch hier: später ggf. überarbeiten
 
 \newpage
-\section{Datenverarbeitung}
+\section{Datenverarbeitung}\label{sec:datenverarbeitung}
 Durch die kontinuierliche Aggregation von Messdaten der SSPX1 entstehen sehr große, hochdimensionale Datensätze. Jeder Datenpunkt in
 der Zeitserie $S$ ist mehrdimensional. Formell lässt sich eine Zeitserie $S$ der Länge $n$ und Dimensionalität $d$ wie in
 \hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}a} definieren. $x_{i}^{j}$ ist der $i$-te Skalar der $j$-ten
@@ -92,6 +97,7 @@ sich um eine Zeitserie handelt, entsprechen die Indizes $i={0, \dots, n}$ den Ze
 \begin{equation}
     \setcounter{equation}{0}
         \begin{subequations}
+        \setlength{\arraycolsep}{1em}
         \renewcommand{\arraystretch}{1.5}
         \begin{aligned}
             S &=
@@ -102,13 +108,69 @@ sich um eine Zeitserie handelt, entsprechen die Indizes $i={0, \dots, n}$ den Ze
             \end{bmatrix} 
             && \text{(a)} \\[1.5em]
             S &= \sum_{i=0}^{n}\,\sum_{j=0}^{d}\,x_{i}^{j} \cdot E_{ij}
-            && \text{(b)}
+            && \text{(b)}\\[1.5em]
+            E_{32} &=
+            \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix}
+            && \text{(c)} \\[1.5em]
         \end{aligned}
     \end{subequations}
 \label{eq:timeseries_matrix_sum}
 \end{equation}
 
-
-Alternativ kann die Zeitserie $S$ wie \hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}b} in auch als Linearkombination
+Alternativ kann die Zeitserie $S$ gem.~\hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}b} auch als Linearkombination
 von Standardmatrizen geschrieben werden~\cite[S.~8]{Voigt2012}. Die elementweise Darstellung beschreibt die Matrix $S$ als Summe von
 gewichteten Standardmatrizen $E_{ij}$, wobei jede Standardmatrix $E_{ij}$ genau an der Position $(i,j)$ den Wert 1 hat und sonst 0 ist.
+\hyperref[eq:timeseries_matrix_sum]{Gl.~\Ref*{eq:timeseries_matrix_sum}c} verdeutlicht dies beispielhaft an der 4$\times$4 Einheitsmatrix
+$E_{32}$.
+
+\begin{figure}[b]
+    \centering
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=1\linewidth]{ch4_framework/abbildungen/data_mining.pdf}};
+        % Koordinatensystem für die Grafik
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            % Textpositionen anpassen:
+            \node at (0.059,0.725) {\large\centering Rohdaten};
+            \node at (0.2365,0.725) {\large \parbox{6cm}{\centering Vorverarbeitung\\der Daten}};
+            \node at (0.47,0.725) {\large Data Mining};
+            \node at (0.705,0.725) {\large \parbox{6cm}{\centering Nachverarbeitung\\der Daten}};
+            \node at (0.904,0.725) {\large \parbox{3cm}{\centering Information}};
+            \node at (0.2365,0.2) {\large \parbox{6cm}{\centering Dimensionalität reduzieren\\Normierung\\Subsets bilden}};
+            \node at (0.705,0.2) {\large \parbox{6cm}{\centering Visualisierung\\Anomaliedetektion\\Anomalien bewerten}};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Framework der Entwicklung eines Systems zur Anomaliedetektion}
+~\label{fig:data_mining}
+\end{figure}
+
+\textit{Data Mining} spielt in dem Zusammenhang eine große Rolle. Unter Data Mining versteht man das Finden relevanter Informationen,
+Muster oder Trends in großen Datensätzen. Mithilfe verschiedener Data Mining Techniken können so Voraussagen über künftige Ereignisse oder
+Beobachtungen getroffen werden. Der Prozess des Data Minings lässt sich anhand von~\hyperref[fig:data_mining]{Abb.~\Ref*{fig:data_mining}}
+visualisieren. Dabei gehen zunächst Rohdaten aus den zahlreichen Sensoren hervor und liegen bedingt durch das SQL-Format in einer
+relationalen Datenbank vor. Der nächste Schritt der Vorverarbeitung erfolgt dann, damit die Daten in einem handlichen und analysierbaren
+Format vorliegen. Daher werden diese sowohl in ihrer Dimensionalität reduziert als auch normiert. Gegebenenfalls werden auch
+kontextbezogene Subsets gebildet, z.~B.~für Tageszeiten oder sonstige Bedingungen~\Cite[Abs.~1.1]{Tan2014}.
+
+Zur Datenverarbeitung gehören auch spezifische Herausforderungen, die die Entwicklung neuer Data Mining Techniken vorangetrieben haben.
+Dazu gehört unter Anderem die Skalierbarkeit eines Algorithmus, um zu gewährleisten, dass auch sehr große und immer größer werdende
+Datensätze mit der gleichen Präzision und Qualität verarbeitet werden. Desweiteren zählen auch die Hochdimensionalität und Heterogenität
+der vorliegenden Datensätze zu großen Herausforderung bei der Findung geeigneter Algorithmen. Für hochdimensionale Daten muss im Voraus
+im Rahmen der Vorverarbeitung eine Reduzierung der Dimensionalität stattfinden, d.h.~irrelevante oder redundante Datenpunkte werden
+entfernt oder mit ähnlichen Datenpunkten zusammengefasst. Auch statistische Abhängigkeiten und Unabhängigkeiten sowie Korrelationen
+werden in diesem Schritt mit berücksichtigt. Die Heterogenität eines Datensatzes zeigt sich beispielsweise durch das Auftreten von
+Datenpunkten mit unterschiedlichen physikalischen Einheiten, wie Temperaturwerte und solche zur Festplattenauslastung und
+-schreibgeschwindigkeit. Bevor ein Datensatz also einem Algorithmus zur Anomaliedetektion übergeben werden kann, muss eine adäquate
+Vorverarbeitung stattfinden, denn nur so können auch relevante Ergebnisse erzeugt werden.
+
+% weitere inhalte dieses abs.: wie wird die dimensionalität zb verringert? pca oder ähnliche verfahren. abhängig von den gewählten
+% algorithmen, die getestet werden sollen
+
+\newpage
+\section{Evaluation}
+% hier soll kurz vorgestellt werden, anhand welcher kriterien und mit welchen verfahren ein algorithmus bewertet werden soll
+% zb. rechendauer, anomaliequote etc.
