@@ -19,10 +19,10 @@ nachdem, wo die Grenze liegt.
 
 Es stellt sich ebenfalls die Frage, ob eine Anomalie einer binären Natur unterliegt: Entweder es handelt sich um eine Anomalie oder
 einen Normalzustand. Doch die Wahrheit liegt oft in der Mitte. Weicht ein Punkt oder eine Sequenz bereits nur leicht vom Normal ab,
-so kann es bereits erste Hinweise auf mögliches zukünftiges anomales Verhalten geben, bevor solche Datenpunkte bereits als Anomalie
-gekennzeichnet werden. Deshalb ist es ratsam, charakterisieren zu können, wie weit der Punkt oder die Sequenz vom Normal abweicht.
-Diese Charakterisierung kann dabei als \textit{Anomaly Score} bezeichnet werden und beispielsweise eine Dezimalzahl zwischen 0 und 1
-sein.
+so kann es bereits erste Hinweise auf mögliches zukünftiges anomales Verhalten in einer Zeitserie geben, bevor sich solche Datenpunkte
+als Anomalie zeigen. Deshalb ist es hilfreich, charakterisieren zu können, wie weit der Punkt oder die Sequenz
+vom Normal abweicht. Diese Charakterisierung kann dabei als \textit{Anomaly Score} bezeichnet werden und beispielsweise eine Dezimalzahl
+zwischen 0 und 1 sein.
 
 Normalzustände sind in Zeitserien oft zeitvariant und daher schwer festzuhalten bei einer kontinuierlichen Datenaufzeichnung.
 Zudem sind Normalzustände und Abweichungen davon in unterschiedlichen Bereichen auch unterschiedlich signifikant. Während beim
@@ -30,14 +30,14 @@ menschlichen Körper eine geringe Abweichung der Körpertemperatur bereits gravi
 in einer anderen Domäne wie in einem Aktienkurs weniger drastisch und unterliegt dementsprechend auch einem Anpassungsbedarf, bevor
 es an die Erkennung möglicher Anomalien geht.
 
-Daraus lässt sich direkt zum nächsten Problem übergehen. Die Unterscheidung zwischen globalen und lokalen Anomalien bzw.~allgemeiner
-formuliert globale und lokale Ungewöhnlichkeiten, bevor sie als Anomalie aufgefasst werden. Hier ist der Kontext wichtig: Eine Person
-mit einer Körpergröße von mehr als 2 $m$ ist in ihrer Nachbarschaft sicherlich eine Anomalie, während sie in einem Basketballteam
-kaum herausragt~-~im wahrsten Sinne des Wortes.
+Daraus lässt sich direkt zum nächsten Problem übergehen. Die Unterscheidung zwischen globalen und lokalen Anomalien~\cite{Breunig2000}.
+Hier ist der Kontext wichtig: Eine Person mit einer Körpergröße von mehr als 2 $m$ ist in ihrer Nachbarschaft sicherlich eine Anomalie,
+während sie in einem Basketballteam kaum herausragt~-~im wahrsten Sinne des Wortes. Diese Art der Anomalie wird auch als kontextuelle
+Anomalie bezeichnet~\Cite[S.~12]{Wenig2024}.
 
 Doch bevor eine Auswahl an geeigneten Verfahren oder Algorithmen zur Anomaliedetektion getroffen wird, muss zuerst verstanden werden,
 welche verschiedenen Arten von Anomalien, im Weiteren als Kategorien bezeichnet, es gibt und wie sich diese voneinander unterscheiden.
-Auch wenn Studien zeigen, dass es Algorithmen gibt, die über mehrere verschiedene Kategorien gut
+Auch wenn Studien zeigen, dass es durchaus Algorithmen gibt, die über mehrere verschiedene Kategorien gut
 abschneiden~\cite[S.~30~-~31]{Wenig2024}~\cite{Schmidl2022}, so soll zunächst für jede Kategorie mindestens ein passender Kandidat
 gefunden werden. Diese werden dann in einem nächsten Schritt kreuzweise getestet, um auch solche Allrounder entdecken zu können. Dabei
 ist auch immer der Kontext der Anwendung wichtig. Wie eingangs erwähnt, sind für verschiedene Tätigkeitsfelder verschiedene
@@ -48,28 +48,50 @@ Für die Kategorien wird sich zunächst auf wenige, für diese Arbeit relevante,
 \textbf{Subsequenzanomalien} und \textbf{Korrelationsanomalien}, abgeleitet von Chandola et al.~\cite{Chandola2009}.
 
 \section{Punktanomalien}
-Ein einzelner Datenpunkt, der stark von den anderen Punkten im Datensatz abweicht, entspricht einer Punktanomalie. Genauer gesagt,
-wenn ein Datenpunkt weit außerhalb der Wahrscheinlichkeitsverteilung des Datensatzes liegt, ist er anomal. Für eine klassische
-Punktanomalie ist Kontext irrelevant. Sie können recht leicht erkannt werden, da Punktanomalien stark vom Mittelwert oder vom Median
-abweichen.
+Ein einzelner Datenpunkt, der stark von den anderen Punkten im Datensatz abweicht, heißt Punkt\-anomalie~\cite{Chandola2009}. Genauer
+gesagt, wenn ein Datenpunkt weit außerhalb der Wahrscheinlichkeitsverteilung des Datensatzes liegt, ist er anomal~\Cite[Kap.~10]{Tan2014}.
+Punktanomalien können recht leicht erkannt werden, da Punktanomalien stark vom Mittelwert und vom Median des Datensatzes abweichen. Wenn
+von Ausreißern gesprochen wird, sind damit typischerweise Punktanomalien gemeint.
 
 Als Beispielszenario dient ein Smart Meter, das den stündlichen Stromverbrauch misst.
-In~\hyperref[fig:punktanomalie_bsp]{Abb.~\Ref*{fig:punktanomalie_bsp}} ist der gemessene Stromverbrauch dargestellt mit einer klar
-erkennbaren Punktanomalie am 01.08.~um 18 Uhr. Die Anomalie ist mit bloßem Auge erkennbar und kann auch mit statistischen Größen
-nachgewiesen werden, wie in~\hyperref[fig:punktanomalie_hist]{Abb.~\Ref*{fig:punktanomalie_hist}} anhand der Häufigkeitsverteilung
-und dem Mittelwert sowie dem Median zu sehen ist. Das Histogramm dient als gute Approximation für die Wahrscheinlichkeitsverteilung
-der Messwerte, und zeigt entsprechend deutlich die Eindeutigkeit des Ausreißers.
+In~\hyperref[subfig:smartmeter]{Abb.~\Ref*{subfig:smartmeter}} ist der gemessene Stromverbrauch dargestellt mit einer klar
+erkennbaren Punktanomalie am 01.08.~um 18 Uhr. Die Anomalie wird mit bloßem Auge deutlich und kann auch mit statistischen Größen
+nachgewiesen werden, wie in~\hyperref[subfig:smartmeter_histogramm]{Abb.~\Ref*{subfig:smartmeter_histogramm}} anhand der
+Häufigkeitsverteilung und dem Mittelwert sowie dem Median zu sehen ist. Das Histogramm dient als gute Approximation für die
+Wahrscheinlichkeitsverteilung der Messwerte, und zeigt entsprechend die Eindeutigkeit des Ausreißers.
 
-\begin{figure}[h]
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_bsp.pdf}
-    \caption{Gemessener Stromverbrauch mit sichtbarer Punktanomalie}
-~\label{fig:punktanomalie_bsp}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_bsp.pdf}
+        \caption{Stündliche Smart Meter Messdaten}\label{subfig:smartmeter}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_hist.pdf}
+        \caption{\centering Histogramm des gemessenen Stromverbrauchs}\label{subfig:smartmeter_histogramm}
+    \end{subfigure}
+    \caption{\centering Beispielszenario einer Punktanomalie: Stromverbrauch eines Haushaltes über den Zeitraum von
+    drei Tagen. Anhand des Histogramms wird die Anomalie verdeutlicht.}\label{fig:punktanomalie}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_hist.pdf}
-    \caption{\centering Histogramm des gemessenen Stromverbrauchs}
-~\label{fig:punktanomalie_hist}
-\end{figure}
+Um nun eine Aussage treffen zu können, ist es wichtig den Kontext der vorliegenden Daten zu kennen. Wenn Daten für ein weitaus größeres
+Zeitfenster vorliegen, z.~B.~für eine Woche oder einen Monat, könnte sich möglicherweise zeigen, dass der hohe Verbrauch öfter und
+regelmäßiger vorkommt als im gezeigten Zeitraum von drei Tagen. Ob eine globale oder lediglich eine lokale Anomalie vorliegt, wird
+mit einem größeren Datensatz besser erkennbar. Die Anomalie könnte beispielsweise auf das gelegentliche Betreiben einer Sauna im Haus
+zurückführbar sein, dann würde es sich lediglich um eine lokale Anomalie handeln und in einem größeren Zeitraum in bestimmten Abständen
+öfter vorkommen, und wäre somit keine globale Anomalie~\Cite[Kap.~10]{Tan2014}.
+
+Punktanomalien sind im Kontext dieser Arbeit tendenziell weniger relevant, sollen aber aufgrund ihrer grundsätzlichen Bedeutung bzgl.
+Anomaliedetektion als einfachste Kategorie trotzdem beleuchtet werden, um entsprechende Algorithmen, die der Erkennung solcher
+Punktanomalien zuzuordnen sind, auch gegenüber anderen Anomalien zu testen.
+
+\section{Subsequenzanomalien}
+
+Eine Zeitserie wird gem.~\hyperref[eq:timeseries_set]{Gl.~\Ref*{eq:timeseries_set}} bereits als eine Menge definiert. Demnach wird eine
+Subsequenz $S_{i,\,j} = \{\,S_i,\,\dots,\,S_j\,\}\,\subseteq\,S$ von der Zeitserie $S$ umfasst, mit der Länge oder Mächtigkeit
+$|\,S_{i,\,j}\,|=j-i+1$ und $|\,S_{i,j}\,|\,\ge\,1$~\cite{Schmidl2022}. Subsequenzanomalien sind Muster in Zeitreihen, die von anderen
+Mustern innerhalb der gleichen Zeitreihe abweichen~\cite{Chandola2009}\Cite[S.~12]{Wenig2024}. Im Gegensatz zu Punktanomalien beziehen
+sich Subsequenz\-ano\-malien auf mehrere konsekutive Datenpunkte, die ein ungewöhnliches Muster bilden. Eine anomale Subsequenz kann also
+bedeuten, dass die Datenpunkte innerhalb der Subsequenz Werte in einem normalen, zu erwartenden Bereich annehmen, aber der zu Grunde
+liegende Trend ungewöhnlich ist~\cite{Chandola2009}\cite[S.~17]{Boniol2021}. Solche ungewöhnlichen oder einzigartigen Trends und
+Entwicklungen können auf zukünftig auftretende Probleme hindeuten, die sonst unentdeckt bleiben würden.

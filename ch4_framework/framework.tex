@@ -89,13 +89,21 @@ Strom- oder Leistungsaufnahme des Blitzmoduls, wo auch kurzzeitige Spitzen und A
 \newpage
 \section{Datenverarbeitung}\label{sec:datenverarbeitung}
 Durch die kontinuierliche Aggregation von Messdaten der SSPX1 entstehen sehr große, hochdimensionale Datensätze. Jeder Datenpunkt in
-der Zeitserie $S$ ist mehrdimensional. Formell lässt sich eine Zeitserie $S$ der Länge $n$ und Dimensionalität $d$ wie in
-\hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}a} definieren. $x_{i}^{j}$ ist der $i$-te Skalar der $j$-ten
-Dimension einer Serie $S$. Für die Dimension $j={0,\dots,d}$ der Zeitserie $S$ entspricht jede Dimension einem Messwert im Datensatz. Da es
-sich um eine Zeitserie handelt, entsprechen die Indizes $i={0, \dots, n}$ den Zeitstempeln der aufgenommenen Messwerte~\cite{Wenig2024}.
+der Zeitserie $S$ ist mehrdimensional. Eine Zeitserie ist eine Menge der Mächtigkeit $n$. Alle $n$ Elemente sind reellwertige
+$d$~-~dimensionale Datenpunkte $S_i\,\in\,\mathbb{R}^{d}$~\cite{Schmidl2022}. Ebenfalls lässt sich eine Zeitserie $S$ der Länge $n$ und
+Dimensionalität $d$ als Matrix wie in \hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}a} definieren. $x_{i}^{j}$ ist
+der $i$-te Skalar der $j$-ten Dimension einer Serie $S$. Für die Dimension $j={0,\dots,d}$ der Zeitserie $S$ entspricht jede Dimension
+einem Messwert im Datensatz. Da es sich um eine Zeitserie handelt, entsprechen die Indizes $i={0, \dots, n}$ den Zeitstempeln der
+aufgenommenen Messwerte~\cite{Wenig2024}. Desweiteren wird eine \textit{univariate} Zeitserie als eine eindimensionale Menge definiert,
+während eine \textit{multivariate} Zeitserie mehrdimensionale Werte beinhaltet. Im Kontext der Arbeit sind vorrangig multivariate
+Zeitserien relevant.
 
 \begin{equation}
-    \setcounter{equation}{0}
+    S=\{\,S_1,\,S_2,\,\dots\,,\,S_n\,\}\label{eq:timeseries_set}
+\end{equation}
+
+\begin{equation}
+    \setcounter{equation}{1}
         \begin{subequations}
         \setlength{\arraycolsep}{1em}
         \renewcommand{\arraystretch}{1.5}
@@ -128,7 +136,7 @@ gewichteten Standardmatrizen $E_{ij}$, wobei jede Standardmatrix $E_{ij}$ genau 
 \hyperref[eq:timeseries_matrix_sum]{Gl.~\Ref*{eq:timeseries_matrix_sum}c} verdeutlicht dies beispielhaft an der 4$\times$4 Einheitsmatrix
 $E_{32}$.
 
-\begin{figure}[b]
+\begin{figure}[t!]
     \centering
     \begin{tikzpicture}
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=1\linewidth]{ch4_framework/abbildungen/data_mining.pdf}};
@@ -144,7 +152,7 @@ $E_{32}$.
             \node at (0.705,0.2) {\large \parbox{6cm}{\centering Visualisierung\\Anomaliedetektion\\Anomalien bewerten}};
         \end{scope}
     \end{tikzpicture}
-    \caption{Framework der Entwicklung eines Systems zur Anomaliedetektion}
+    \caption{\centering Typischer Data Mining Workflow vom Eingang der Quelldaten bis zum Informationsgewinn}
 ~\label{fig:data_mining}
 \end{figure}
 
@@ -154,7 +162,7 @@ Beobachtungen getroffen werden. Der Prozess des Data Minings lässt sich anhand 
 visualisieren. Dabei gehen zunächst Rohdaten aus den zahlreichen Sensoren hervor und liegen bedingt durch das SQL-Format in einer
 relationalen Datenbank vor. Der nächste Schritt der Vorverarbeitung erfolgt dann, damit die Daten in einem handlichen und analysierbaren
 Format vorliegen. Daher werden diese sowohl in ihrer Dimensionalität reduziert als auch normiert. Gegebenenfalls werden auch
-kontextbezogene Subsets gebildet, z.~B.~für Tageszeiten oder sonstige Bedingungen~\Cite[Abs.~1.1]{Tan2014}.
+kontextbezogene Subsets gebildet, z.~B.~für Tageszeiten oder sonstige Bedingungen~\Cite[Kap.~1]{Tan2014}.
 
 Zur Datenverarbeitung gehören auch spezifische Herausforderungen, die die Entwicklung neuer Data Mining Techniken vorangetrieben haben.
 Dazu gehört unter Anderem die Skalierbarkeit eines Algorithmus, um zu gewährleisten, dass auch sehr große und immer größer werdende
