@@ -4,6 +4,7 @@ Anmeldung*
 .vscode/
 /sonstiges
 *.jpg
+comut/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

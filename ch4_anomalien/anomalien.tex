@@ -4,9 +4,9 @@ entsprechen~\cite{Chandola2009}. Anders gesagt lautet das Ziel: die Punkte finde
 stark unterscheiden~\cite[Kap.~10]{Tan2014}. Diese andersartigen Datenpunkte oder -sequenzen werden in der Regel als Anomalie,
 Ausreißer oder Ausnahmen bezeichnet, wobei Anomalie der geläufigste Begriff ist. Anomaliedetektion findet große Verwendung in
 verschiedenen Anwendungsbereichen, wie z.~B.~in der Netzwerktechnik zur Erkennung von potenziellen Angriffen durch Eindringlinge
-in ein Netzwerk anhand von ungewöhnlichem Traffic~\Cite{Bernacki2015}. Auch in der Medizin können nach einem EKG durch
-Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chauhan2015}, genau wie eine Bank ein Interesse an Anomalien im
-Kreditkartenverhalten ihrer Kunden hat, um Betrugsfälle zu erkennen~\cite{Jiang2023, CeronmaniSharmila2019}.
+in ein Netzwerk anhand von ungewöhnlichem Traffic~\Cite{Bernacki2015}. Auch in der Medizin können nach einem Elektrokardiogramm
+(\textit{EKG}) durch Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chuah2007}, genau wie eine Bank ein Interesse
+an Anomalien im Kreditkartenverhalten ihrer Kunden hat, um Betrugsfälle zu erkennen~\cite{Jiang2023, CeronmaniSharmila2019}.
 
 Die simpelste Herangehensweise zur Erkennung von Anomalien ist die, dass zuerst definiert wird, welche Punkte im Datensatz normalem
 Verhalten entsprechen und alle davon abweichenden Punkte als Anomalie zu kennzeichnen. Doch so einfach die Herangehensweise wirkt,
@@ -35,8 +35,9 @@ Hier ist der Kontext wichtig: Eine Person mit einer Körpergröße von mehr als 
 während sie in einem Basketballteam kaum herausragt~-~im wahrsten Sinne des Wortes. Diese Art der Anomalie wird auch als kontextuelle
 Anomalie bezeichnet~\Cite[S.~12]{Wenig2024}.
 
+\section{Anomaliearten}
 Doch bevor eine Auswahl an geeigneten Verfahren oder Algorithmen zur Anomaliedetektion getroffen wird, muss zuerst verstanden werden,
-welche verschiedenen Arten von Anomalien, im Weiteren als Kategorien bezeichnet, es gibt und wie sich diese voneinander unterscheiden.
+welche verschiedenen Arten von Anomalien es gibt und wie sich diese voneinander unterscheiden.
 Auch wenn Studien zeigen, dass es durchaus Algorithmen gibt, die über mehrere verschiedene Kategorien gut
 abschneiden~\cite[S.~30~-~31]{Wenig2024}~\cite{Schmidl2022}, so soll zunächst für jede Kategorie mindestens ein passender Kandidat
 gefunden werden. Diese werden dann in einem nächsten Schritt kreuzweise getestet, um auch solche Allrounder entdecken zu können. Dabei
@@ -47,7 +48,7 @@ jeder Algorithmus gleich performant ist über mehrere Datensätze hinweg.
 Für die Kategorien wird sich zunächst auf wenige, für diese Arbeit relevante, beschränkt: \textbf{Punkt\-anomalien},
 \textbf{Subsequenzanomalien} und \textbf{Korrelationsanomalien}, abgeleitet von Chandola et al.~\cite{Chandola2009}.
 
-\section{Punktanomalien}
+\subsection{Punktanomalien}
 Ein einzelner Datenpunkt, der stark von den anderen Punkten im Datensatz abweicht, heißt Punkt\-anomalie~\cite{Chandola2009}. Genauer
 gesagt, wenn ein Datenpunkt weit außerhalb der Wahrscheinlichkeitsverteilung des Datensatzes liegt, ist er anomal~\Cite[Kap.~10]{Tan2014}.
 Punktanomalien können recht leicht erkannt werden, da Punktanomalien stark vom Mittelwert und vom Median des Datensatzes abweichen. Wenn
@@ -63,11 +64,11 @@ Wahrscheinlichkeitsverteilung der Messwerte, und zeigt entsprechend die Eindeuti
 \begin{figure}[!t]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_bsp.pdf}
+        \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/punktanomalie_bsp.pdf}
         \caption{Stündliche Smart Meter Messdaten}\label{subfig:smartmeter}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{ch5_anomalien/abbildungen/punktanomalie_hist.pdf}
+        \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/punktanomalie_hist.pdf}
         \caption{\centering Histogramm des gemessenen Stromverbrauchs}\label{subfig:smartmeter_histogramm}
     \end{subfigure}
     \caption{\centering Beispielszenario einer Punktanomalie: Stromverbrauch eines Haushaltes über den Zeitraum von
@@ -85,13 +86,72 @@ Punktanomalien sind im Kontext dieser Arbeit tendenziell weniger relevant, solle
 Anomaliedetektion als einfachste Kategorie trotzdem beleuchtet werden, um entsprechende Algorithmen, die der Erkennung solcher
 Punktanomalien zuzuordnen sind, auch gegenüber anderen Anomalien zu testen.
 
-\section{Subsequenzanomalien}
+\subsection{Subsequenzanomalien}
 
 Eine Zeitserie wird gem.~\hyperref[eq:timeseries_set]{Gl.~\Ref*{eq:timeseries_set}} bereits als eine Menge definiert. Demnach wird eine
 Subsequenz $S_{i,\,j} = \{\,S_i,\,\dots,\,S_j\,\}\,\subseteq\,S$ von der Zeitserie $S$ umfasst, mit der Länge oder Mächtigkeit
-$|\,S_{i,\,j}\,|=j-i+1$ und $|\,S_{i,j}\,|\,\ge\,1$~\cite{Schmidl2022}. Subsequenzanomalien sind Muster in Zeitreihen, die von anderen
-Mustern innerhalb der gleichen Zeitreihe abweichen~\cite{Chandola2009}\Cite[S.~12]{Wenig2024}. Im Gegensatz zu Punktanomalien beziehen
-sich Subsequenz\-ano\-malien auf mehrere konsekutive Datenpunkte, die ein ungewöhnliches Muster bilden. Eine anomale Subsequenz kann also
-bedeuten, dass die Datenpunkte innerhalb der Subsequenz Werte in einem normalen, zu erwartenden Bereich annehmen, aber der zu Grunde
-liegende Trend ungewöhnlich ist~\cite{Chandola2009}\cite[S.~17]{Boniol2021}. Solche ungewöhnlichen oder einzigartigen Trends und
-Entwicklungen können auf zukünftig auftretende Probleme hindeuten, die sonst unentdeckt bleiben würden.
+$|\,S_{i,\,j}\,|=j-i+1$ und $|\,S_{i,j}\,|\,\ge\,1$~\cite{Schmidl2022} und stellt somit einen Ausschnitt der urpsrünglichen Zeitserie
+dar. Subsequenz\-anomalien sind Muster in Zeitreihen, die von anderen Mustern innerhalb der gleichen Zeitreihe
+abweichen~\cite{Chandola2009}\Cite[S.~12]{Wenig2024}. Im Gegensatz zu Punktanomalien beziehen sich Subsequenz\-ano\-malien auf mehrere
+konsekutive Datenpunkte, die ein ungewöhnliches Muster bilden. Eine anomale Subsequenz kann also bedeuten, dass die Datenpunkte innerhalb
+der Subsequenz Werte in einem normalen, zu erwartenden Bereich annehmen, aber der zu Grunde liegende Trend ungewöhnlich
+ist~\cite{Chandola2009}\cite[S.~17]{Boniol2021}. Solche ungewöhnlichen oder einzigartigen Trends und Entwicklungen können auf zukünftig
+auftretende Probleme hindeuten, die sonst unentdeckt bleiben würden.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/subsequenz_anomalie.pdf}
+    \caption{\centering Einfaches Beispiel einer Subsequenzanomalie: Rechteckspannung, die zwischen -1 und +1 $V$ oszilliert mit einer
+    Frequenz von 5 $kHz$. Auffällig ist die Periode zwischen $t_1=0.4\,ms$ und $t_2=0.6\,ms$, bei der eine verspätete abfallende Flanke zu
+    beobachten ist.}
+~\label{fig:subsequenz_rect}
+\end{figure}
+
+Das Beispiel in~\hyperref[fig:subsequenz_rect]{Abb.~\Ref*{fig:subsequenz_rect}} zeigt eine sichtbare Subsequenzanomalie, die verspätete
+abfallende Flanke einer gemessenen Rechteckspannung. Das Muster zwischen $t_1$ und $t_2$ ist also merklich anders verglichen zu den
+restlichen 0,2 $ms$ langen Perioden und daher eine Anomalie.
+
+Bei der Analyse von EKG Daten spielen Subsequenzanomalien eine wichtige Rolle und können wertvolle Rückschlüsse auf die Herzgesundheit
+liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt EKG-Daten eines Patienten mit
+monomorpher ventrikulärer Tachykardie. Diese kann zu Kammerflimmern übergehen, welches unbehandelt sogar zu einem Herzstillstand
+führen kann~\cite{ekgecho}\Cite[S.~131~ff.]{Davies2015}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/ventrikulaere_tachykardie.png}
+    \caption{EKG Kanal mit Diagnose: Ventrikuläre Tachykardie~\cite{ekgecho}}
+~\label{fig:ekg_herzerkrankung}
+\end{figure}
+
+Sichtbar sind die einzelnen Unregelmäßigkeiten im EKG Verlauf. Die Pfeile kennzeichnen die sog. P-Wellen, die Informationen darüber
+liefern, dass Vorhöfe und Herzkammern nicht synchron schlagen~\cite{ekgecho}\Cite[S.~31~f.]{Davies2015}. Durch die Irregularitäten lässt
+sich also erkennen, dass für den untersuchten Patienten eine Behandlung notwendig ist und betont die Wichtigkeit, diese Anomalien zu
+erkennen, um wesentlich Schlimmeres zu verhindern.
+
+Darin liegt auch eine der Herausforderungen der Subsequenzanomaliedetektion: Ab wann ist ein Trend, der so noch nicht aufgetreten ist,
+Grund genug, um Maßnahmen zu ergreifen? Es bedarf also menschlicher Expertise zur Einordnung und Interpretation von Anomalien, eben wie
+bei EKG Daten.
+
+\subsection{Korrelationsanomalien}
+
+Während Punkt- und Subsequenzanomalien sowohl für univariate als auch multivariate Datensätze und Zeitserien auftreten können, sind
+Korrelationsanomalien nur möglich bei zwei oder mehr Dimensionen einer Zeitreihe und betrachten die Interaktionen zwischen
+verschiedenen Kanälen. Von einer Korrelationsanomalie spricht man bei Abweichungen dieser Beziehung zwischen zwei oder mehreren
+Kanälen~\cite[S.12-13]{Wenig2024}~\cite{Wenig2024a}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/korrelationsanomalie.png}
+    \caption{\centering Korrelationsanomalie zwischen Kanal 1 und den Kanälen 2 und 3 im gelb markierten Bereich. Quelle: Datensatz
+        \textit{CoMuT}~\cite{NaumannCoMuT}}
+~\label{fig:correlation_Anomaly}
+\end{figure}
+
+Im vorliegenden Beispiel in~\hyperref[fig:correlation_Anomaly]{Abb.~\Ref*{fig:correlation_Anomaly}} ist ein Auszug aus dem Datensatz
+\textit{CoMuT}~- \textbf{Co}rrelated \textbf{Mu}lti\-variate \textbf{T}ime Series~\cite{NaumannCoMuT} dargestellt. Die Zeitreihe besteht
+aus drei Kanälen, die zu zufälligen Zeitpunkten sprungartig ihren Wert zwischen $-$1 und 1 wechseln und jeweils leicht verrauscht sind.
+Kanal 1 und 2 sind stark korreliert, während Kanal 3 stark antikorreliert zu den beiden ersten Kanälen ist. Diese Korrelation wird im
+markierten Bereich verletzt, da Kanal 1 später springt als die anderen beiden Kanäle~$-$~somit liegt eine Korrelations\-anomalie vor.
+
+\section{Algorithmen zur Anomaliedetektion}
+Um nun eine geeignete Auswahl an Algorithmen zu treffen

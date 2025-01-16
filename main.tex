@@ -1,4 +1,5 @@
 \documentclass[11pt,a4paper,twoside]{book}
+\includeonly{ch4_anomalien/anomalien}
 
 \usepackage{ngerman}
 \usepackage{graphicx}
@@ -37,13 +38,16 @@
 \begin{document}
 
 % Deckblatt und Verzeichnisse
-% \pagenumbering{roman}
 % \include{deckblatt/deckblatt}
+% \pagenumbering{roman}
 % \tableofcontents
 % \newpage
 % \listoffigures
 % \newpage
 % \listoftables
+% \newpage
+% \thispagestyle{empty}
+% \rule[0ex]{0ex}{0ex}
 % \newpage
 
 % Wechsel zu arabischer Nummerierung, Kapitel
@@ -52,11 +56,9 @@
 \newpage
 \include{ch2_zielsetzung/zielsetzung}
 \newpage
-\include{ch3_pdm_theorie/pdm_theorie}
+\include{ch3_theorie_framework/theorie_framework}
 \newpage
-\include{ch4_framework/framework}
-\newpage
-\include{ch5_anomalien/anomalien}
+\include{ch4_anomalien/anomalien}
 
 % Literaturverzeichnis hinzufügen und verlinken
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
