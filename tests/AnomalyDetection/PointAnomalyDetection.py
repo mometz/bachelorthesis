@@ -18,7 +18,6 @@ class SWZScore:
         else:
             raise TypeError("data muss entweder ein NumPy-Array oder ein Pandas DataFrame sein")
         
-        # Initialisiere den Score-Accumulator
         self.df['anomaly_score'] = 0.0
         
         for window_size in self.windows:
@@ -27,10 +26,8 @@ class SWZScore:
             z_score = (self.df['value'] - rolling_mean) / rolling_std
             anomaly_mask = z_score.abs() > self.threshold
             
-            # Anomalie-Score aufsummieren, je öfter eine Stelle als Anomalie erkannt wird, desto höher
             self.df['anomaly_score'] += anomaly_mask.astype(float)
         
-        # Normierung der Scores auf [0,1] für bessere Skalierung im Plot
         max_score = self.df['anomaly_score'].max()
         if max_score > 0:
             self.df['anomaly_score'] /= max_score
@@ -49,10 +46,8 @@ class SWZScore:
         plt.figure(figsize=(15, 4))
         plt.plot(self.df.index, self.df['value'], label='Zeitserie', linewidth=0.5, color='blue')
         
-        # Filtere den DataFrame, um nur Zeilen mit anomaly_score >= 1 zu behalten
         filtered_df = self.df[self.df['anomaly_score'] == True]
 
-        # Erstelle den Scatter-Plot nur mit den gefilterten Daten
         plt.scatter(filtered_df.index, filtered_df['value'], 
                             c='red', label='Anomalien',
                             edgecolor='k', linewidth=0.2)
@@ -67,11 +62,6 @@ class SWZScore:
 
 from pyod.models.hbos import HBOS
 from sklearn.preprocessing import StandardScaler
-
-from pyod.models.hbos import HBOS
-from sklearn.preprocessing import StandardScaler
-import numpy as np
-import pandas as pd
 
 class HBOSDetector:
     def __init__(self, windows: np.ndarray, step_size: int = 10, contamination: float = 0.0025, n_bins='auto'):
@@ -134,21 +124,17 @@ class HBOSDetector:
         if self.df is None:
             raise ValueError("Das Modell muss zuerst mit `fit(data)` trainiert werden.")
         
-        # Erstelle den Basisplot für die Werte
         plt.figure(figsize=(15, 4))
-        plt.plot(self.df.index, self.df['value'], label='Wert', linewidth=0.5, color='blue')
+        plt.plot(self.df.index, self.df['value'], label='Zeitserie', linewidth=0.5, color='blue')
         
-        # Aggregiere die Anomalien über alle Fenstergrößen hinweg
         anomaly_mask = self.df[[f'anomaly_{w}' for w in self.windows]].any(axis=1)
         
-        # Filtere die Anomalien
         filtered_df = self.df[anomaly_mask]
 
-        # Scatter-Plot für alle Anomalien
         plt.scatter(filtered_df.index, filtered_df['value'], 
                     color='red', edgecolor='k', linewidth=0.2, label='Anomalien')
 
-        plt.title('Anomalieerkennung mit Sliding Window über alle Fenstergrößen')
+        plt.title('Sliding Window HBOS Anomaly Detection')
         plt.xlabel('Zeit')
         plt.ylabel('Wert')
         plt.legend()
