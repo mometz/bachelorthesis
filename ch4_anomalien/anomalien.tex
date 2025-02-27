@@ -1,4 +1,6 @@
-\chapter{Anomaliedetektion}\label{ch:anomaliedetektion}
+ % chktex-file 44
+ % chktex-file 1
+ \chapter{Anomaliedetektion}\label{ch:anomaliedetektion}
 Anomaliedetektion beschreibt die Aufgabe, Trends, Muster und Punkte in einem Datensatz zu finden, die nicht dem Normalzustand
 entsprechen~\cite{Chandola2009}. Anders gesagt lautet das Ziel: die Punkte finden, die sich von den anderen Punkten im Datensatz
 stark unterscheiden~\cite[Kap.~10]{Tan2014}. Diese andersartigen Datenpunkte oder -sequenzen werden in der Regel als Anomalie,
@@ -101,15 +103,15 @@ auftretende Probleme hindeuten, die sonst unentdeckt bleiben würden.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/subsequenz_anomalie.pdf}
-    \caption{\centering Einfaches Beispiel einer Subsequenzanomalie: Rechteckspannung, die zwischen -1 und +1 $V$ oszilliert mit einer
-    Frequenz von 5 $kHz$. Auffällig ist die Periode zwischen $t_1=0.4\,ms$ und $t_2=0.6\,ms$, bei der eine verspätete abfallende Flanke zu
+    \caption{\centering Einfaches Beispiel einer Subsequenzanomalie: Rechteckspannung, die zwischen -1 und +1 V oszilliert mit einer
+    Frequenz von 5 kHz. Auffällig ist die Periode zwischen $t_1=0.4\,$ms und $t_2=0.6\,$ms, bei der eine verspätete abfallende Flanke zu
     beobachten ist.}
 ~\label{fig:subsequenz_rect}
 \end{figure}
 
 Das Beispiel in~\hyperref[fig:subsequenz_rect]{Abb.~\Ref*{fig:subsequenz_rect}} zeigt eine sichtbare Subsequenzanomalie, die verspätete
 abfallende Flanke einer gemessenen Rechteckspannung. Das Muster zwischen $t_1$ und $t_2$ ist also merklich anders verglichen zu den
-restlichen 0,2 $ms$ langen Perioden und daher eine Anomalie.
+restlichen 0,2 ms langen Perioden und daher eine Anomalie.
 
 Bei der Analyse von EKG Daten spielen Subsequenzanomalien eine wichtige Rolle und können wertvolle Rückschlüsse auf die Herzgesundheit
 liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt EKG-Daten eines Patienten mit
@@ -118,7 +120,7 @@ führen kann~\cite{ekgecho}\Cite[S.~131~ff.]{Davies2015}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/ventrikulaere_tachykardie.png}
+    \includegraphics[width=0.85\linewidth]{ch4_anomalien/abbildungen/ventrikulaere_tachykardie.png}
     \caption{EKG Kanal mit Diagnose: Ventrikuläre Tachykardie~\cite{ekgecho}}
 ~\label{fig:ekg_herzerkrankung}
 \end{figure}
@@ -134,24 +136,241 @@ bei EKG Daten.
 
 \subsection{Korrelationsanomalien}
 
-Während Punkt- und Subsequenzanomalien sowohl für univariate als auch multivariate Datensätze und Zeitserien auftreten können, sind
-Korrelationsanomalien nur möglich bei zwei oder mehr Dimensionen einer Zeitreihe und betrachten die Interaktionen zwischen
-verschiedenen Kanälen. Von einer Korrelationsanomalie spricht man bei Abweichungen dieser Beziehung zwischen zwei oder mehreren
-Kanälen~\cite[S.12-13]{Wenig2024}~\cite{Wenig2024a}.
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/korrelationsanomalie.png}
+    \includegraphics[width=0.95\linewidth]{ch4_anomalien/abbildungen/korrelationsanomalie.pdf}
     \caption{\centering Korrelationsanomalie zwischen Kanal 1 und den Kanälen 2 und 3 im gelb markierten Bereich. Quelle: Datensatz
         \textit{CoMuT}~\cite{NaumannCoMuT}}
 ~\label{fig:correlation_Anomaly}
 \end{figure}
 
+Während Punkt- und Subsequenzanomalien sowohl für univariate als auch multivariate Datensätze und Zeitserien auftreten können, sind
+Korrelationsanomalien nur möglich bei zwei oder mehr Dimensionen einer Zeitreihe und betrachten die Interaktionen zwischen
+verschiedenen Kanälen. Von einer Korrelationsanomalie spricht man bei Abweichungen dieser Beziehung zwischen zwei oder mehreren
+Kanälen~\cite[S.12-13]{Wenig2024}~\cite{Wenig2024a}.
+
 Im vorliegenden Beispiel in~\hyperref[fig:correlation_Anomaly]{Abb.~\Ref*{fig:correlation_Anomaly}} ist ein Auszug aus dem Datensatz
 \textit{CoMuT}~- \textbf{Co}rrelated \textbf{Mu}lti\-variate \textbf{T}ime Series~\cite{NaumannCoMuT} dargestellt. Die Zeitreihe besteht
 aus drei Kanälen, die zu zufälligen Zeitpunkten sprungartig ihren Wert zwischen $-$1 und 1 wechseln und jeweils leicht verrauscht sind.
 Kanal 1 und 2 sind stark korreliert, während Kanal 3 stark antikorreliert zu den beiden ersten Kanälen ist. Diese Korrelation wird im
-markierten Bereich verletzt, da Kanal 1 später springt als die anderen beiden Kanäle~$-$~somit liegt eine Korrelations\-anomalie vor.
+markierten Bereich verletzt, da Kanal 1 zeitlich versetzt zu den anderen beiden Kanälen springt~$-$~somit liegt eine
+Korrelations\-anomalie vor.
 
 \section{Algorithmen zur Anomaliedetektion}
-Um nun eine geeignete Auswahl an Algorithmen zu treffen
+In der Literatur gibt es eine breite Spanne an erprobten, möglichen Algorithmen zur Detektion der gesuchten
+Anomalietypen~\cite{Schmidl2022}~\cite{BlazquezGarcia2020}~\cite{Mane2022}~\cite{Wenig2024a}. Da der zeitliche Rahmen dieser Arbeit
+begrenzt ist und der vorrangige Fokus die Anwendung der Anomaliedetektionsthematik ist, müssen bei der Auswahl der Algorithmen
+einige Einschränkungen vorab festgelegt werden. Dazu gehört, dass ein Algorithmus bereits implementiert wurde und optimalerweise als Open
+Source Python Bibliothek o.ä.~zur Verfügung steht oder die Idee durch bereits vorhandene Komponenten einfach selbst implementiert
+werden kann. Desweiteren soll es sich zu Beginn um Algorithmen handeln, die ohne vorheriges Training
+auskommen, also sog. Unsupervised Learning Algorithmen. Dazu eignen sich die folgenden Techniken bzw.~Algorithmen am Besten.
+
+\subsection{Histogram-Based Outlier Score}
+Der erste Algorithmus zur Detektion von Punktanomalien ist der zur Ermittlung des \textbf{Histogram-Based Outlier Score} (HBOS), der sich
+sowohl für univariate als auch multivariate Zeitserien eignet. Dabei wird für jede Dimension eine Analyse der Häufigkeitsverteilung per
+Histogramm durchgeführt und anhand dessen der namensgebende Outlier Score berechnet. Die Häufigkeit aller Werte innerhalb eines Bins wird als
+Dichte aufsummiert, und die Dichte ergibt gem.~\hyperref[eq:hbos]{Gl.~\Ref*{eq:hbos}} invers logarithmiert den Outlier Score. So erhalten Bins
+mit geringen Häufigkeiten, also die Bins mit selten auftretenden Werten~-~wahrscheinliche Anomalien~-~einen hohen Outlier Score und können
+so als Anomalie detektiert werden~\cite{Goldstein2012}.
+
+\begin{equation}
+    \text{HBOS}\,(p)\, =\, \sum_{i=0} ^ {d}\, \log \left( \frac{1}{\text{hist}_i(p)} \right)
+\label{eq:hbos}
+\end{equation}
+
+Die Häufigkeitsanalyse über den kompletten Datensatz bzw.~eine sehr große Datenmenge führt dazu, dass lokale Anomalien nicht erkannt werden,
+da diese Werte trotzdem innerhalb der erwarteten Verteilung liegen und im globalen Kontext nicht herausstehen. Einfache Abhilfe liefert eine
+Erweiterung um ein gleitendes Fenster. Der HBOS wird dann innerhalb eines jeden Fensters ermittelt, wodurch der zeitliche Kontext mit einbezogen
+wird und auch lokale Anomalien erkannt werden.
+
+Multivariate Systeme können ebenfalls einfach analysiert werden, indem für jede Variable oder Dimension separate Histogramme erstellt werden.
+Allerdings trifft HBOS die Annahme, alle Variablen seien unabhängig, dementsprechend müssen Zeitserien mit
+korrelierten Variablen vorverarbeitet werden, beispielsweise durch eine Hauptkomponentenanalyse. Diese reduziert die Dimensionalität und
+berechnet als Hauptkomponenten diejenigen, die die größte Varianz im Datensatz repräsentieren und orthogonal zueinander, also unabhängig
+voneinander, sind. Nach der Hauptkomponentenanalyse können die Daten dann mithilfe von HBOS auf Anomalien überprüft werden und mithilfe der
+gefundenen Ausreißer per korrespondierendem Index bzw.~Zeitstempel Rückschlüsse auf die tatsächliche Anomalie im Orginaldatensatz getätigt werden.
+
+\subsection{Sliding Window Z-Score}
+Durch die Berechnung eines gleitenden Mittelwerts sowie der entsprechenden gleitenden Standardabweichung kann der Z-Score eines Datenpunkts
+gem.~\hyperref[eq:zscore]{Gl.~\Ref*{eq:zscore}} bestimmt werden. Der Z-Score wird in einer ähnlichen Form bereits im Jahre 1969 in \textit{Grubb's
+Test} erstmals erwähnt~\cite{Grubbs1969}. Dabei bezeichnet $x_i$ den zu untersuchenden Datenpunkt, $\mu_W$ den Mittelwert und $\sigma_W$ die
+Standardabweichung des Fensters~\Cite[S.~15:31]{Chandola2009}.
+
+\begin{equation}
+    Z_i\, =\, \frac{|\, x_i\,-\, \mu_W\,|}{\sigma_W}
+\label{eq:zscore}
+\end{equation}
+
+Um für die Zeitserie den Zeitbezug beizubehalten, werden die statistischen Größen mit einem gleitenden Fenster berechnet, um auch lokale Ausreißer,
+deren absolute Werte innerhalb der globalen Verteilung liegen, detektieren zu können. Dabei ist die Fenstergröße zunächst fest. Entsprechend des
+Z-Scores deutet ein hoher Wert auf eine Anomalie hin, aufgrund der großen Abweichung zum gleitenden Mittelwert trotz Skalierung durch die
+Standardabweichung. Damit ist der Z-Score eine dimensionslose Größe, die direkt als Anomaly Score interpretiert werden kann.
+
+\subsection{GrammarViz 2.0}
+Der nächste Algorithmus namens \textbf{GrammarViz} wird zur Detektion von Subsequenzanomalien eingesetzt~\cite{Senin2015}. Die Funktionsweise
+basiert auf der Diskretisierung einer Zeitreihe in Symbole. Für Subsequenzen unterschiedlicher Größe wird dann versucht, diese mit
+Grammatikregeln zu beschreiben. Kann sich eine Subsequenz nicht entsprechend der am häufigsten auftretenden Grammatikregeln charakterisieren
+lassen, so handelt es sich wahrscheinlich um eine anomale Sequenz, beispielsweise durch ein ungewöhnliches Muster oder eine neue Trendentwicklung.
+
+Da zum Erlernen von Grammatikregeln diskretisierte Daten benötigt werden, erfolgt die Diskretisierung in einem ersten Schritt mit dem Algorithmus SAX
+(\textit{\textbf{S}ymbolic \textbf{A}ggregation Appro\textbf{X}imation}), der aus Datensätzen bzw.~-sequenzen äquivalente Symbole erzeugt~\cite{Patel}.
+Aufgrund der Natur von Subsequenzanomalien wird SAX per gleitendem Fenster angewandt. Innerhalb jedes Fensters wird die Subsequenz Z-normalisiert (vgl.
+Z-Scoring in~\hyperref[eq:zscore]{Gl.~\Ref*{eq:zscore}}) und anschließend in $w$ gleichwahrscheinliche Segmente diskretisiert, mit $w$ als Anzahl an
+Symbolen. Durch die Z-Normalisierung folgt die Sequenz einer Gauß-Verteilung und wird
+entspr.~\hyperref[tab:normalverteilung_segmente]{Tab.~\Ref*{tab:normalverteilung_segmente}} sowie am Beispiel $w=6$
+in~\hyperref[fig:normalverteilung_segmente]{Abb.~\Ref*{fig:normalverteilung_segmente}} unterteilt.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{l|rrrrrrrr}
+        \backslashbox{$\beta _i$}{$w$} & 3                 & 4                   & 5                   & 6                   & 7                   & 8                   & 9                   & 10      \\
+    \hline
+    $\beta _1$ & $-0,43$             & $-0,67$             & $-0,84$             & $-0,97$             & $-1,07$             & $-1,15$             & $-1,22$             & $-1,28$ \\
+    $\beta _2$ & $0,43$              & 0                   & $-0,25$             & $-0,43$             & $-0,57$             & $-0,67$             & $-0,76$             & $-0,84$ \\
+    $\beta _3$ & \cellcolor{blue!15} & $0,67$              & $0,25$              & 0                   & $-0,18$             & $-0,32$             & $-0,43$             & $-0,52$ \\
+    $\beta _4$ & \cellcolor{blue!15} & \cellcolor{blue!15} & $0,84$              & $0,43$              & $0,18$              & 0                   & $-0,14$             & $-0,25$ \\
+    $\beta _5$ & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & $0,97$              & $0,57$              & $0,32$              & $0,14$              & 0       \\
+    $\beta _6$ & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & $1,07$              & $0,67$              & $0,43$              & $0,25$  \\
+    $\beta _7$ & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & $1,15$              & $0,76$              & $0,52$  \\
+    $\beta _8$ & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & $1,22$              & $0,84$  \\
+    $\beta _9$ & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & \cellcolor{blue!15} & $1,28$ 
+    \end{tabular}
+\caption{\centering z-Werte einer Normalverteilung für Segmente mit gleichem Flächeninhalt ergo gleicher Wahrscheinlichkeit. $\beta _i$ mit
+$1 \le i \le w-1$ sowie $\beta _0=-\infty$ und $\beta _w=+\infty$ entsprechen den z-Koordinaten für die jeweilige Aufteilung der z-Achse.
+Quelle:~\cite{Patel}}
+~\label{tab:normalverteilung_segmente}
+\end{table}
+
+\begin{figure}[t!]
+    \centering
+        \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/normalverteilung_SAX_segmente.pdf}
+    \caption{Normalverteilung mit $w=6$ gleichwahrscheinlichen Segmenten gem.~\hyperref[tab:normalverteilung_segmente]{Tab.~\Ref*{tab:normalverteilung_segmente}}}
+~\label{fig:normalverteilung_segmente}
+\end{figure}
+
+Die diskretisierte Subsequenz produziert dann eine Menge an SAX Worten, die mit dem Grammatikinferenzalgorithmus Sequitur~\cite{NevillManning1997}
+weiterverarbeitet werden, um rekursiv kontextfreie Grammatikregeln aufzustellen. Mithilfe einer GUI kann ein Datensatz analysiert werden und mit der
+erzeugten \textbf{Rule Density Curve} sowie den einzeln aufgelisteten potenziell anomalen Sequenzen untersucht werden. Die Rule Density Curve gibt Aufschluss
+darüber, wieviele Grammatikregeln pro Datenpunkt greifen. Das heißt anschaulich: je mehr Grammatikregeln, desto normaler ist ein Datenpunkt bzw.~eine
+Subsequenz~\cite{senin-gv2}.
+
+\subsection{Sliding Window Isolation Forest Density}
+~\label{subsec:swifd}
+Der Algorithmus namens \textbf{Sliding Window Isolation Forest Density}~-~kurz \textbf{SWIFD}~-~dient der Anomalieerkennung in Zeitreihen durch die Berechnung einer
+Anomaliedichtekarte mittels des Isolation Forest-Verfahrens~\cite{Liu2012}. Zunächst werden aus der Zeitreihe über gleitende Fenster statistische Merkmale
+extrahiert. Hierzu wird die Zeitreihe segmentiert, wobei jedes Fenster durch Mittelwert, Standardabweichung, Minimum und Maximum beschrieben wird. Die
+Fenstergröße wird aus einer vordefinierten Menge gewählt, wobei sich die Schrittweite aus dem Verhältnis zur Fenstergröße ergibt.
+
+Die so gewonnenen Merkmalsvektoren werden anschließend mit dem Isolation Forest-Algorithmus verarbeitet, der auf der Grundidee von Liu et al.~\cite{Liu2012}
+basiert und um die gleitenden Fenster von Ding et al.~\cite{Ding2013} weiterentwickelt wurde. Dieser konstruiert Entscheidungsbäume, in denen isolierte
+Datenpunkte~–~also potenzielle Anomalien~–~mit kürzeren Pfaden identifiziert werden als
+reguläre Datenpunkte. Während herkömmliche Isolation-Forest-Ansätze binäre Entscheidungen über Anomalien treffen, integriert SWIFD eine Dichtebetrachtung.
+Anstatt einzelne Punkte als Anomalien zu markieren, wird für jedes Fenster ein Dichtewert berechnet, indem erkannte Anomalien aufsummiert werden.
+
+Um lokale Schwankungen zu glätten und die visuelle Interpretierbarkeit zu verbessern, erfolgt abschließend eine Glättung der Anomaliedichte mithilfe eines
+Gaußschen Filters. Dieser Ansatz kombiniert somit die Effizienz von Isolation Forest mit einer kontinuierlichen Dichteschätzung, wodurch nicht nur isolierte
+Anomalien erkannt, sondern auch Bereiche mit einer erhöhten Anomaliewahrscheinlichkeit identifiziert werden können. Dies ist besonders nützlich für die
+Analyse von Zeitreihen mit strukturellen Veränderungen, bei denen einzelne Punktanomalien möglicherweise nicht ausreichen, um ein klares Bild der zugrunde
+liegenden Muster zu liefern.
+
+\subsection{Mahalanobis-Distanz mit SWIFD}
+Der Algorithmus \textbf{Mahalanobis-Distanz mit SWIFD}~-~kurz \textbf{MD-SWIFD}~-~wird zur Detektion von Korrelationsanomalien eingesetzt und kombiniert zwei
+wesentliche Konzepte kombiniert: die Mahala\-nobis-Distanz und Isolation Forest, wie er in~\hyperref[subsec:swifd]{Abs.~\Ref*{subsec:swifd}} bereits
+zur Subsequenzanomaliedetektion angewandt wird. Die Weiterentwicklung um die Mahalanobis-Distanz ermöglicht die Erkennung von Anomalien in der Korrelation
+in multivariaten Zeitserien~\cite{McLachlan1999}.
+
+Als eine Erweiterung der euklidischen Distanz wird sie in multivariaten Datensätzen verwendet, um die Entfernung eines Punktes von einem Mittelwert unter
+Berücksichtigung der Korrelationen zwischen den Dimensionen zu messen. Für einen Punkt $x$ in einer multivariaten Zeitserie, den Mittelwert $\mu$ und die
+Kovarianzmatrix $\Sigma$, wird die Mahalanobis-Distanz $D_M$ wie folgt berechnet:
+
+\begin{equation}
+    D_M(x)\, = \sqrt{{\left( x\,-\,\mu \right)}^T\, \Sigma^{-1}\,(x\,-\,\mu)}
+\label{eq:mahalanobis_dist}
+\end{equation}
+
+Die Mahalanobis-Distanz ist ein Maß dafür, wie stark ein Datenpunkt vom Mittelwert abweicht, wobei die Kovarianzmatrix die Streuung und die Korrelationen
+zwischen den Variablen der Zeitserie berücksichtigt. In Verbindung mit SWIFD wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis-Distanz~-~also die
+Mahalanobis-Distanz, die zu jedem Zeitstempel der Zeitserie korrespondiert~-~als Analysesignal verwendet. In der Mahalanobis-Distanz stecken sämtliche
+Informationen über das Korrelationsverhalten der Zeitserie und so können am Verlauf der Distanz Anomalien detektiert werden.
+
+MD-SWIFD macht sich also die Funktionalität von SWIFD zu Nutze und kann so in der weiterentwickelten Version Anomalien in der Korrelation mehrerer Variablen
+zuverlässig detektieren.
+
+\subsection{Elliptic Envelope}
+Unter der Annahme, dass Daten einer multivariaten Normalverteilung folgen, wird der Elliptic Envelope verwendet, um Ausreißer in einem Datensatz zu
+identifizieren. Der Algorithmus geht davon aus, dass die Mehrheit der Datenpunkte innerhalb einer elliptischen Region um den Mittelpunkt der Verteilung
+liegt. Ziel des Verfahrens ist es, eine elliptische Grenze zu bestimmen, die die zentrale Datenverteilung beschreibt. Punkte, die außerhalb dieser Grenze
+liegen, gelten als Ausreißer.
+
+Die Funktionsweise des Elliptic Envelope basiert auf der Schätzung der Kovarianzmatrix der Daten und der Bestimmung einer Ellipse, die diese am besten
+beschreibt. Mithilfe des Maximum-Likelihood-Verfahrens wird die multivariate Normalverteilung ermittelt, die die größten Anteile der Daten umfasst. Die
+Hauptachsen dieser Ellipse werden durch die Eigenwerte und Eigenvektoren der Kovarianzmatrix bestimmt. Um Ausreißer zu erkennen, wird eine
+Mahalanobis-Distanz berechnet, und Datenpunkte, die eine zu hohe Distanz aufweisen, werden als Anomalien identifiziert~\cite{Ashrafuzzaman2020}.
+
+Der Elliptic Envelope wird häufig in Bereichen eingesetzt, in denen die Annahme einer Normalverteilung zutrifft, wie beispielsweise in der Analyse von
+verdächtigen Netzwerkaktivitäten~\cite{Ashrafuzzaman2020}. Besonders nützlich ist der Algorithmus bei hochdimensionalen Daten, in denen
+einfache univariate Verfahren an ihre Grenzen stoßen. Da der Elliptic Envelope Korrelationen zwischen den Variablen berücksichtigt, kann er auch komplexere
+Datenstrukturen als univariate Methoden erfassen.
+
+\section{Semi-Supervised Learning Algorithmen}
+Eine weitere Möglichkeit der Anomaliedetektion ist die mit Algorithmen der Klasse \textbf{Semi-Supervised Learning}. Algorithmen dieser Klasse benötigen
+Trainingsdaten, die dem Normal entsprechen und sind daher zu Beginn der Implementierung zunächst unpraktischer als die der Klasse Unsupervised Learning.
+Der Grund dafür ist, dass erst eine erhebliche Menge an Training durchgeführt werden muss, optimalerweise mit Daten, die den gesamten normalen Betriebsbereich
+abdecken können~\cite[S.~2-4]{Chapelle2010}~\cite{Schmidl2022}. Dementsprechend werden Datenpunkte- oder sequenzen, die nicht dem Normal angehören oder
+als solches identifiziert werden können, als Anomalie gekennzeichnet.
+
+Das Sammeln von großen Datensätzen ist kein Problem. Das SSP X1 System nimmt beispielsweise im Sekundentakt Daten auf und so entstehen schnell große
+Datensätze bzw.~Zeitserien. Die Problematik liegt vielmehr darin, dass die Daten mit einem Label versehen werden müssen, zumindest implizit. Es muss
+sichergestellt sein, dass die gesamte vorliegende Zeitserie einem normalen Betriebszustand entspricht~\cite[S.~10~ff]{Chapelle2010}.
+
+\subsection{LSTM-Autoencoder}
+Einer in seiner Funktionalität interessanter Algorithmus ist der LSTM-Autoencoder (LSTM-AE). LSTM steht für Long-Short Term Memory, ist eine Erweiterung der
+Recurrent Neural Networks und erlaubt es, auf ein Langzeitgedächtnis zurückzugreifen und kommt gänzlich ohne Parametrisierung aus~\cite{Hochreiter1997}.
+Ein Autoencoder ist ein Algorithmus auf Basis der Rekonstruktion von Sequenzen Anomalien detektiert und gehört auch demnach zur Kategorie der
+Subsequenzanomaliedetektion~\hyperref[tab:algorithmen]{(vgl.~Tab.~\Ref*{tab:algorithmen})}.
+
+Die Einordnung in die Klasse der Rekonstruktionsalgorithmen erfolgt nach Schmidl et al.~\cite{Schmidl2022} und beschreibt Rekonstruktionsalgorithmen
+als solche, die Subsequenzen in eine niederdimensionalere Do\-mäne enkodieren, von wo sie wieder dekodiert bzw.~rekonstruiert werden. Ein zu analysierender
+Datensatz wird also in Subsequenzen unterteilt und diese werden enkodiert. Mithilfe der Trainingsdaten werden die enkodierten Sequenzen rekonstruiert,
+wobei Abweichungen des Originals zur rekonstruierten Sequenz als Anomalie gelten dürfen, da sie mit den Trainingsdaten nicht übereinstimmen.
+
+Die Kombination der beiden Prinzipien zum LSTM-AE erlaubt die Enkodierung der Subsequenzen unter Beibehalt langzeitiger Abhängigkeiten und Korrelationen
+und erweist sich so als sehr geeignet für große multivariate Zeitserien mit unterschiedlichen Abhängigkeiten und Korrelationen, wie sie in den Systemen
+der SSP X1 vorkommen~\cite{Wei2022}.
+
+Der Algorithmus wird im nächsten Kapitel denselben Tests unterzogen wie seine Unsupervised Learning Pendants. Schlussendlich ist auch eine
+Implementierung von LSTM-AE zur Anomaliedetektion im Kontext der SSP X1 und verwandter Systeme nicht auszuschließen.
+
+\section{Übersicht über alle ausgewählten Algorithmen}
+
+Abschließend folgt eine kurze Auflistung aller genannten Algorithmen mit stichwortartiger Kategorisierung nach Detektionsklasse, -prinzip sowie die Quelle der
+Implementierung. Unter dem Stichwort \textit{Eigene Implementierung} verbergen sich auch Komponenten, die aus Python Bibliotheken angewandt wurde, wie der
+Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn} oder die Implementierung des \textbf{LSTM}~\cite{pytorch}.
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.75}
+    \begin{tabular}{c||c|c|c}
+\textbf{Algorithmus}                        & \textbf{Detektionsklasse}     & \textbf{Detektionsprinzip}   & \textbf{Quelle}               \\
+\hline
+\textbf{HBOS}                               & Punktanomalien        & Histogramm          & PyOD (Open Source)~\cite{zhao2019pyod}     \\
+\hline
+\multirow{2}{*}{\textbf{Sliding Window}}    & \multirow{2}{*}{Punktanomalien}        & \multirow{2}{*}{Z-Score} & \multirow{2}{*}{Eigene Implementierung} \\
+\textbf{Z-Score} & & & \\
+\hline
+\textbf{GrammarViz 2.0}                     & Subsequenzanomalien   & Grammatik           & Open Source~\cite{senin-gv2}           \\
+\hline
+\textbf{SWIFD}                              & Subsequenzanomalien   & Isolation Tree      & Eigene Implementierung     \\
+\hline
+\multirow{2}{*}{\textbf{MD-SWIFD}}          & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Mahalanobis Distanz} & \multirow{2}{*}{Eigene Implementierung} \\
+ & & und Isolation Tree & \\
+\hline
+\multirow{2}{*}{\textbf{Elliptic Envelope}} & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Kovarianzmatrix und} & \multirow{2}{*}{sklearn (Open Source)~\cite{scikit-learn}} \\
+ & & Mahalanobis Distanz & \\
+\hline\hline
+\multirow{2}{*}{\textbf{LSTM-AE}}           & \multirow{2}{*}{Subsequenzanomalien}   & \multirow{2}{*}{Rekonstruktion und} & \multirow{2}{*}{Eigene Implementierung} \\
+ & & Neuronale Netze &
+\end{tabular}
+    \caption{\centeringÜbersicht über die verwendeten Algorithmen nach Kategorisierung in Detektionsklasse, Detektionsprinzip und Ursprung}
+~\label{tab:algorithmen}
+\end{table}

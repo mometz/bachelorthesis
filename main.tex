@@ -1,6 +1,5 @@
 \documentclass[11pt,a4paper,twoside]{book}
 \includeonly{ch4_anomalien/anomalien}
-
 \usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epsfig}
@@ -13,15 +12,31 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{subcaption}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{slashbox}
+\usepackage{array}
+\usepackage{multirow}
 
 % Seitenlayout anpassen
-\setlength{\textheight}{25cm}
-\setlength{\textwidth}{17cm}
-\setlength{\topmargin}{-15mm}
-\setlength{\parindent}{0ex}
-\setlength{\parskip}{2ex}
-\setlength{\oddsidemargin}{-6.5mm}
-\setlength{\evensidemargin}{-16.5mm}
+% \setlength{\textheight}{25cm}
+% \setlength{\textwidth}{17cm}
+% \setlength{\topmargin}{-15mm}
+% \setlength{\parindent}{0ex}
+% \setlength{\parskip}{2ex}
+% \setlength{\oddsidemargin}{-6.5mm}
+% \setlength{\evensidemargin}{-16.5mm}
+\usepackage[a4paper,
+            top=25mm,      % Abstand oben
+            bottom=25mm,   % Abstand unten
+            inner=25mm,    % Innenrand (für Bindung)
+            outer=15mm,    % Außenrand (für Symmetrie)
+            heightrounded, % Höhe wird gerundet
+            includehead,   % Kopfzeile wird in Layout eingeschlossen
+            includefoot    % Fußzeile wird in Layout eingeschlossen
+           ]{geometry}
+\setlength{\parindent}{0ex} % Kein Einzug am Absatzbeginn
+\setlength{\parskip}{2ex}   % Abstand zwischen Absätzen
 
 % Inhaltsverzeichnis anpassen
 \renewcommand{\cftchapfont}{\bfseries} % Kapitel fett
@@ -38,19 +53,7 @@
 \begin{document}
 
 % Deckblatt und Verzeichnisse
-% \include{deckblatt/deckblatt}
-% \pagenumbering{roman}
-% \tableofcontents
-% \newpage
-% \listoffigures
-% \newpage
-% \listoftables
-% \newpage
-% \thispagestyle{empty}
-% \rule[0ex]{0ex}{0ex}
-% \newpage
-
-% Wechsel zu arabischer Nummerierung, Kapitel
+\include{deckblatt/deckblatt}
 \pagenumbering{arabic}
 \include{ch1_einleitung/einleitung}
 \newpage
