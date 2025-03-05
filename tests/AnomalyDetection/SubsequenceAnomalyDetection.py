@@ -91,10 +91,7 @@ class SWIFD:
 
         ax.plot(df.index, df.iloc[:, 0], label='Zeitreihe', alpha=0.8, linewidth=1.5)
 
-        ax.set_title("Anomalie-Heatmap als Hintergrund")
-        ax.set_ylabel("Wert")
-        ax.set_xlabel("Zeit")
-        ax.legend()
+        ax.set_title("Anomalie-Dichtekarte")
         plt.show()
         
 

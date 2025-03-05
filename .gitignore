@@ -7,6 +7,9 @@ Anmeldung*
 *.jpg
 comut/
 MSCRED/
+!main.pdf
+!main.tex
+main*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

@@ -1,4 +1,5 @@
  % chktex-file 44
+ % chktex-file 24
  % chktex-file 1
  \chapter{Anomaliedetektion}\label{ch:anomaliedetektion}
 Anomaliedetektion beschreibt die Aufgabe, Trends, Muster und Punkte in einem Datensatz zu finden, die nicht dem Normalzustand
@@ -179,16 +180,27 @@ so als Anomalie detektiert werden~\cite{Goldstein2012}.
 \end{equation}
 
 Die Häufigkeitsanalyse über den kompletten Datensatz bzw.~eine sehr große Datenmenge führt dazu, dass lokale Anomalien nicht erkannt werden,
-da diese Werte trotzdem innerhalb der erwarteten Verteilung liegen und im globalen Kontext nicht herausstehen. Einfache Abhilfe liefert eine
-Erweiterung um ein gleitendes Fenster. Der HBOS wird dann innerhalb eines jeden Fensters ermittelt, wodurch der zeitliche Kontext mit einbezogen
-wird und auch lokale Anomalien erkannt werden.
+da diese Werte trotzdem innerhalb der erwarteten Verteilung liegen und im globalen Kontext nicht herausstehen,
+wie~\hyperref[fig:hbos_lokale_probleme]{Abb.~\Ref*{fig:hbos_lokale_probleme}} zeigt. Einfache Abhilfe liefert die
+in~\hyperref[fig:hbos_lösung]{Abb.~\Ref*{fig:hbos_lösung}} dargestellte Erweiterung um ein gleitendes Fenster variabler Größe. Der HBOS wird dann innerhalb
+eines jeden Fensters ermittelt, wodurch der zeitliche Kontext mit einbezogen wird und auch lokale Anomalien erkannt werden. Multivariate Systeme
+können ebenfalls einfach analysiert werden, indem für jede Variable oder Dimension separate Histogramme erstellt werden.
 
-Multivariate Systeme können ebenfalls einfach analysiert werden, indem für jede Variable oder Dimension separate Histogramme erstellt werden.
-Allerdings trifft HBOS die Annahme, alle Variablen seien unabhängig, dementsprechend müssen Zeitserien mit
-korrelierten Variablen vorverarbeitet werden, beispielsweise durch eine Hauptkomponentenanalyse. Diese reduziert die Dimensionalität und
-berechnet als Hauptkomponenten diejenigen, die die größte Varianz im Datensatz repräsentieren und orthogonal zueinander, also unabhängig
-voneinander, sind. Nach der Hauptkomponentenanalyse können die Daten dann mithilfe von HBOS auf Anomalien überprüft werden und mithilfe der
-gefundenen Ausreißer per korrespondierendem Index bzw.~Zeitstempel Rückschlüsse auf die tatsächliche Anomalie im Orginaldatensatz getätigt werden.
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/hbos_lokal_problem.pdf}    
+    \caption{\centering Problematik der Detektion lokaler Punktanomalien: Da lokale Anomalien innerhalb des erwarteten Wertebereichs und damit der erwarteten
+    Verteilung liegen, werde diese vom Algorithmus nicht als Ausreißer erkannt.}
+~\label{fig:hbos_lokale_probleme}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/hbos_lokale_anomalien.pdf}    
+    \caption{\centering Lösung der Detektionsproblematik für lokale Anomalien durch ein gleitendes Fenster. Beispielhaft dargestellt an einer Fenstergröße
+    von $n=100$.}
+~\label{fig:hbos_lösung}
+\end{figure}
 
 \subsection{Sliding Window Z-Score}
 Durch die Berechnung eines gleitenden Mittelwerts sowie der entsprechenden gleitenden Standardabweichung kann der Z-Score eines Datenpunkts
@@ -256,11 +268,43 @@ darüber, wieviele Grammatikregeln pro Datenpunkt greifen. Das heißt anschaulic
 Subsequenz~\cite{senin-gv2}.
 
 \subsection{Sliding Window Isolation Forest Density}
-~\label{subsec:swifd}
+\label{subsec:swifd}
+
+\begin{figure}[b!]
+    \centering
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/vorlage_SWIFD_schema.pdf}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            \node at (0.16,0.89) {\large \parbox{4cm}{\centering \textbf{Eingangssignal}:\\Zeitserie}};
+            \node at (0.65,0.89) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/noisy_square_wave.pdf}};
+            \node at (0.16,0.695) {\large \parbox{4cm}{\centering \textbf{1. Schritt}:\\Feature Matrix}};
+            \node at (0.65,0.695) {
+                    \begin{tikzpicture}
+                        \node at (0,1) {$F = \begin{pmatrix} 
+                            \mu_{0} & \mu_{1} & \dots & \mu_{_n-1} \\
+                            \sigma_{0} & \sigma_{1} & \dots & \sigma_{_n-1} \\
+                            \text{min}_{0} & \text{min}_{1} & \dots & \text{min}_{n-1} \\
+                            \text{max}_{0} & \text{max}_{1} & \dots & \text{max}_{n-1} \\
+                        \end{pmatrix}$};
+                    \end{tikzpicture}
+            };
+            \node at (0.16,0.5) {\large \parbox{4cm}{\centering \textbf{2. Schritt}:\\Isolation Forest}};
+            \node at (0.65,0.5) {\large \parbox{4cm}{\centering \textbf{Anomalien in Feature Matrix finden}}};
+            \node at (0.16,0.305) {\large \parbox{4cm}{\centering \textbf{3. Schritt}:\\Anomalien abtragen}};
+            \node at (0.65,0.305) {\large \parbox{4cm}{\centering \textbf{Für alle Fenstergrößen aufsummieren}}};
+            \node at (0.16,0.11) {\large \parbox{4.2cm}{\centering \textbf{4. Schritt}:\\Dichtekarte berechnen}};
+            \node at (0.65,0.11) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/SWIFD_heatmap.pdf}};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Schematischer Ablauf des SWIFD Algorithmus}
+~\label{fig:swifd_schema}
+\end{figure}
+
 Der Algorithmus namens \textbf{Sliding Window Isolation Forest Density}~-~kurz \textbf{SWIFD}~-~dient der Anomalieerkennung in Zeitreihen durch die Berechnung einer
-Anomaliedichtekarte mittels des Isolation Forest-Verfahrens~\cite{Liu2012}. Zunächst werden aus der Zeitreihe über gleitende Fenster statistische Merkmale
+Anomaliedichtekarte mittels des Isolation Forest-Verfahrens~\cite{Liu2012}. Der schematische Ablauf ist dabei~\hyperref[fig:swifd_schema]{Abb.~\Ref*{fig:swifd_schema}}
+zu entnehmen. Zunächst werden aus der Zeitreihe über gleitende Fenster statistische Merkmale
 extrahiert. Hierzu wird die Zeitreihe segmentiert, wobei jedes Fenster durch Mittelwert, Standardabweichung, Minimum und Maximum beschrieben wird. Die
-Fenstergröße wird aus einer vordefinierten Menge gewählt, wobei sich die Schrittweite aus dem Verhältnis zur Fenstergröße ergibt.
+Fenstergröße wird aus einer vordefinierten Menge gewählt, wobei sich die Schrittweite in Abhängigkeit der Fenstergröße ergibt.
 
 Die so gewonnenen Merkmalsvektoren werden anschließend mit dem Isolation Forest-Algorithmus verarbeitet, der auf der Grundidee von Liu et al.~\cite{Liu2012}
 basiert und um die gleitenden Fenster von Ding et al.~\cite{Ding2013} weiterentwickelt wurde. Dieser konstruiert Entscheidungsbäume, in denen isolierte
@@ -276,7 +320,7 @@ liegenden Muster zu liefern.
 
 \subsection{Mahalanobis-Distanz mit SWIFD}
 Der Algorithmus \textbf{Mahalanobis-Distanz mit SWIFD}~-~kurz \textbf{MD-SWIFD}~-~wird zur Detektion von Korrelationsanomalien eingesetzt und kombiniert zwei
-wesentliche Konzepte kombiniert: die Mahala\-nobis-Distanz und Isolation Forest, wie er in~\hyperref[subsec:swifd]{Abs.~\Ref*{subsec:swifd}} bereits
+wesentliche Konzepte: die Mahala\-nobis-Distanz und Isolation Forest, wie er in~\hyperref[subsec:swifd]{Abs.~\Ref*{subsec:swifd}} bereits
 zur Subsequenzanomaliedetektion angewandt wird. Die Weiterentwicklung um die Mahalanobis-Distanz ermöglicht die Erkennung von Anomalien in der Korrelation
 in multivariaten Zeitserien~\cite{McLachlan1999}.
 
@@ -289,6 +333,22 @@ Kovarianzmatrix $\Sigma$, wird die Mahalanobis-Distanz $D_M$ wie folgt berechnet
 \label{eq:mahalanobis_dist}
 \end{equation}
 
+\begin{figure}[t!]
+    \centering
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/vorlage_MD-SWIFD_schema.pdf}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            \node at (0.16,0.9) {\large \parbox{4cm}{\centering \textbf{Eingangssignal}:\\Zeitserie}};
+            \node at (0.65,0.76) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/combined_plots.pdf}};
+            \node at (0.16,0.645) {\large \parbox{4cm}{\centering \textbf{1. Schritt}:\\Mahalanobis Distanz}};
+            \node at (0.5,0.39) {\large \parbox{8cm}{\centering \textbf{alle weiteren Schritte}:\\identisch zu SWIFD}};
+            \node at (0.5,0.2) {\includegraphics[width=0.9\linewidth]{ch4_anomalien/abbildungen/md_swifd_result_schema.pdf}};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Schematischer Ablauf des MD-SWIFD Algorithmus als Erweiterung von SWIFD}
+~\label{fig:md_swifd_schema}
+\end{figure}
+
 Die Mahalanobis-Distanz ist ein Maß dafür, wie stark ein Datenpunkt vom Mittelwert abweicht, wobei die Kovarianzmatrix die Streuung und die Korrelationen
 zwischen den Variablen der Zeitserie berücksichtigt. In Verbindung mit SWIFD wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis-Distanz~-~also die
 Mahalanobis-Distanz, die zu jedem Zeitstempel der Zeitserie korrespondiert~-~als Analysesignal verwendet. In der Mahalanobis-Distanz stecken sämtliche
@@ -297,7 +357,7 @@ Informationen über das Korrelationsverhalten der Zeitserie und so können am Ve
 MD-SWIFD macht sich also die Funktionalität von SWIFD zu Nutze und kann so in der weiterentwickelten Version Anomalien in der Korrelation mehrerer Variablen
 zuverlässig detektieren.
 
-\subsection{Elliptic Envelope}
+\subsection{Elliptic Envelope Ansatz}
 Unter der Annahme, dass Daten einer multivariaten Normalverteilung folgen, wird der Elliptic Envelope verwendet, um Ausreißer in einem Datensatz zu
 identifizieren. Der Algorithmus geht davon aus, dass die Mehrheit der Datenpunkte innerhalb einer elliptischen Region um den Mittelpunkt der Verteilung
 liegt. Ziel des Verfahrens ist es, eine elliptische Grenze zu bestimmen, die die zentrale Datenverteilung beschreibt. Punkte, die außerhalb dieser Grenze
