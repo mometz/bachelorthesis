@@ -363,6 +363,14 @@ identifizieren. Der Algorithmus geht davon aus, dass die Mehrheit der Datenpunkt
 liegt. Ziel des Verfahrens ist es, eine elliptische Grenze zu bestimmen, die die zentrale Datenverteilung beschreibt. Punkte, die außerhalb dieser Grenze
 liegen, gelten als Ausreißer.
 
+\begin{figure}[t!]
+    \centering
+        \includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/EE_mahalanobis.pdf}
+    \caption{Ausschnitt aus dreidimensionaler Zeitreihe mit entsprechender Mahalanobis Distanz $D_M$. Anhand von $D_M$ können Korrelationsanomalien
+        durch Setzen eines Schwellwerts erkannt werden, wenn die Distanz oberhalb dieser Schwelle liegt.}
+\label{fig:EE_mahalanobis}
+\end{figure}
+
 Die Funktionsweise des Elliptic Envelope basiert auf der Schätzung der Kovarianzmatrix der Daten und der Bestimmung einer Ellipse, die diese am besten
 beschreibt. Mithilfe des Maximum-Likelihood-Verfahrens wird die multivariate Normalverteilung ermittelt, die die größten Anteile der Daten umfasst. Die
 Hauptachsen dieser Ellipse werden durch die Eigenwerte und Eigenvektoren der Kovarianzmatrix bestimmt. Um Ausreißer zu erkennen, wird eine
@@ -370,8 +378,15 @@ Mahalanobis-Distanz berechnet, und Datenpunkte, die eine zu hohe Distanz aufweis
 
 Der Elliptic Envelope wird häufig in Bereichen eingesetzt, in denen die Annahme einer Normalverteilung zutrifft, wie beispielsweise in der Analyse von
 verdächtigen Netzwerkaktivitäten~\cite{Ashrafuzzaman2020}. Besonders nützlich ist der Algorithmus bei hochdimensionalen Daten, in denen
-einfache univariate Verfahren an ihre Grenzen stoßen. Da der Elliptic Envelope Korrelationen zwischen den Variablen berücksichtigt, kann er auch komplexere
-Datenstrukturen als univariate Methoden erfassen.
+einfache univariate Verfahren an ihre Grenzen stoßen. Da der Elliptic Envelope Korrelationen zwischen den Variablen berücksichtigt, kann er auch
+komplexere Datenstrukturen als univariate Methoden erfassen.
+
+\begin{figure}[t!]
+    \centering
+        \includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/EE_ellipse.pdf}
+    \caption{Ellipsoid auf Basis der Kovarianz der drei Kanäle}
+    \label{fig:ee_ellipse}
+\end{figure}
 
 \section{Semi-Supervised Learning Algorithmen}
 Eine weitere Möglichkeit der Anomaliedetektion ist die mit Algorithmen der Klasse \textbf{Semi-Supervised Learning}. Algorithmen dieser Klasse benötigen
@@ -387,7 +402,7 @@ sichergestellt sein, dass die gesamte vorliegende Zeitserie einem normalen Betri
 \subsection{LSTM-Autoencoder}
 Einer in seiner Funktionalität interessanter Algorithmus ist der LSTM-Autoencoder (LSTM-AE). LSTM steht für Long-Short Term Memory, ist eine Erweiterung der
 Recurrent Neural Networks und erlaubt es, auf ein Langzeitgedächtnis zurückzugreifen und kommt gänzlich ohne Parametrisierung aus~\cite{Hochreiter1997}.
-Ein Autoencoder ist ein Algorithmus auf Basis der Rekonstruktion von Sequenzen Anomalien detektiert und gehört auch demnach zur Kategorie der
+Ein Autoencoder ist ein Algorithmus, der auf Basis der Rekonstruktion von Sequenzen Anomalien detektiert und gehört demnach zur Kategorie der
 Subsequenzanomaliedetektion~\hyperref[tab:algorithmen]{(vgl.~Tab.~\Ref*{tab:algorithmen})}.
 
 Die Einordnung in die Klasse der Rekonstruktionsalgorithmen erfolgt nach Schmidl et al.~\cite{Schmidl2022} und beschreibt Rekonstruktionsalgorithmen
@@ -406,7 +421,9 @@ Implementierung von LSTM-AE zur Anomaliedetektion im Kontext der SSP X1 und verw
 
 Abschließend folgt eine kurze Auflistung aller genannten Algorithmen mit stichwortartiger Kategorisierung nach Detektionsklasse, -prinzip sowie die Quelle der
 Implementierung. Unter dem Stichwort \textit{Eigene Implementierung} verbergen sich auch Komponenten, die aus Python Bibliotheken angewandt wurde, wie der
-Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn} oder die Implementierung des \textbf{LSTM}~\cite{pytorch}.
+Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn} oder die Implementierung des \textbf{LSTM}~\cite{pytorch}, die zur gewollten Funktionalität
+zusammengeführt und erweitert wurden. Im nächsten Kapitel erfolgt die Erprobung, Gegenüberstellung und Evaluierung sämtlicher Algorithmen derselben
+Detektionsklasse.
 
 \begin{table}[h]
     \renewcommand{\arraystretch}{1.75}
