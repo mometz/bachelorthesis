@@ -278,6 +278,21 @@ Vorverarbeitung stattfinden, denn nur so können auch relevante Ergebnisse erzeu
 % algorithmen, die getestet werden sollen
 
 \newpage
-\subsection{Evaluation}
+\subsection{Evaluation}\label{subsec:evaluation}
 % hier soll kurz vorgestellt werden, anhand welcher kriterien und mit welchen verfahren ein algorithmus bewertet werden soll
 % zb. rechendauer, anomaliequote etc.
+Zur Vergleichbarkeit und Gegenüberstellung der gewählten Algorithmen aus~\hyperref[sec:algorithmen]{Abs.~\Ref*{sec:algorithmen}} werden
+entsprechend der Detektionsklasse unterschiedliche Evaluierungsmethoden verwandt.
+\hyperref[ch:anomaliedetektion_test]{Kap.~\Ref*{ch:anomaliedetektion_test}} beleuchtet dabei die einzelnen Methoden.
+
+Grundsätzlich ist es von höchster Bedeutung, dass für gleiche Detektionsklassen gleiche Evaluierungsmethoden angewandt werden, um einen
+aussagekräftigen Vergleich zu gewährleisten. Dabei ist eine der gängigsten Methoden zur Evaluierung von Klassifizierungsalgorithmen
+jeglicher Art der F1-Score, der das harmonische Mittel zwischen den von Lewis in~\cite{Lewis1991} benannten Größen \textit{Precision}
+und \textit{Recall} bildet. Precision und Recall ergeben sich aus einem Verhältnis der Größen \textit{True Positive}, \textit{False
+Positive} und \textit{False Negative}.
+
+\begin{align}
+    \text{Precision} &= \frac{\text{TP}}{\text{TP} + \text{FP}} \label{eq:precision} \\
+    \text{Recall} &= \frac{\text{TP}}{\text{TP} + \text{FN}} \label{eq:recall} \\
+    F_1 &= 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \label{eq:f1score}
+\end{align}
