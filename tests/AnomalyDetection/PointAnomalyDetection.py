@@ -4,13 +4,13 @@ import pandas as pd
 from typing import Union
 
 class SWZScore:
-    def __init__(self, windows: np.ndarray, threshold: float = 3.0):
+    def __init__(self, windows: np.ndarray, contamination: float = 0.025):
         self.windows: np.ndarray = windows
-        self.threshold: float = threshold
+        self.contamination: float = contamination
         self.df: Union[pd.DataFrame, None] = None
         self.anomaly_scores: Union[pd.Series, None] = None
 
-    def fit(self, data: Union[np.ndarray, pd.DataFrame]) -> pd.DataFrame:
+    def predict(self, data: Union[np.ndarray, pd.DataFrame]) -> pd.DataFrame:
         if isinstance(data, np.ndarray):  
             self.df = pd.DataFrame(data, columns=['value'])
         elif isinstance(data, pd.DataFrame):  
@@ -23,30 +23,28 @@ class SWZScore:
         for window_size in self.windows:
             rolling_mean = self.df['value'].rolling(window=window_size).mean()
             rolling_std = self.df['value'].rolling(window=window_size).std()
-            z_score = (self.df['value'] - rolling_mean) / rolling_std
-            anomaly_mask = z_score.abs() > self.threshold
-            
+            self.df['z_score'] = (self.df['value'] - rolling_mean) / rolling_std
+
+            sorted_scores = self.df['z_score'].sort_values(ascending=True).dropna()  # Anomalie-Scores sortieren
+            contamination_idx = int(len(sorted_scores) * (1 - self.contamination))  # Index für Contamination
+            threshold = sorted_scores.iloc[contamination_idx]  # Schwellenwert basierend auf Contamination
+            anomaly_mask = self.df['z_score'].abs() > threshold
             self.df['anomaly_score'] += anomaly_mask.astype(float)
         
-        max_score = self.df['anomaly_score'].max()
-        if max_score > 0:
-            self.df['anomaly_score'] /= max_score
+        # max_score = self.df['anomaly_score'].max()
+        # if max_score > 0:
+        #     self.df['anomaly_score'] /= max_score
         
         return self.df
-
-    def predict(self) -> pd.DataFrame:
-        if self.df is None:
-            raise ValueError("Das Modell muss zuerst mit `fit(data)` trainiert werden.")
-        return self.df[self.df['anomaly_score'] > 0]
-
+    
     def plot(self) -> None:
         if self.df is None:
             raise ValueError("Das Modell muss zuerst mit `fit(data)` trainiert werden.")
 
         plt.figure(figsize=(15, 4))
-        plt.plot(self.df.index, self.df['value'], label='Zeitserie', linewidth=0.5, color='blue')
+        plt.plot(self.df.index, self.df['value'], label='Zeitserie', linewidth=0.5)
         
-        filtered_df = self.df[self.df['anomaly_score'] == True]
+        filtered_df = self.df[self.df['anomaly_score'] > int(len(self.windows) / 3)]
 
         plt.scatter(filtered_df.index, filtered_df['value'], 
                             c='red', label='Anomalien',
@@ -64,7 +62,7 @@ from pyod.models.hbos import HBOS
 from sklearn.preprocessing import StandardScaler
 
 class HBOSDetector:
-    def __init__(self, windows: np.ndarray, step_size: int = 10, contamination: float = 0.0025, n_bins='auto'):
+    def __init__(self, windows: np.ndarray, contamination: float = 0.0025, step_size: int = 10, n_bins='auto'):
         """
         Initialisiert die HBOS-Anomaliedetektionsklasse mit variablen Fenstergrößen.
         
@@ -99,7 +97,7 @@ class HBOSDetector:
             anomalies = np.zeros(len(self.df))
             scores = np.zeros(len(self.df))
             
-            for start in range(0, len(self.df) - window_size, self.step_size):
+            for start in range(0, int(len(self.df) - window_size), self.step_size):
                 end = start + window_size
                 window_data = np.array(self.df['value'].iloc[start:end]).reshape(-1, 1)  # numpy array mit reshape
                 
