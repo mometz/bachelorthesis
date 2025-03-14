@@ -16,18 +16,22 @@ class MDSWIFD:
         
     def compute_mahalanobis_distance(self, df):
         """
-        Berechnet die Mahalanobis-Distanz für eine multivariate Zeitreihe.
+        Berechnet die Mahalanobis-Distanz für eine multivariate oder univariate Zeitreihe.
         
         :param df: DataFrame mit numerischen Spalten (keine Zeitstempel)
         :return: np.array mit Mahalanobis-Distanzen
         """
         data = df.values  # Konvertiere DataFrame zu NumPy-Array
         mean = np.mean(data, axis=0)
-        cov_matrix = np.cov(data, rowvar=False)  # Kovarianzmatrix berechnen
-        inv_cov_matrix = inv(cov_matrix)  # Inverse der Kovarianzmatrix
-
-        distances = np.array([mahalanobis(x, mean, inv_cov_matrix) for x in data])
         
+        if data.shape[1] == 1:  # Univariater Fall
+            std_dev = np.std(data, axis=0)
+            distances = np.abs((data - mean) / std_dev)  # Z-Score
+        else:  # Multivariater Fall
+            cov_matrix = np.cov(data, rowvar=False)
+            inv_cov_matrix = inv(cov_matrix)
+            distances = np.array([mahalanobis(x, mean, inv_cov_matrix) for x in data])
+
         return distances
     
     def extract_features(self, df, window_size, step_size):
@@ -83,18 +87,20 @@ class MDSWIFD:
         Wendet SWIFD auf der Mahalanobis-Distanz-Zeitreihe an.
         """
         # Mahalanobis-Distanz berechnen
-        mahalanobis_series = self.compute_mahalanobis_distance(df)
-        df_mahalanobis = pd.DataFrame({'value': mahalanobis_series}, index=df.index)
-        
+        if df.shape[1] == 1:  # Univariater Fall
+            self.mahalanobis_series = self.compute_mahalanobis_distance(df)
+            df_mahalanobis = pd.DataFrame({'value': self.mahalanobis_series.flatten()}, index=df.index)
+        else:
+            self.mahalanobis_series = self.compute_mahalanobis_distance(df)
+            df_mahalanobis = pd.DataFrame({'value': self.mahalanobis_series}, index=df.index)
         # Standardmäßige SWIFD-Anomalieerkennung mit der Distanz-Zeitreihe
-        anomaly_density, _ = self.IF_density(df_mahalanobis)
+        self.anomaly_density, _ = self.IF_density(df_mahalanobis)
         
-        return anomaly_density, mahalanobis_series
-    
-    def plot_anomaly_background(self, df, density):
+    def plot_anomaly_background(self, df):
         """
         Plottet die Zeitreihe mit farbigem Hintergrund, der die Anomaliedichte repräsentiert.
         """
+        density = self.anomaly_density
         fig, ax = plt.subplots(figsize=(15, 4))
 
         # Falls `density` nur Nullen enthält, wird die Skalierung vermieden

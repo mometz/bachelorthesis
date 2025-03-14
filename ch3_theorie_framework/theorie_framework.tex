@@ -287,12 +287,23 @@ entsprechend der Detektionsklasse unterschiedliche Evaluierungsmethoden verwandt
 
 Grundsätzlich ist es von höchster Bedeutung, dass für gleiche Detektionsklassen gleiche Evaluierungsmethoden angewandt werden, um einen
 aussagekräftigen Vergleich zu gewährleisten. Dabei ist eine der gängigsten Methoden zur Evaluierung von Klassifizierungsalgorithmen
-jeglicher Art der F1-Score, der das harmonische Mittel zwischen den von Lewis in~\cite{Lewis1991} benannten Größen \textit{Precision}
+jeglicher Art der F$\beta$-Score, der das harmonische Mittel zwischen den von Lewis in~\cite{Lewis1991} benannten Größen \textit{Precision}
 und \textit{Recall} bildet. Precision und Recall ergeben sich aus einem Verhältnis der Größen \textit{True Positive}, \textit{False
-Positive} und \textit{False Negative}.
+Positive} und \textit{False Negative}. Der Parameter $\beta$ ist ein Gewichtungsfaktor für das Verhältnis von Precision und Recall.
 
 \begin{align}
     \text{Precision} &= \frac{\text{TP}}{\text{TP} + \text{FP}} \label{eq:precision} \\
     \text{Recall} &= \frac{\text{TP}}{\text{TP} + \text{FN}} \label{eq:recall} \\
-    F_1 &= 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \label{eq:f1score}
+    F_{\beta} &= (1\,+\,\beta^2) \cdot \frac{\text{Precision} \cdot \text{Recall}}{\beta^2\,\cdot\,\text{Precision} + \text{Recall}}
+    \label{eq:fbeta}
 \end{align}
+
+Um die optimale Entscheidungsschwelle zu finden und auch einen Überblick über die Performance eines Algorithmus über mehrere Schwellwerte
+zu erhalten, eignet sich die Precision-Recall-Kurve (PR-Kurve). Aus der PR-Kurve kann dann die sogenannte Area under the Curve (AUC-PR)
+berechnet werden, die als Indikator dafür dient, wie gut ein Modell über alle möglichen Schwellenwerte hinweg zwischen der positiven und
+negativen Klasse~-~im Bezug auf Aomalieerkennung entspricht das normal und anomal~-~unterscheidet, wobei sie insbesondere bei
+unausgewogenen Datensätzen aussagekräftig ist~\cite{Davis2006}~\cite{Schmidl2022}.
+
+Mithilfe der PR-Kurve kann der Schwellwert ermittelt werden, der den optimalen F$\beta$-Score zurückgibt. Dieser ist allerdings
+alleine nicht aussagekräftig genug, da bei echten Daten nie gegeben sein kann, dass diese optimale Schwelle aufgrund der Unsicherheit der
+Daten gefunden wird. Dementsprechend ist AUC-PR eine bessere Metrik zur Gegenüberstellung zweier Algorithmen~\cite{Japkowicz2002}.

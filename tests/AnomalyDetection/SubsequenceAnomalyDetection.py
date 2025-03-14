@@ -6,7 +6,7 @@ from sklearn.ensemble import IsolationForest
 from scipy.ndimage import gaussian_filter1d
 
 class SWIFD:
-    def __init__(self, window_sizes=None, contamination=0.1, step_factor=5, smoothing_sigma=2):
+    def __init__(self, window_sizes=None, contamination='auto', step_factor=5, smoothing_sigma=2):
         """
         Initialisiert die SWIFD-Klasse mit den Standardparametern oder benutzerdefinierten Werten.
         
@@ -51,7 +51,7 @@ class SWIFD:
         contamination = self.contamination
         step_factor = self.step_factor
         smoothing_sigma = self.smoothing_sigma
-        anomaly_density = np.zeros(len(df))
+        self.anomaly_density = np.zeros(len(df))
 
         for window_size in window_sizes:
             step_size = max(1, window_size // step_factor)
@@ -66,16 +66,19 @@ class SWIFD:
 
             for idx in anomalies:
                 if 0 <= idx < len(df):
-                    anomaly_density[idx] += 1
+                    self.anomaly_density[idx] += 1
 
-        smoothed_density = gaussian_filter1d(anomaly_density, sigma=smoothing_sigma)
+        if smoothing_sigma == 0:
+            self.smoothed_density = self.anomaly_density
+        else:
+            self.smoothed_density = gaussian_filter1d(self.anomaly_density, sigma=smoothing_sigma)
         
-        return smoothed_density
-
-    def plot_anomalies(self, df, density):
+        
+    def plot_anomalies(self, df):
         """
         Plottet die Zeitreihe mit farbigem Hintergrund, der die Anomaliedichte repräsentiert.
         """
+        density = self.smoothed_density
         fig, ax = plt.subplots(figsize=(15, 4))
 
         if density.max() > 0:
@@ -89,8 +92,12 @@ class SWIFD:
             color = cmap(norm_density[i])
             ax.axvspan(df.index[i], df.index[i+1], color=color, alpha=0.5)
 
-        ax.plot(df.index, df.iloc[:, 0], label='Zeitreihe', alpha=0.8, linewidth=1.5)
-
+        try:
+            ax.plot(df.index, df.iloc[:, 0], label='Zeitreihe', alpha=0.8, linewidth=1.5)
+        except:
+            ax.plot(df.index, df, label='Zeitreihe', alpha=0.8, linewidth=1.5)
+        ax.set_xlim(df.index[0], df.index[len(df)-1])
+        
         ax.set_title("Anomalie-Dichtekarte")
         plt.show()
         
@@ -109,6 +116,9 @@ class GrammarViz:
         :param filename: Name der Ausgabedatei
         """
 
+        base_folder = r'C:\Users\mmuh\Documents\Bachelorarbeit\tests\GrammarViz\\'
+        filename = base_folder + filename
+
         if isinstance(data, pd.DataFrame):
             df_filt = data[data.apply(self.contains_number, axis=1)]
             column_data = df_filt.iloc[:, column_index]
@@ -120,7 +130,7 @@ class GrammarViz:
                 column_data = data[:, column_index]
         else:
             raise ValueError("Eingabedaten müssen entweder ein Pandas DataFrame oder ein NumPy Array sein.")
-
+        
         numeric_data_str = numeric_data.apply(lambda x: f'{x:.10e}' if isinstance(x, float) else str(x))
         numeric_data_str.to_csv(filename, header=False, index=False)
         print(f"Gefilterte CSV wurde gespeichert als: {filename}")

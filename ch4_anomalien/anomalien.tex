@@ -1,14 +1,14 @@
  % chktex-file 44
  % chktex-file 24
  % chktex-file 1
- \chapter{Anomaliedetektion}\label{ch:anomaliedetektion}
+ \chapter{Anomaliedetektion}\label{ch:anomalien}
 Anomaliedetektion beschreibt die Aufgabe, Trends, Muster und Punkte in einem Datensatz zu finden, die nicht dem Normalzustand
 entsprechen~\cite{Chandola2009}. Anders gesagt lautet das Ziel: die Punkte finden, die sich von den anderen Punkten im Datensatz
 stark unterscheiden~\cite[Kap.~10]{Tan2014}. Diese andersartigen Datenpunkte oder -sequenzen werden in der Regel als Anomalie,
 Ausreißer oder Ausnahmen bezeichnet, wobei Anomalie der geläufigste Begriff ist. Anomaliedetektion findet große Verwendung in
 verschiedenen Anwendungsbereichen, wie z.~B.~in der Netzwerktechnik zur Erkennung von potenziellen Angriffen durch Eindringlinge
 in ein Netzwerk anhand von ungewöhnlichem Traffic~\Cite{Bernacki2015}. Auch in der Medizin können nach einem Elektrokardiogramm
-(\textit{EKG}) durch Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chuah2007}, genau wie eine Bank ein Interesse
+(EKG) durch Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chuah2007}, genau wie eine Bank ein Interesse
 an Anomalien im Kreditkartenverhalten ihrer Kunden hat, um Betrugsfälle zu erkennen~\cite{Jiang2023, CeronmaniSharmila2019}.
 
 Die simpelste Herangehensweise zur Erkennung von Anomalien ist die, dass zuerst definiert wird, welche Punkte im Datensatz normalem
@@ -38,7 +38,7 @@ Hier ist der Kontext wichtig: Eine Person mit einer Körpergröße von mehr als 
 während sie in einem Basketballteam kaum herausragt~-~im wahrsten Sinne des Wortes. Diese Art der Anomalie wird auch als kontextuelle
 Anomalie bezeichnet~\Cite[S.~12]{Wenig2024}.
 
-\section{Anomaliearten}
+\section{Anomaliearten}\label{sec:anomaliearten}
 Doch bevor eine Auswahl an geeigneten Verfahren oder Algorithmen zur Anomaliedetektion getroffen wird, muss zuerst verstanden werden,
 welche verschiedenen Arten von Anomalien es gibt und wie sich diese voneinander unterscheiden.
 Auch wenn Studien zeigen, dass es durchaus Algorithmen gibt, die über mehrere verschiedene Kategorien gut
@@ -51,17 +51,17 @@ jeder Algorithmus gleich performant ist über mehrere Datensätze hinweg.
 Für die Kategorien wird sich zunächst auf wenige, für diese Arbeit relevante, beschränkt: \textbf{Punkt\-anomalien},
 \textbf{Subsequenzanomalien} und \textbf{Korrelationsanomalien}, abgeleitet von Chandola et al.~\cite{Chandola2009}.
 
-\subsection{Punktanomalien}
+\subsection{Punktanomalien}\label{sec:punktanomalien}
 Ein einzelner Datenpunkt, der stark von den anderen Punkten im Datensatz abweicht, heißt Punkt\-anomalie~\cite{Chandola2009}. Genauer
 gesagt, wenn ein Datenpunkt weit außerhalb der Wahrscheinlichkeitsverteilung des Datensatzes liegt, ist er anomal~\Cite[Kap.~10]{Tan2014}.
 Punktanomalien können recht leicht erkannt werden, da Punktanomalien stark vom Mittelwert und vom Median des Datensatzes abweichen. Wenn
 von Ausreißern gesprochen wird, sind damit typischerweise Punktanomalien gemeint.
 
 Als Beispielszenario dient ein Smart Meter, das den stündlichen Stromverbrauch misst.
-In~\hyperref[subfig:smartmeter]{Abb.~\Ref*{subfig:smartmeter}} ist der gemessene Stromverbrauch dargestellt mit einer klar
+In~\hyperref[subfig:smartmeter]{Abb.~\Ref*{subfig:smartmeter}} ist der gemessene Stromverbrauch dargestellt, mit einer klar
 erkennbaren Punktanomalie am 01.08.~um 18 Uhr. Die Anomalie wird mit bloßem Auge deutlich und kann auch mit statistischen Größen
 nachgewiesen werden, wie in~\hyperref[subfig:smartmeter_histogramm]{Abb.~\Ref*{subfig:smartmeter_histogramm}} anhand der
-Häufigkeitsverteilung und dem Mittelwert sowie dem Median zu sehen ist. Das Histogramm dient als gute Approximation für die
+Häufigkeitsverteilung und dem Mittelwert. Das Histogramm dient als gute Approximation für die
 Wahrscheinlichkeitsverteilung der Messwerte, und zeigt entsprechend die Eindeutigkeit des Ausreißers.
 
 \begin{figure}[!t]
@@ -78,7 +78,7 @@ Wahrscheinlichkeitsverteilung der Messwerte, und zeigt entsprechend die Eindeuti
     drei Tagen. Anhand des Histogramms wird die Anomalie verdeutlicht.}\label{fig:punktanomalie}
 \end{figure}
 
-Um nun eine Aussage treffen zu können, ist es wichtig den Kontext der vorliegenden Daten zu kennen. Wenn Daten für ein weitaus größeres
+Um nun eine Aussage treffen zu können, ist es wichtig, den Kontext der vorliegenden Daten zu kennen. Wenn Daten für ein weitaus größeres
 Zeitfenster vorliegen, z.~B.~für eine Woche oder einen Monat, könnte sich möglicherweise zeigen, dass der hohe Verbrauch öfter und
 regelmäßiger vorkommt als im gezeigten Zeitraum von drei Tagen. Ob eine globale oder lediglich eine lokale Anomalie vorliegt, wird
 mit einem größeren Datensatz besser erkennbar. Die Anomalie könnte beispielsweise auf das gelegentliche Betreiben einer Sauna im Haus
@@ -86,7 +86,7 @@ zurückführbar sein, dann würde es sich lediglich um eine lokale Anomalie hand
 öfter vorkommen, und wäre somit keine globale Anomalie~\Cite[Kap.~10]{Tan2014}.
 
 Punktanomalien sind im Kontext dieser Arbeit tendenziell weniger relevant, sollen aber aufgrund ihrer grundsätzlichen Bedeutung bzgl.
-Anomaliedetektion als einfachste Kategorie trotzdem beleuchtet werden, um entsprechende Algorithmen, die der Erkennung solcher
+Anomaliedetektion als grundlegende Kategorie trotzdem beleuchtet werden, um entsprechende Algorithmen, die der Erkennung solcher
 Punktanomalien zuzuordnen sind, auch gegenüber anderen Anomalien zu testen.
 
 \subsection{Subsequenzanomalien}
@@ -115,7 +115,7 @@ abfallende Flanke einer gemessenen Rechteckspannung. Das Muster zwischen $t_1$ u
 restlichen 0,2 ms langen Perioden und daher eine Anomalie.
 
 Bei der Analyse von EKG Daten spielen Subsequenzanomalien eine wichtige Rolle und können wertvolle Rückschlüsse auf die Herzgesundheit
-liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt EKG-Daten eines Patienten mit
+liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt EKG Daten eines Patienten mit
 monomorpher ventrikulärer Tachykardie. Diese kann zu Kammerflimmern übergehen, welches unbehandelt sogar zu einem Herzstillstand
 führen kann~\cite{ekgecho}\Cite[S.~131~ff.]{Davies2015}.
 
@@ -146,7 +146,7 @@ bei EKG Daten.
 \end{figure}
 
 Während Punkt- und Subsequenzanomalien sowohl für univariate als auch multivariate Datensätze und Zeitserien auftreten können, sind
-Korrelationsanomalien nur möglich bei zwei oder mehr Dimensionen einer Zeitreihe und betrachten die Interaktionen zwischen
+Korrelationsanomalien nur bei zwei oder mehr Dimensionen einer Zeitreihe möglich und betrachten die Interaktionen zwischen
 verschiedenen Kanälen. Von einer Korrelationsanomalie spricht man bei Abweichungen dieser Beziehung zwischen zwei oder mehreren
 Kanälen~\cite[S.12-13]{Wenig2024}~\cite{Wenig2024a}.
 
@@ -264,8 +264,8 @@ Quelle:~\cite{Patel}}
 Die diskretisierte Subsequenz produziert dann eine Menge an SAX Worten, die mit dem Grammatikinferenzalgorithmus Sequitur~\cite{NevillManning1997}
 weiterverarbeitet werden, um rekursiv kontextfreie Grammatikregeln aufzustellen. Mithilfe einer GUI kann ein Datensatz analysiert werden und mit der
 erzeugten \textbf{Rule Density Curve} sowie den einzeln aufgelisteten potenziell anomalen Sequenzen untersucht werden. Die Rule Density Curve gibt Aufschluss
-darüber, wieviele Grammatikregeln pro Datenpunkt greifen. Das heißt anschaulich: je mehr Grammatikregeln, desto normaler ist ein Datenpunkt bzw.~eine
-Subsequenz~\cite{senin-gv2}.
+darüber, wieviele Grammatikregeln pro Datenpunkt greifen. Das heißt anschaulich: je mehr Grammatikregeln einer Subsequenz zugeschrieben werden können, desto normaler
+ist ein Datenpunkt bzw.~eine Subsequenz~\cite{senin-gv2}.
 
 \subsection{Sliding Window Isolation Forest Density}
 \label{subsec:swifd}
@@ -278,7 +278,7 @@ Subsequenz~\cite{senin-gv2}.
             \node at (0.16,0.89) {\large \parbox{4cm}{\centering \textbf{Eingangssignal}:\\Zeitserie}};
             \node at (0.65,0.89) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/noisy_square_wave.pdf}};
             \node at (0.16,0.695) {\large \parbox{4cm}{\centering \textbf{1. Schritt}:\\Feature Matrix}};
-            \node at (0.65,0.695) {
+            \node at (0.622,0.695) {
                     \begin{tikzpicture}
                         \node at (0,1) {$F = \begin{pmatrix} 
                             \mu_{0} & \mu_{1} & \dots & \mu_{_n-1} \\
@@ -324,7 +324,7 @@ wesentliche Konzepte: die Mahala\-nobis-Distanz und Isolation Forest, wie er in~
 zur Subsequenzanomaliedetektion angewandt wird. Die Weiterentwicklung um die Mahalanobis-Distanz ermöglicht die Erkennung von Anomalien in der Korrelation
 in multivariaten Zeitserien~\cite{McLachlan1999}.
 
-Als eine Erweiterung der euklidischen Distanz wird sie in multivariaten Datensätzen verwendet, um die Entfernung eines Punktes von einem Mittelwert unter
+Als eine Erweiterung der euklidischen Distanz wird die Mahalanobis in multivariaten Datensätzen verwendet, um die Entfernung eines Punktes von einem Mittelwert unter
 Berücksichtigung der Korrelationen zwischen den Dimensionen zu messen. Für einen Punkt $x$ in einer multivariaten Zeitserie, den Mittelwert $\mu$ und die
 Kovarianzmatrix $\Sigma$, wird die Mahalanobis-Distanz $D_M$ wie folgt berechnet:
 
@@ -349,9 +349,8 @@ Kovarianzmatrix $\Sigma$, wird die Mahalanobis-Distanz $D_M$ wie folgt berechnet
 ~\label{fig:md_swifd_schema}
 \end{figure}
 
-Die Mahalanobis-Distanz ist ein Maß dafür, wie stark ein Datenpunkt vom Mittelwert abweicht, wobei die Kovarianzmatrix die Streuung und die Korrelationen
-zwischen den Variablen der Zeitserie berücksichtigt. In Verbindung mit SWIFD wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis-Distanz~-~also die
-Mahalanobis-Distanz, die zu jedem Zeitstempel der Zeitserie korrespondiert~-~als Analysesignal verwendet. In der Mahalanobis-Distanz stecken sämtliche
+In Verbindung mit SWIFD wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis Distanz~-~also die
+Mahalanobis Distanz, die zu jedem Zeitstempel der Zeitserie korrespondiert~-~als Analysesignal verwendet. In der Mahalanobis-Distanz stecken sämtliche
 Informationen über das Korrelationsverhalten der Zeitserie und so können am Verlauf der Distanz Anomalien detektiert werden.
 
 MD-SWIFD macht sich also die Funktionalität von SWIFD zu Nutze und kann so in der weiterentwickelten Version Anomalien in der Korrelation mehrerer Variablen
@@ -421,7 +420,7 @@ Implementierung von LSTM-AE zur Anomaliedetektion im Kontext der SSP X1 und verw
 
 Abschließend folgt eine kurze Auflistung aller genannten Algorithmen mit stichwortartiger Kategorisierung nach Detektionsklasse, -prinzip sowie die Quelle der
 Implementierung. Unter dem Stichwort \textit{Eigene Implementierung} verbergen sich auch Komponenten, die aus Python Bibliotheken angewandt wurde, wie der
-Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn} oder die Implementierung des \textbf{LSTM}~\cite{pytorch}, die zur gewollten Funktionalität
+Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn}, die zur gewollten Funktionalität
 zusammengeführt und erweitert wurden. Im nächsten Kapitel erfolgt die Erprobung, Gegenüberstellung und Evaluierung sämtlicher Algorithmen derselben
 Detektionsklasse.
 
@@ -445,7 +444,7 @@ Detektionsklasse.
 \multirow{2}{*}{\textbf{Elliptic Envelope}} & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Kovarianzmatrix und} & \multirow{2}{*}{sklearn (Open Source)~\cite{scikit-learn}} \\
  & & Mahalanobis Distanz & \\
 \hline\hline
-\multirow{2}{*}{\textbf{LSTM-AE}}           & \multirow{2}{*}{Subsequenzanomalien}   & \multirow{2}{*}{Rekonstruktion und} & \multirow{2}{*}{Eigene Implementierung} \\
+\multirow{2}{*}{\textbf{LSTM-AE}}           & \multirow{2}{*}{Subsequenzanomalien}   & \multirow{2}{*}{Rekonstruktion und} & \multirow{2}{*}{Open Source~\cite{pytorch-LSTMAE}} \\
  & & Neuronale Netze &
 \end{tabular}
     \caption{\centeringÜbersicht über die verwendeten Algorithmen nach Kategorisierung in Detektionsklasse, Detektionsprinzip und Ursprung}
