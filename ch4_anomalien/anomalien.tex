@@ -7,15 +7,15 @@ entsprechen~\cite{Chandola2009}. Anders gesagt lautet das Ziel: die Punkte finde
 stark unterscheiden~\cite[Kap.~10]{Tan2014}. Diese andersartigen Datenpunkte oder -sequenzen werden in der Regel als Anomalie,
 Ausreißer oder Ausnahmen bezeichnet, wobei Anomalie der geläufigste Begriff ist. Anomaliedetektion findet große Verwendung in
 verschiedenen Anwendungsbereichen, wie z.~B.~in der Netzwerktechnik zur Erkennung von potenziellen Angriffen durch Eindringlinge
-in ein Netzwerk anhand von ungewöhnlichem Traffic~\Cite{Bernacki2015}. Auch in der Medizin können nach einem Elektrokardiogramm
-(EKG) durch Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chuah2007}, genau wie eine Bank ein Interesse
+in ein Netzwerk anhand von ungewöhnlichem Traffic~\Cite{Bernacki2015}. Auch in der Medizin können nach einem \ac{ekg}
+durch Anomaliedetektion Herzrhythmusstörungen erkannt werden~\cite{Chuah2007}, genau wie eine Bank ein Interesse
 an Anomalien im Kreditkartenverhalten ihrer Kunden hat, um Betrugsfälle zu erkennen~\cite{Jiang2023, CeronmaniSharmila2019}.
 
 Die simpelste Herangehensweise zur Erkennung von Anomalien ist die, dass zuerst definiert wird, welche Punkte im Datensatz normalem
 Verhalten entsprechen und alle davon abweichenden Punkte als Anomalie zu kennzeichnen. Doch so einfach die Herangehensweise wirkt,
 so anfällig ist sie auch für Fehler. Dabei heben sich einige Herausforderungen hervor.
 
-Zum Einen die Frage, wo genau die Grenze zwischen normalem und anomalem Verhalten liegen soll. Eine Region zu definieren, die jeden 
+Zum einen die Frage, wo genau die Grenze zwischen normalem und anomalem Verhalten liegen soll. Eine Region zu definieren, die jeden 
 möglichen normalen Punkt beinhaltet und jedmöglichen anomalen Punkt ausschließt, ist nicht trivial und oft nicht präzise durchführbar.
 So ist es durchaus möglich, dass in manchen Fällen anomale Punkte als normal bezeichnet werden, und normale Punkte als anomal, je
 nachdem, wo die Grenze liegt.
@@ -34,8 +34,8 @@ in einer anderen Domäne wie in einem Aktienkurs weniger drastisch und unterlieg
 es an die Erkennung möglicher Anomalien geht.
 
 Daraus lässt sich direkt zum nächsten Problem übergehen. Die Unterscheidung zwischen globalen und lokalen Anomalien~\cite{Breunig2000}.
-Hier ist der Kontext wichtig: Eine Person mit einer Körpergröße von mehr als 2 $m$ ist in ihrer Nachbarschaft sicherlich eine Anomalie,
-während sie in einem Basketballteam kaum herausragt~-~im wahrsten Sinne des Wortes. Diese Art der Anomalie wird auch als kontextuelle
+Hier ist der Kontext wichtig: Eine Person mit einer Körpergröße von mehr als 2 m ist in ihrer Nachbarschaft sicherlich eine Anomalie,
+während sie in einem Basketballteam kaum herausragt. Diese Art der Anomalie wird auch als kontextuelle
 Anomalie bezeichnet~\Cite[S.~12]{Wenig2024}.
 
 \section{Anomaliearten}\label{sec:anomaliearten}
@@ -45,10 +45,10 @@ Auch wenn Studien zeigen, dass es durchaus Algorithmen gibt, die über mehrere v
 abschneiden~\cite[S.~30~-~31]{Wenig2024}~\cite{Schmidl2022}, so soll zunächst für jede Kategorie mindestens ein passender Kandidat
 gefunden werden. Diese werden dann in einem nächsten Schritt kreuzweise getestet, um auch solche Allrounder entdecken zu können. Dabei
 ist auch immer der Kontext der Anwendung wichtig. Wie eingangs erwähnt, sind für verschiedene Tätigkeitsfelder verschiedene
-Anforderungen an die Präzision oder Genauigkeit gestellt, weshalb immer die spezifischen Anforderung bedacht werden müssen, und nicht
+Anforderungen an die Präzision oder Genauigkeit gestellt, weshalb immer die spezifischen Anforderungen bedacht werden müssen, und nicht
 jeder Algorithmus gleich performant ist über mehrere Datensätze hinweg.
 
-Für die Kategorien wird sich zunächst auf wenige, für diese Arbeit relevante, beschränkt: \textbf{Punkt\-anomalien},
+Für die Kategorien wird sich zunächst auf wenige, aber für diese Arbeit relevante, beschränkt: \textbf{Punkt\-anomalien},
 \textbf{Subsequenzanomalien} und \textbf{Korrelationsanomalien}, abgeleitet von Chandola et al.~\cite{Chandola2009}.
 
 \subsection{Punktanomalien}\label{sec:punktanomalien}
@@ -64,7 +64,7 @@ nachgewiesen werden, wie in~\hyperref[subfig:smartmeter_histogramm]{Abb.~\Ref*{s
 Häufigkeitsverteilung und dem Mittelwert. Das Histogramm dient als gute Approximation für die
 Wahrscheinlichkeitsverteilung der Messwerte, und zeigt entsprechend die Eindeutigkeit des Ausreißers.
 
-\begin{figure}[!t]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{ch4_anomalien/abbildungen/punktanomalie_bsp.pdf}
@@ -111,29 +111,29 @@ auftretende Probleme hindeuten, die sonst unentdeckt bleiben würden.
 \end{figure}
 
 Das Beispiel in~\hyperref[fig:subsequenz_rect]{Abb.~\Ref*{fig:subsequenz_rect}} zeigt eine sichtbare Subsequenzanomalie, die verspätete
-abfallende Flanke einer gemessenen Rechteckspannung. Das Muster zwischen $t_1$ und $t_2$ ist also merklich anders verglichen zu den
+abfallende Flanke einer gemessenen Rechteckspannung. Das Muster zwischen $t_1$ und $t_2$ ist also merklich anders, verglichen mit den
 restlichen 0,2 ms langen Perioden und daher eine Anomalie.
 
-Bei der Analyse von EKG Daten spielen Subsequenzanomalien eine wichtige Rolle und können wertvolle Rückschlüsse auf die Herzgesundheit
-liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt EKG Daten eines Patienten mit
+Bei der Analyse von \ac{ekg} Daten spielen Subsequenzanomalien eine wichtige Rolle und können wertvolle Rückschlüsse auf die Herzgesundheit
+liefern~\cite{Chuah2007}.~\hyperref[fig:ekg_herzerkrankung]{Abb.~\Ref*{fig:ekg_herzerkrankung}} zeigt \ac{ekg} Daten eines Patienten mit
 monomorpher ventrikulärer Tachykardie. Diese kann zu Kammerflimmern übergehen, welches unbehandelt sogar zu einem Herzstillstand
 führen kann~\cite{ekgecho}\Cite[S.~131~ff.]{Davies2015}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{ch4_anomalien/abbildungen/ventrikulaere_tachykardie.png}
-    \caption{EKG Kanal mit Diagnose: Ventrikuläre Tachykardie~\cite{ekgecho}}
+    \caption{\ac{ekg} Kanal mit Diagnose: Ventrikuläre Tachykardie~\cite{ekgecho}}
 ~\label{fig:ekg_herzerkrankung}
 \end{figure}
 
-Sichtbar sind die einzelnen Unregelmäßigkeiten im EKG Verlauf. Die Pfeile kennzeichnen die sog. P-Wellen, die Informationen darüber
+Sichtbar sind die einzelnen Unregelmäßigkeiten im \ac{ekg} Verlauf. Die Pfeile kennzeichnen die sog. P-Wellen, die Informationen darüber
 liefern, dass Vorhöfe und Herzkammern nicht synchron schlagen~\cite{ekgecho}\Cite[S.~31~f.]{Davies2015}. Durch die Irregularitäten lässt
 sich also erkennen, dass für den untersuchten Patienten eine Behandlung notwendig ist und betont die Wichtigkeit, diese Anomalien zu
 erkennen, um wesentlich Schlimmeres zu verhindern.
 
 Darin liegt auch eine der Herausforderungen der Subsequenzanomaliedetektion: Ab wann ist ein Trend, der so noch nicht aufgetreten ist,
 Grund genug, um Maßnahmen zu ergreifen? Es bedarf also menschlicher Expertise zur Einordnung und Interpretation von Anomalien, eben wie
-bei EKG Daten.
+bei \ac{ekg} Daten.
 
 \subsection{Korrelationsanomalien}
 
@@ -167,7 +167,7 @@ werden kann. Desweiteren soll es sich zu Beginn um Algorithmen handeln, die ohne
 auskommen, also sog. Unsupervised Learning Algorithmen. Dazu eignen sich die folgenden Techniken bzw.~Algorithmen am Besten.
 
 \subsection{Histogram-Based Outlier Score}
-Der erste Algorithmus zur Detektion von Punktanomalien ist der zur Ermittlung des \textbf{Histogram-Based Outlier Score} (HBOS), der sich
+Der erste Algorithmus zur Detektion von Punktanomalien ist der zur Ermittlung des \textbf{\ac{hbos}}, der sich
 sowohl für univariate als auch multivariate Zeitserien eignet. Dabei wird für jede Dimension eine Analyse der Häufigkeitsverteilung per
 Histogramm durchgeführt und anhand dessen der namensgebende Outlier Score berechnet. Die Häufigkeit aller Werte innerhalb eines Bins wird als
 Dichte aufsummiert, und die Dichte ergibt gem.~\hyperref[eq:hbos]{Gl.~\Ref*{eq:hbos}} invers logarithmiert den Outlier Score. So erhalten Bins
@@ -175,14 +175,14 @@ mit geringen Häufigkeiten, also die Bins mit selten auftretenden Werten~-~wahrs
 so als Anomalie detektiert werden~\cite{Goldstein2012}.
 
 \begin{equation}
-    \text{HBOS}\,(p)\, =\, \sum_{i=0} ^ {d}\, \log \left( \frac{1}{\text{hist}_i(p)} \right)
+    \text{\ac{hbos}}\,(p)\, =\, \sum_{i=0} ^ {d}\, \log \left( \frac{1}{\text{hist}_i(p)} \right)
 \label{eq:hbos}
 \end{equation}
 
 Die Häufigkeitsanalyse über den kompletten Datensatz bzw.~eine sehr große Datenmenge führt dazu, dass lokale Anomalien nicht erkannt werden,
 da diese Werte trotzdem innerhalb der erwarteten Verteilung liegen und im globalen Kontext nicht herausstehen,
 wie~\hyperref[fig:hbos_lokale_probleme]{Abb.~\Ref*{fig:hbos_lokale_probleme}} zeigt. Einfache Abhilfe liefert die
-in~\hyperref[fig:hbos_lösung]{Abb.~\Ref*{fig:hbos_lösung}} dargestellte Erweiterung um ein gleitendes Fenster variabler Größe. Der HBOS wird dann innerhalb
+in~\hyperref[fig:hbos_lösung]{Abb.~\Ref*{fig:hbos_lösung}} dargestellte Erweiterung um ein gleitendes Fenster variabler Größe. Der \ac{hbos} wird dann innerhalb
 eines jeden Fensters ermittelt, wodurch der zeitliche Kontext mit einbezogen wird und auch lokale Anomalien erkannt werden. Multivariate Systeme
 können ebenfalls einfach analysiert werden, indem für jede Variable oder Dimension separate Histogramme erstellt werden.
 
@@ -220,7 +220,7 @@ Standardabweichung. Damit ist der Z-Score eine dimensionslose Größe, die direk
 
 \subsection{GrammarViz 2.0}
 Der nächste Algorithmus namens \textbf{GrammarViz} wird zur Detektion von Subsequenzanomalien eingesetzt~\cite{Senin2015}. Die Funktionsweise
-basiert auf der Diskretisierung einer Zeitreihe in Symbole. Für Subsequenzen unterschiedlicher Größe wird dann versucht, diese mit
+basiert auf der Diskretisierung einer Zeitreihe in eine bestimmte Anzahl an Symbolen. Für Subsequenzen unterschiedlicher Größe wird dann versucht, diese mit
 Grammatikregeln zu beschreiben. Kann sich eine Subsequenz nicht entsprechend der am häufigsten auftretenden Grammatikregeln charakterisieren
 lassen, so handelt es sich wahrscheinlich um eine anomale Sequenz, beispielsweise durch ein ungewöhnliches Muster oder eine neue Trendentwicklung.
 
@@ -296,11 +296,11 @@ ist ein Datenpunkt bzw.~eine Subsequenz~\cite{senin-gv2}.
             \node at (0.65,0.11) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/SWIFD_heatmap.pdf}};
         \end{scope}
     \end{tikzpicture}
-    \caption{Schematischer Ablauf des SWIFD Algorithmus}
+    \caption{Schematischer Ablauf des \ac{swifd} Algorithmus}
 ~\label{fig:swifd_schema}
 \end{figure}
 
-Der Algorithmus namens \textbf{Sliding Window Isolation Forest Density}~-~kurz \textbf{SWIFD}~-~dient der Anomalieerkennung in Zeitreihen durch die Berechnung einer
+Der Algorithmus namens \textbf{\acf{swifd}} dient der Anomalieerkennung in Zeitreihen durch die Berechnung einer
 Anomaliedichtekarte mittels des Isolation Forest-Verfahrens~\cite{Liu2012}. Der schematische Ablauf ist dabei~\hyperref[fig:swifd_schema]{Abb.~\Ref*{fig:swifd_schema}}
 zu entnehmen. Zunächst werden aus der Zeitreihe über gleitende Fenster statistische Merkmale
 extrahiert. Hierzu wird die Zeitreihe segmentiert, wobei jedes Fenster durch Mittelwert, Standardabweichung, Minimum und Maximum beschrieben wird. Die
@@ -309,7 +309,7 @@ Fenstergröße wird aus einer vordefinierten Menge gewählt, wobei sich die Schr
 Die so gewonnenen Merkmalsvektoren werden anschließend mit dem Isolation Forest-Algorithmus verarbeitet, der auf der Grundidee von Liu et al.~\cite{Liu2012}
 basiert und um die gleitenden Fenster von Ding et al.~\cite{Ding2013} weiterentwickelt wurde. Dieser konstruiert Entscheidungsbäume, in denen isolierte
 Datenpunkte~–~also potenzielle Anomalien~–~mit kürzeren Pfaden identifiziert werden als
-reguläre Datenpunkte. Während herkömmliche Isolation-Forest-Ansätze binäre Entscheidungen über Anomalien treffen, integriert SWIFD eine Dichtebetrachtung.
+reguläre Datenpunkte. Während herkömmliche Isolation-Forest-Ansätze binäre Entscheidungen über Anomalien treffen, integriert \ac{swifd} eine Dichtebetrachtung.
 Anstatt einzelne Punkte als Anomalien zu markieren, wird für jedes Fenster ein Dichtewert berechnet, indem erkannte Anomalien aufsummiert werden.
 
 Um lokale Schwankungen zu glätten und die visuelle Interpretierbarkeit zu verbessern, erfolgt abschließend eine Glättung der Anomaliedichte mithilfe eines
@@ -319,7 +319,7 @@ Analyse von Zeitreihen mit strukturellen Veränderungen, bei denen einzelne Punk
 liegenden Muster zu liefern.
 
 \subsection{Mahalanobis-Distanz mit SWIFD}
-Der Algorithmus \textbf{Mahalanobis-Distanz mit SWIFD}~-~kurz \textbf{MD-SWIFD}~-~wird zur Detektion von Korrelationsanomalien eingesetzt und kombiniert zwei
+Der Algorithmus \textbf{\ac{md-swifd}} wird zur Detektion von Korrelationsanomalien eingesetzt und kombiniert zwei
 wesentliche Konzepte: die Mahala\-nobis-Distanz und Isolation Forest, wie er in~\hyperref[subsec:swifd]{Abs.~\Ref*{subsec:swifd}} bereits
 zur Subsequenzanomaliedetektion angewandt wird. Die Weiterentwicklung um die Mahalanobis-Distanz ermöglicht die Erkennung von Anomalien in der Korrelation
 in multivariaten Zeitserien~\cite{McLachlan1999}.
@@ -341,19 +341,19 @@ Kovarianzmatrix $\Sigma$, wird die Mahalanobis-Distanz $D_M$ wie folgt berechnet
             \node at (0.16,0.9) {\large \parbox{4cm}{\centering \textbf{Eingangssignal}:\\Zeitserie}};
             \node at (0.65,0.76) {\includegraphics[width=0.68\linewidth]{ch4_anomalien/abbildungen/combined_plots.pdf}};
             \node at (0.16,0.645) {\large \parbox{4cm}{\centering \textbf{1. Schritt}:\\Mahalanobis Distanz}};
-            \node at (0.5,0.39) {\large \parbox{8cm}{\centering \textbf{alle weiteren Schritte}:\\identisch zu SWIFD}};
+            \node at (0.5,0.39) {\large \parbox{8cm}{\centering \textbf{alle weiteren Schritte}:\\identisch zu \ac{swifd}}};
             \node at (0.5,0.2) {\includegraphics[width=0.9\linewidth]{ch4_anomalien/abbildungen/md_swifd_result_schema.pdf}};
         \end{scope}
     \end{tikzpicture}
-    \caption{Schematischer Ablauf des MD-SWIFD Algorithmus als Erweiterung von SWIFD}
+    \caption{Schematischer Ablauf des \ac{md-swifd} Algorithmus als Erweiterung von \ac{swifd}}
 ~\label{fig:md_swifd_schema}
 \end{figure}
 
-In Verbindung mit SWIFD wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis Distanz~-~also die
+In Verbindung mit \ac{swifd} wird der \glqq zeitliche Verlauf\grqq~der Mahalanobis Distanz~-~also die
 Mahalanobis Distanz, die zu jedem Zeitstempel der Zeitserie korrespondiert~-~als Analysesignal verwendet. In der Mahalanobis-Distanz stecken sämtliche
 Informationen über das Korrelationsverhalten der Zeitserie und so können am Verlauf der Distanz Anomalien detektiert werden.
 
-MD-SWIFD macht sich also die Funktionalität von SWIFD zu Nutze und kann so in der weiterentwickelten Version Anomalien in der Korrelation mehrerer Variablen
+\ac{md-swifd} macht sich also die Funktionalität von \ac{swifd} zu Nutze und kann so in der weiterentwickelten Version Anomalien in der Korrelation mehrerer Variablen
 zuverlässig detektieren.
 
 \subsection{Elliptic Envelope Ansatz}
@@ -365,7 +365,7 @@ liegen, gelten als Ausreißer.
 \begin{figure}[t!]
     \centering
         \includegraphics[width=1\linewidth]{ch4_anomalien/abbildungen/EE_mahalanobis.pdf}
-    \caption{Ausschnitt aus dreidimensionaler Zeitreihe mit entsprechender Mahalanobis Distanz $D_M$. Anhand von $D_M$ können Korrelationsanomalien
+    \caption{\centering Ausschnitt aus dreidimensionaler Zeitreihe mit entsprechender Mahalanobis Distanz $D_M$. Anhand von $D_M$ können Korrelationsanomalien
         durch Setzen eines Schwellwerts erkannt werden, wenn die Distanz oberhalb dieser Schwelle liegt.}
 \label{fig:EE_mahalanobis}
 \end{figure}
@@ -398,8 +398,8 @@ Das Sammeln von großen Datensätzen ist kein Problem. Das SSP X1 System nimmt b
 Datensätze bzw.~Zeitserien. Die Problematik liegt vielmehr darin, dass die Daten mit einem Label versehen werden müssen, zumindest implizit. Es muss
 sichergestellt sein, dass die gesamte vorliegende Zeitserie einem normalen Betriebszustand entspricht~\cite[S.~10~ff]{Chapelle2010}.
 
-\subsection{LSTM-Autoencoder}
-Einer in seiner Funktionalität interessanter Algorithmus ist der LSTM-Autoencoder (LSTM-AE). LSTM steht für Long-Short Term Memory, ist eine Erweiterung der
+\subsection{Long Short Term Memory-Autoencoder}
+Einer in seiner Funktionalität interessanter Algorithmus ist der \ac{lstm-ae}. Ein \ac{lstm} ist eine Erweiterung der
 Recurrent Neural Networks und erlaubt es, auf ein Langzeitgedächtnis zurückzugreifen und kommt gänzlich ohne Parametrisierung aus~\cite{Hochreiter1997}.
 Ein Autoencoder ist ein Algorithmus, der auf Basis der Rekonstruktion von Sequenzen Anomalien detektiert und gehört demnach zur Kategorie der
 Subsequenzanomaliedetektion~\hyperref[tab:algorithmen]{(vgl.~Tab.~\Ref*{tab:algorithmen})}.
@@ -409,17 +409,17 @@ als solche, die Subsequenzen in eine niederdimensionalere Do\-mäne enkodieren, 
 Datensatz wird also in Subsequenzen unterteilt und diese werden enkodiert. Mithilfe der Trainingsdaten werden die enkodierten Sequenzen rekonstruiert,
 wobei Abweichungen des Originals zur rekonstruierten Sequenz als Anomalie gelten dürfen, da sie mit den Trainingsdaten nicht übereinstimmen.
 
-Die Kombination der beiden Prinzipien zum LSTM-AE erlaubt die Enkodierung der Subsequenzen unter Beibehalt langzeitiger Abhängigkeiten und Korrelationen
+Die Kombination der beiden Prinzipien zum \ac{lstm-ae} erlaubt die Enkodierung der Subsequenzen unter Beibehalt langzeitiger Abhängigkeiten und Korrelationen
 und erweist sich so als sehr geeignet für große multivariate Zeitserien mit unterschiedlichen Abhängigkeiten und Korrelationen, wie sie in den Systemen
 der SSP X1 vorkommen~\cite{Wei2022}.
 
 Der Algorithmus wird im nächsten Kapitel denselben Tests unterzogen wie seine Unsupervised Learning Pendants. Schlussendlich ist auch eine
-Implementierung von LSTM-AE zur Anomaliedetektion im Kontext der SSP X1 und verwandter Systeme nicht auszuschließen.
+Implementierung von \ac{lstm-ae} zur Anomaliedetektion im Kontext der SSP X1 und verwandter Systeme nicht auszuschließen.
 
 \section{Übersicht über alle ausgewählten Algorithmen}
 
 Abschließend folgt eine kurze Auflistung aller genannten Algorithmen mit stichwortartiger Kategorisierung nach Detektionsklasse, -prinzip sowie die Quelle der
-Implementierung. Unter dem Stichwort \textit{Eigene Implementierung} verbergen sich auch Komponenten, die aus Python Bibliotheken angewandt wurde, wie der
+Implementierung. Unter dem Stichwort \textit{Eigene Implementierung} verbergen sich auch Komponenten, die aus Python Bibliotheken angewandt wurden, wie der
 Algorithmus zu \textbf{Isolation Forest}~\cite{scikit-learn}, die zur gewollten Funktionalität
 zusammengeführt und erweitert wurden. Im nächsten Kapitel erfolgt die Erprobung, Gegenüberstellung und Evaluierung sämtlicher Algorithmen derselben
 Detektionsklasse.
@@ -427,24 +427,24 @@ Detektionsklasse.
 \begin{table}[h]
     \renewcommand{\arraystretch}{1.75}
     \begin{tabular}{c||c|c|c}
-\textbf{Algorithmus}                        & \textbf{Detektionsklasse}     & \textbf{Detektionsprinzip}   & \textbf{Quelle}               \\
+                                            & \textbf{Detektionsklasse}     & \textbf{Detektionsprinzip}   & \textbf{Quelle}               \\
 \hline
-\textbf{HBOS}                               & Punktanomalien        & Histogramm          & PyOD (Open Source)~\cite{zhao2019pyod}     \\
+\textbf{\ac{hbos}}                               & Punktanomalien        & Histogramm          & PyOD (Open Source)~\cite{zhao2019pyod}     \\
 \hline
 \multirow{2}{*}{\textbf{Sliding Window}}    & \multirow{2}{*}{Punktanomalien}        & \multirow{2}{*}{Z-Score} & \multirow{2}{*}{Eigene Implementierung} \\
 \textbf{Z-Score} & & & \\
 \hline
 \textbf{GrammarViz 2.0}                     & Subsequenzanomalien   & Grammatik           & Open Source~\cite{senin-gv2}           \\
 \hline
-\textbf{SWIFD}                              & Subsequenzanomalien   & Isolation Tree      & Eigene Implementierung     \\
+\textbf{\ac{swifd}}                              & Subsequenzanomalien   & Isolation Tree      & Eigene Implementierung     \\
 \hline
-\multirow{2}{*}{\textbf{MD-SWIFD}}          & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Mahalanobis Distanz} & \multirow{2}{*}{Eigene Implementierung} \\
+\multirow{2}{*}{\textbf{\ac{md-swifd}}}          & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Mahalanobis Distanz} & \multirow{2}{*}{Eigene Implementierung} \\
  & & und Isolation Tree & \\
 \hline
 \multirow{2}{*}{\textbf{Elliptic Envelope}} & \multirow{2}{*}{Korrelationsanomalien} & \multirow{2}{*}{Kovarianzmatrix und} & \multirow{2}{*}{sklearn (Open Source)~\cite{scikit-learn}} \\
  & & Mahalanobis Distanz & \\
 \hline\hline
-\multirow{2}{*}{\textbf{LSTM-AE}}           & \multirow{2}{*}{Subsequenzanomalien}   & \multirow{2}{*}{Rekonstruktion und} & \multirow{2}{*}{Open Source~\cite{pytorch-LSTMAE}} \\
+\multirow{2}{*}{\textbf{\ac{lstm-ae}}}           & \multirow{2}{*}{Subsequenzanomalien}   & \multirow{2}{*}{Rekonstruktion und} & \multirow{2}{*}{Open Source~\cite{pytorch-LSTMAE}} \\
  & & Neuronale Netze &
 \end{tabular}
     \caption{\centeringÜbersicht über die verwendeten Algorithmen nach Kategorisierung in Detektionsklasse, Detektionsprinzip und Ursprung}

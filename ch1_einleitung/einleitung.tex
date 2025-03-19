@@ -9,10 +9,10 @@ entsteht die Notwendigkeit, Wartungseinsätze effizienter zu gestalten und diese
 Einsätze planbarer und seltener durchzuführen. Genau hier setzt die Motivation dieser Arbeit an: neue Methoden zu entwickeln, die
 eine präzise Überwachung des Zustands der Brücken ermöglichen, ohne ständige physische Präsenz vor Ort.
 
-Diese Arbeit befasst sich konkret mit der \textbf{Smart Sensor Platform X1}~-~kurz \textbf{SSP X1}, einem System zur
+Diese Arbeit befasst sich konkret mit der \textbf{\ac{sspx1}}, einem System zur
 Erfassung, Verarbeitung und Weiterleitung von Bilddaten. Die vorhandenen Komponenten zur Mautüberwachung umfassen zwei Kameras,
-ein eingebettetes High-Performance-Computermodul mit GPU-Unterstützung, ein High-Power-LED-Blitzmodul sowie
-eine Stromversorgungshardware mit Weitbereichsspannungseingang. Die SSP X1 nutzt zahlreiche Sensordaten zur
+ein eingebettetes High-Performance-Computermodul inkl.~\ac{gpu}, ein High-Power-LED-Blitzmodul sowie
+eine Stromversorgungshardware mit Weitbereichsspannungseingang. Die \ac{sspx1} nutzt zahlreiche Sensordaten zur
 kontinuierlichen und sorgfältigen Überwachung des Systemzustands.
 
 \textbf{Predictive Maintenance} nutzt diese Daten, um Ausfälle vorherzusagen. Sie basiert auf der Analyse
@@ -20,16 +20,16 @@ von Echtzeitdaten, die aus einer Vielzahl von Sensoren entnommen werden können.
 sich anbahnende Fehler und Ausfälle vorhergesagt und abgefangen werden. So können Ressourcen effizient
 genutzt und Ausfallzeiten minimiert werden~\cite[S.~3]{Scheffer2004}.
 
-In diesem Kontext spielt OPC UA eine wichtige Rolle. OPC UA steht für \textit{Open Platform Communication
-Unified Architecture} und wird in \hyperref[sec:technologische_grundlagen]{Abs. \Ref*{sec:technologische_grundlagen}} grundlegend erläutert.
-Die Datenerfassung erfolgt lokal auf jeder SSP X1, welche im Zuge dessen auch einen eigenen OPC UA Server betreibt, um die aufgenommenen
+In diesem Kontext spielt \ac{opcua} eine wichtige Rolle und wird in \hyperref[sec:technologische_grundlagen]{Abs.
+\Ref*{sec:technologische_grundlagen}} grundlegend erläutert.
+Die Datenerfassung erfolgt lokal auf jeder \ac{sspx1}, welche im Zuge dessen auch einen eigenen \ac{opcua} Server betreibt, um die aufgenommenen
 Daten bereitzustellen. Auf diese Weise wird eine dezentrale Sammlung relevanter Parameter wie Temperatur,
 Leistung und Systemauslastung ermöglicht. Die kontinuierliche Überwachung und Speicherung dieser Daten in einer Datenbank
 bildet die Grundlage für die Entwicklung und Anwendung prädiktiver Wartungsstrategien.
 
-Ein zentraler Aspekt dabei ist die \textbf{Anomaliedetektion}, die als Abweichungen vom normalen Verhalten definiert
-werden~\cite{Chandola2009}. In multivariaten Systemen erschwert die hohe Dimensionalität und Komplexität der Daten ihre Erkennung.
-Unüberwachte maschinelle Lernverfahren bzw.~\textbf{Unsupervised Learning} erweisen sich hier als besonders vielversprechend,
+Ein zentraler Aspekt dabei ist die \textbf{Anomaliedetektion}. Unter Anomalien versteht man einzelne Punkte oder Teilsequenzen, die als Abweichungen
+vom normalen Verhalten definiert werden~\cite{Chandola2009}. In multivariaten Systemen erschwert die hohe Dimensionalität und Komplexität der
+Daten ihre Erkennung. Unüberwachte maschinelle Lernverfahren bzw.~\textbf{Unsupervised Learning} Verfahren erweisen sich hier als besonders vielversprechend,
 da sie Muster und Zusammenhänge in hochdimensionalen, unstrukturierten Datensätzen identifizieren können, ohne auf eine vorherige
 Datenkennzeichnung angewiesen zu sein~\cite{Chandola2009}~\cite[S.~22--24]{Wenig2024}.
 
@@ -42,8 +42,8 @@ und eingeordnet.~\hyperref[ch:pdm_theorie]{Kap.~\Ref*{ch:pdm_theorie}} gibt eine
 bevor das Konzept zu Predictive Maintenance vorgestellt wird, welches als Konsequenz aus der Entwicklung des Anomaliedetektionssystems
 aus dieser Arbeit herausgehen soll. Desweiteren werden die Rahmenbedingungen der Arbeit festgelegt bzgl.~der relevanten Grundbausteine,
 auf denen die Arbeit aufbaut. Danach geht es in~\hyperref[ch:anomalien]{Kap.~\Ref*{ch:anomalien}} um die Vorstellung des Konzepts der
-Anomaliedetektion und darum, welche verschiedenen Arten von Anomalien im Laufe des SSP X1 Betriebs auftreten können und insbesondere
-darum, welche Algorithmen zu deren Detektion und Erkennung sich dafür eignen. Diese werden dann
-in~\hyperref[ch:anomaliedetektion_test]{Kap.~\Ref*{ch:anomaliedetektion_test}} anhand verschiedener Datensätze unter die Lupe genommen,
+Anomaliedetektion und darum, welche verschiedenen Arten von Anomalien im Laufe des \ac{sspx1} Betriebs auftreten können und insbesondere
+darum, welche Algorithmen sich zu deren Detektion und Erkennung eignen. Diese werden dann
+in~\hyperref[ch:anomaliedetektion_test]{Kap.~\Ref*{ch:anomaliedetektion_test}} anhand verschiedener Datensätze analysiert,
 ausgewertet und gegenübergestellt.
 % weitere Kapitel vorstellen ...

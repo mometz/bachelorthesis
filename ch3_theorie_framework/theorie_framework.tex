@@ -48,7 +48,7 @@ verkürzt sich auch die Betriebsdauer des ganzen Systems und verursacht vermeidb
 Nach Mobley~\Cite[S.~4]{Mobley2002} wird Predictive Maintenance als eine zustandsbasierte Wartungsstrategie definiert, die den
 tatsächlichen Betriebszustand von Anlagen und Systemen überwacht, um Wartungsaktivitäten bedarfsgerecht zu planen.
 Eine passende Analogie findet sich in der Medizin: Wenn der menschliche Körper Anzeichen einer bevorstehenden Krankheit zeigt, können
-diese Symptome vom Arzt genutzt werden, um eine Diagnose zu stellen. Dementsprechend werden dann Maßnahmen ergeriffen, zum Beispiel
+diese Symptome vom Arzt genutzt werden, um eine Diagnose zu stellen. Dementsprechend werden dann Maßnahmen ergriffen, zum Beispiel
 wird eine Behandlung eingeleitet oder Medikamente verordnet. Diese Zustandsüberwachung erlaubt es, dass Wartungsarbeiten zu einem
 Zeitpunkt stattfinden können, der für alle Beteiligten passend ist und minimale Einschnitte in Produktions- oder Prozesslaufzeiten
 bedeutet~\cite[S.~3]{Scheffer2004}.
@@ -89,7 +89,7 @@ Predictive Maintenance ist keineswegs eine neue Erscheinung. Der Ansatz und erst
 und 80er Jahren~\cite{Sandtorv1973, Renwick1985} mit Techniken wie beispielsweise der Vibrationsanalyse zur Zustandsbestimmung. Dabei
 entwickelte sich der Fokus von Predictive Maintenance von lediglich der anfänglichen Überwachung durch die immer größer werdenden
 Datenmengen hin zur ganzheitlichen Zustandsüberwachung. Durch technologische und industrielle Fortschritte wie Industrie 4.0 und dem
-Internet of Things wurde die Umsetzung und Implementierung von Predictive Maintenance immer einfacher und kostengünstiger. Auf diese sog.
+\ac{iot} wurde die Umsetzung und Implementierung von Predictive Maintenance immer einfacher und kostengünstiger. Auf diese sog.
 \textit{Enabling Technologies} wird in~\hyperref[sec:technologische_grundlagen]{Abs.~\Ref*{sec:technologische_grundlagen}} genauer
 eingegangen.
 
@@ -101,7 +101,7 @@ Konsequenz sein.
 \section{Framework}\label{sec:framework}
 Die Notwendigkeit und Bedeutung eines Predictive Maintenance Systems wurde nun in~\hyperref[ch:pdm_theorie]{Kap.~\Ref*{ch:pdm_theorie}}
 beleuchtet, sowie der Fokus der Arbeit. Daher steht die Entwicklung eines funktionierenden Sytsems zur Anomaliedetektion an erster Stelle.
-In Anlehnung an Krupitzer et al.~\cite{Krupitzer2020} werden für die Entwicklung einer Predictive Maintenance Lösung im Kontext des SSPX1
+In Anlehnung an Krupitzer et al.~\cite{Krupitzer2020} werden für die Entwicklung einer Predictive Maintenance Lösung im Kontext des \ac{sspx1}
 Mautüberwachungssystems einige Rahmenbedingungen skizziert. Diese lassen sich gem.
 \hyperref[fig:pdm_framework]{Abb.~\Ref*{fig:pdm_framework}} kategorisieren und werden in diesem Kapitel näher beschrieben und offengelegt.
 Die Zielsetzung wurde bereits in~\hyperref[ch:zielsetzung]{Kap.~\Ref*{ch:zielsetzung}} erläutert und wird daher in diesem Kapitel nicht
@@ -115,7 +115,7 @@ noch einmal besprochen.
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             % Textpositionen anpassen:
             \node at (0.5,0.45) {\LARGE\parbox{8cm}{\centering\textbf{Framework\\Anomaliedetektion}}};
-            \node at (0.13,0.65) {\large Evaluation};
+            \node at (0.13,0.65) {\large \hyperref[subsec:evaluation]{Evaluation}};
             \node at (0.87,0.65) {\large \parbox{3cm}{\centering\hyperref[sec:technologische_grundlagen]{Technologische\\Grundlagen}}};
             \node at (0.5,0.87) {\large\hyperref[ch:zielsetzung]{Zielsetzung}};
             \node at (0.28,0.13) {\large \parbox{3cm}{\centering\hyperref[sec:datenverarbeitung]{Daten-\\verarbeitung}}};
@@ -127,30 +127,30 @@ noch einmal besprochen.
 \end{figure}
 
 \subsection{Technologische Grundlagen}\label{sec:technologische_grundlagen}
-Die technologischen Grundlagen dieser Arbeit stützen sich auf die in der SSPX1 verbauten Sensoren, die präzise Systemdaten erfassen
-und kontinuierlich überwachen. Zu den erfassten Parametern gehören unter anderem die Temperatur und Auslastung von GPU und CPU,
+Die technologischen Grundlagen dieser Arbeit stützen sich auf die in der \ac{sspx1} verbauten Sensoren, die präzise Systemdaten erfassen
+und kontinuierlich überwachen. Zu den erfassten Parametern gehören unter anderem die Temperatur und Auslastung von \ac{gpu} und \ac{cpu},
 die Auslastung des Arbeitsspeichers sowie die Strom- und Leistungsaufnahme des Blitzmoduls.
 
-Ein zentraler Baustein ist die Nutzung moderner IoT-Technologien in Kombination mit dem industriellen Kommunikationsstandard OPC UA.\
-Dieser Standard basiert auf Ethernet TCP/IP und ermöglicht einen effizienten und sicheren Zugriff auf die Sensordaten der SSPX1 und
+Ein zentraler Baustein ist die Nutzung moderner \ac{iot}-Technologien in Kombination mit dem industriellen Kommunikationsstandard \ac{opcua}.\
+Dieser Standard basiert auf Ethernet TCP/IP und ermöglicht einen effizienten und sicheren Zugriff auf die Sensordaten der \ac{sspx1} und
 deren Übertragung an eine Anwenderschnittstelle nach dem Client-Server-Prinzip~\cite[S.~470]{Babel2024}.
 
-Da die Sensoren teilweise von unterschiedlichen Herstellern stammen und Messdaten in verschiedenen Formaten bereitstellen, sorgt OPC
-UA für eine einheitliche und standardisierte Kommunikation. Die Daten werden dabei im kompakten \textit{OPC UA Binary}-Format~\cite{iec62541}
-erfasst, wodurch eine performante und ressourcenschonende Datenübertragung ermöglicht wird. Anschließend werden die Daten an den OPC
-UA-Server übermittelt und in der zugrundeliegenden SQL-Datenbank gespeichert. 
+Da die Sensoren teilweise von unterschiedlichen Herstellern stammen und Messdaten in verschiedenen Formaten bereitstellen, sorgt \ac{opcua}
+für eine einheitliche und standardisierte Kommunikation. Die Daten werden dabei im kompakten \textit{\ac{opcua} Binary}-Format~\cite{iec62541}
+erfasst, wodurch eine performante und ressourcenschonende Datenübertragung ermöglicht wird. Anschließend werden die Daten an den \ac{opcua}-Server
+übermittelt und in der zugrundeliegenden \ac{sql}-Datenbank gespeichert. 
 
-Durch diese Architektur wird eine herstellerübergreifende Interoperabilität gewährleistet, weshalb OPC UA besonders für den betrachteten
+Durch diese Architektur wird eine herstellerübergreifende Interoperabilität gewährleistet, weshalb \ac{opcua} besonders für den betrachteten
 Anwendungsfall geeignet ist. Die hohe Skalierbarkeit und Erweiterbarkeit des Standards ermöglicht zudem die einfache Integration
 weiterer Sensoren und Systeme, wodurch zukünftige Erweiterungen ohne grundlegende Anpassungen der bestehenden Infrastruktur möglich
 sind. Diese sog.~\textit{Cyber Physical Systems} ermöglichen also die Verbindung von mechanischen Komponenten über Netzwerke und sind
 essentiell für die Architektur dieser Arbeit.
 
-Ein weiterer Vorteil der Nutzung von OPC UA liegt in der serviceorientierten Architektur, die eine flexible Kommunikation
+Ein weiterer Vorteil der Nutzung von \ac{opcua} liegt in der serviceorientierten Architektur, die eine flexible Kommunikation
 zwischen Client und Server ermöglicht. Der Client fungiert hierbei als Kommunikationsbrücke, die Anfragen und Antworten zwischen
-der Anwenderschnittstelle und dem Server verwaltet. Die OPC UA-Kommunikations-Stacks unterstützen dabei die Datenverarbeitung und
+der Anwenderschnittstelle und dem Server verwaltet. Die \ac{opcua}-Kommunikations-Stacks unterstützen dabei die Datenverarbeitung und
 gewährleisten eine robuste Übertragung, indem sie eng mit dem Speicher- und Dateisystem des Servers zusammenarbeiten. Zu den
-wesentlichen Ereignissen der Client-Server-Kommunikation gehören~\cite{Babel2024,iec62541,Mao2024}:
+wesentlichen Ereignissen der Client-Server-Kommunikation gehören~\cite{Babel2024}~\cite{iec62541}~\cite{Mao2024}:
 \begin{itemize}
     \item \textbf{Message Requests:} Anfragen des Clients zur Datenabfrage oder -übertragung
     \item \textbf{Message Responses:} Antworten des Servers auf die Anfragen des Clients
@@ -158,18 +158,18 @@ wesentlichen Ereignissen der Client-Server-Kommunikation gehören~\cite{Babel202
     \item \textbf{Notifications:} Benachrichtigungen über Änderungen oder Ereignisse im System
 \end{itemize}
 
-Darüber hinaus kann der OPC UA-Server als Bindeglied zwischen mehreren physischen Geräten oder auch als Cloud-Service fungieren,
+Darüber hinaus kann der \ac{opcua}-Server als Bindeglied zwischen mehreren physischen Geräten oder auch als Cloud-Service fungieren,
 was die Skalierbarkeit weiter erhöht und die Nutzung in verteilten Systemen erlaubt. Im Rahmen dieser Arbeit wird auf diese Funktionalität
-jedoch verzichtet, da jedes SSPX1 Gerät einen eigenen Server betreibt, der sämtliche aufgenommenen Messdaten bereitstellt.
+jedoch verzichtet, da jede \ac{sspx1} einen eigenen Server betreibt, der sämtliche aufgenommene Messdaten bereitstellt.
 
 \subsection{Zustandsüberwachung}\label{sec:zustandsueberwachung}
 Ein wesentlicher Grund für ineffiziente Wartungsmaßnahmen liegt im unzureichenden Zugang zu Daten, die frühe Hinweise auf
 potenzielle Schäden oder Ausfälle liefern könnten~\cite[S.~2]{Mobley2002}. Predictive Maintenance basiert auf der Voraussetzung, dass
 Daten über den Zustand des betreffenden Systems oder der betreffenden Komponente zuverlässig verfügbar sind. Die Bereitstellung der
-Daten erfolgt wie oben beschrieben mithilfe von OPC UA und die Zustandsüberwachung sensorbasiert.
+Daten erfolgt wie oben beschrieben mithilfe von \ac{opcua} und die Zustandsüberwachung sensorbasiert.
 
 Zu Beginn der Arbeit und in der Entwicklungsphase wird die Zustandsüberwachung einen inspektionsbasierten Ansatz verfolgen. Das
-bedeutet, dass nach willkürlichen oder festelegten Intervallen immer auf die vom OPC UA Server zur Verfügung gestellten Daten
+bedeutet, dass nach willkürlichen oder festelegten Intervallen immer auf die vom \ac{opcua} Server zur Verfügung gestellten Daten
 zugegriffen wird und diese Datensätze dann analysiert und weiterverarbeitet werden. Die Wahl dieser Methode basiert auf der
 geringeren Komplexität der Implementierung in frühen Entwicklungsphasen und hat zur Folge, dass ein konsistenter Datensatz einen
 besseren Vergleich und Feinabstimmung von Parametern der Analysetools ermöglicht.
@@ -187,7 +187,7 @@ Strom- oder Leistungsaufnahme des Blitzmoduls, wo auch kurzzeitige Spitzen und A
 % Für den Moment sind jedoch alle Messintervalle gleich. auch hier: später ggf. überarbeiten
 
 \subsection{Datenverarbeitung}\label{sec:datenverarbeitung}
-Durch die kontinuierliche Aggregation von Messdaten der SSPX1 entstehen sehr große, hochdimensionale Datensätze. Jeder Datenpunkt in
+Durch die kontinuierliche Aggregation von Messdaten der \ac{sspx1} entstehen sehr große, hochdimensionale Datensätze. Jeder Datenpunkt in
 der Zeitserie $S$ ist mehrdimensional. Eine Zeitserie ist eine Menge der Mächtigkeit $n$. Alle $n$ Elemente sind reellwertige
 $d$~-~dimensionale Datenpunkte $S_i\,\in\,\mathbb{R}^{d}$~\cite{Schmidl2022}. Ebenfalls lässt sich eine Zeitserie $S$ der Länge $n$ und
 Dimensionalität $d$ als Matrix wie in \hyperref[eq:timeseries_matrix_sum]{Gl. \Ref*{eq:timeseries_matrix_sum}a} definieren. $x_{i}^{j}$ ist
@@ -258,15 +258,15 @@ $E_{32}$.
 \textit{Data Mining} spielt in dem Zusammenhang eine große Rolle. Unter Data Mining versteht man das Finden relevanter Informationen,
 Muster oder Trends in großen Datensätzen. Mithilfe verschiedener Data Mining Techniken können so Voraussagen über künftige Ereignisse oder
 Beobachtungen getroffen werden. Der Prozess des Data Minings lässt sich anhand von~\hyperref[fig:data_mining]{Abb.~\Ref*{fig:data_mining}}
-visualisieren. Dabei gehen zunächst Rohdaten aus den zahlreichen Sensoren hervor und liegen bedingt durch das SQL-Format in einer
+visualisieren. Dabei gehen zunächst Rohdaten aus den zahlreichen Sensoren hervor und liegen bedingt durch das \ac{sql}-Format in einer
 relationalen Datenbank vor. Der nächste Schritt der Vorverarbeitung erfolgt dann, damit die Daten in einem handlichen und analysierbaren
 Format vorliegen. Daher werden diese sowohl in ihrer Dimensionalität reduziert als auch normiert. Gegebenenfalls werden auch
 kontextbezogene Subsets gebildet, z.~B.~für Tageszeiten oder sonstige Bedingungen~\Cite[Kap.~1]{Tan2014}.
 
 Zur Datenverarbeitung gehören auch spezifische Herausforderungen, die die Entwicklung neuer Data Mining Techniken vorangetrieben haben.
-Dazu gehört unter Anderem die Skalierbarkeit eines Algorithmus, um zu gewährleisten, dass auch sehr große und immer größer werdende
+Dazu gehört unter anderem die Skalierbarkeit eines Algorithmus, um zu gewährleisten, dass auch sehr große und immer größer werdende
 Datensätze mit der gleichen Präzision und Qualität verarbeitet werden. Desweiteren zählen auch die Hochdimensionalität und Heterogenität
-der vorliegenden Datensätze zu großen Herausforderung bei der Findung geeigneter Algorithmen. Für hochdimensionale Daten muss im Voraus
+der vorliegenden Datensätze zu großen Herausforderungen bei der Findung geeigneter Algorithmen. Für hochdimensionale Daten muss im Voraus
 im Rahmen der Vorverarbeitung eine Reduzierung der Dimensionalität stattfinden, d.h.~irrelevante oder redundante Datenpunkte werden
 entfernt oder mit ähnlichen Datenpunkten zusammengefasst. Auch statistische Abhängigkeiten und Unabhängigkeiten sowie Korrelationen
 werden in diesem Schritt mit berücksichtigt. Die Heterogenität eines Datensatzes zeigt sich beispielsweise durch das Auftreten von
@@ -277,13 +277,11 @@ Vorverarbeitung stattfinden, denn nur so können auch relevante Ergebnisse erzeu
 % weitere inhalte dieses abs.: wie wird die dimensionalität zb verringert? pca oder ähnliche verfahren. abhängig von den gewählten
 % algorithmen, die getestet werden sollen
 
-\newpage
 \subsection{Evaluation}\label{subsec:evaluation}
 % hier soll kurz vorgestellt werden, anhand welcher kriterien und mit welchen verfahren ein algorithmus bewertet werden soll
 % zb. rechendauer, anomaliequote etc.
 Zur Vergleichbarkeit und Gegenüberstellung der gewählten Algorithmen aus~\hyperref[sec:algorithmen]{Abs.~\Ref*{sec:algorithmen}} werden
 entsprechend der Detektionsklasse unterschiedliche Evaluierungsmethoden verwandt.
-\hyperref[ch:anomaliedetektion_test]{Kap.~\Ref*{ch:anomaliedetektion_test}} beleuchtet dabei die einzelnen Methoden.
 
 Grundsätzlich ist es von höchster Bedeutung, dass für gleiche Detektionsklassen gleiche Evaluierungsmethoden angewandt werden, um einen
 aussagekräftigen Vergleich zu gewährleisten. Dabei ist eine der gängigsten Methoden zur Evaluierung von Klassifizierungsalgorithmen
@@ -291,6 +289,7 @@ jeglicher Art der F$\beta$-Score, der das harmonische Mittel zwischen den von Le
 und \textit{Recall} bildet. Precision und Recall ergeben sich aus einem Verhältnis der Größen \textit{True Positive}, \textit{False
 Positive} und \textit{False Negative}. Der Parameter $\beta$ ist ein Gewichtungsfaktor für das Verhältnis von Precision und Recall.
 
+\setlength{\jot}{15pt}
 \begin{align}
     \text{Precision} &= \frac{\text{TP}}{\text{TP} + \text{FP}} \label{eq:precision} \\
     \text{Recall} &= \frac{\text{TP}}{\text{TP} + \text{FN}} \label{eq:recall} \\
@@ -298,12 +297,44 @@ Positive} und \textit{False Negative}. Der Parameter $\beta$ ist ein Gewichtungs
     \label{eq:fbeta}
 \end{align}
 
-Um die optimale Entscheidungsschwelle zu finden und auch einen Überblick über die Performance eines Algorithmus über mehrere Schwellwerte
-zu erhalten, eignet sich die Precision-Recall-Kurve (PR-Kurve). Aus der PR-Kurve kann dann die sogenannte Area under the Curve (AUC-PR)
-berechnet werden, die als Indikator dafür dient, wie gut ein Modell über alle möglichen Schwellenwerte hinweg zwischen der positiven und
-negativen Klasse~-~im Bezug auf Aomalieerkennung entspricht das normal und anomal~-~unterscheidet, wobei sie insbesondere bei
-unausgewogenen Datensätzen aussagekräftig ist~\cite{Davis2006}~\cite{Schmidl2022}.
+\begin{figure}[b!]
+    \centering
+        \includegraphics[width=1\linewidth]{ch3_theorie_framework/abbildungen/pr-kurve.pdf}
+    \caption{\centering Zwei Beispielszenarien als Resultat der Anomaliedetektion eines Datensatzes. In der ersten Reihe sind die resultierenden
+    Vorhersagewahrscheinlichkeiten aufgetragen, mit den roten Punkten als tatsächliche Anomalien. Die Anomalien in Datensatz 1 sind im Vergleich
+    zu Datensatz 2 deutlich präziser vorhergesagt, was die \ac{prkurve} auch widerspiegelt.}
+~\label{fig:auc_pr_beispiel}
+\end{figure}
 
-Mithilfe der PR-Kurve kann der Schwellwert ermittelt werden, der den optimalen F$\beta$-Score zurückgibt. Dieser ist allerdings
+Um die optimale Entscheidungsschwelle zu finden und auch einen Überblick über die Performance eines Algorithmus über mehrere Schwellwerte
+zu erhalten, eignet sich die \ac{prkurve}, die in~\hyperref[fig:auc_pr_beispiel]{Abb.~\Ref*{fig:auc_pr_beispiel}} dargestellt
+ist. Aus der \ac{prkurve} kann dann die sogenannte \ac{aucpr}
+berechnet werden, die als Indikator dafür dient, wie gut ein Modell über alle möglichen Schwellwerte hinweg zwischen der positiven und
+negativen Klasse~-~im Bezug auf Aomalieerkennung entspricht das normal und anomal~-~unterscheidet, wobei sie insbesondere bei
+unausgewogenen Datensätzen aussagekräftig ist~\cite{Davis2006}~\cite{Schmidl2022}. Unter unausgewogenen Daten versteht man in diesem Zusammenhang,
+dass die große Mehrheit der Datenpunkte normal ist, während lediglich vereinzelte Punkte eine Anomalie darstellen.
+
+Mithilfe der \ac{prkurve} kann der Schwellwert ermittelt werden, der den optimalen F$\beta$-Score zurückgibt. Dieser ist allerdings
 alleine nicht aussagekräftig genug, da bei echten Daten nie gegeben sein kann, dass diese optimale Schwelle aufgrund der Unsicherheit der
-Daten gefunden wird. Dementsprechend ist AUC-PR eine bessere Metrik zur Gegenüberstellung zweier Algorithmen~\cite{Japkowicz2002}.
+Daten gefunden wird. Dementsprechend ist \ac{aucpr} eine bessere Metrik zur Gegenüberstellung zweier Algorithmen~\cite{Japkowicz2002}.
+
+Aus einem Algorithmus zur Anomaliedetektion geht eine Anomaliebewertung hervor, diese kann als relative Wahrscheinlichkeit interpretiert werden,
+mit der ein Algorithmus einen Punkt als Anomalie vorhersagt. Die Einordnung in die Klassen Normal und Anomalie erfolgt anhand eines festzulegenden
+Schwellwerts. Für reale Daten liegt die optimale Schwelle zur präzisesten Vorhersage allerdings nicht vor. Die \ac{prkurve} ist demnach auch ein
+Maß dafür, wie deutlich ein Algorithmus zwischen normalen und anomalen Punkten unterscheiden kann und wie abhängig seine Performance von der
+Wahl der optimalen Schwelle ist~\cite{Japkowicz2002}.
+
+Die linke Spalte in~\hyperref[fig:auc_pr_beispiel]{Abb.~\Ref*{fig:auc_pr_beispiel}} zeigt dies für einen Algorithmus, der die vorliegenden Daten
+eindeutig zuordnen kann, da alle detektierten Anomalien eine Wahrscheinlichkeit von über 90 \% aufweisen können, während als normal detektierten
+Punkte unter 25 \% liegen. Für einen Schwellwert zwischen diesen beiden Grenzen hat das also immer eine optimale Performance zur Folge. Liegt der
+Schwellwert darunter, so wirkt sich das negativ auf die Precision aus, denn so erkennt der Algorithmus dann viele Punkte als False Positives.
+Im Gegenzug hat eine zu hohe Schwelle viele False Negatives zur Folge und der Recall Wert sinkt.
+
+Der zweite Algorithmus aus der rechten Spalte in~\hyperref[fig:auc_pr_beispiel]{Abb.~\Ref*{fig:auc_pr_beispiel}} verdeutlicht die Folgen einer
+ungenaueren Zuordnung, da normale Punkte mit einer hohen Wahrscheinlichkeit als anomal eingeordnet werden, während wahre Anomalien eine niedrige
+Wahrscheinlichkeit erhalten. Das bedeutet, dass sich bei einer Veränderung der Schwelle sowohl Precision als auch Recall verändern, und zeigt
+eine stärkere Abhängigkeit des Algorithmus von der Wahl des richtigen Schwellwerts.
+
+Das Beispiel zeigt, dass eine starke Differenzierung zwischen normalen und anomalen Punkten für eine robuste Anomalieerkennung eines Algorithmus
+spricht und sich in einem hohen \ac{aucpr} widerspiegeln. Im Umkehrschluss deutet ein niedrigerer \ac{aucpr} Wert darauf hin, dass ein Algorithmus zwar
+Anomalien erkennen kann, jedoch nur bei einer optimalen Parametrisierung. Im Allgemeinen ist ein Algorithmus mit hohem \ac{aucpr} zu bevorzugen.

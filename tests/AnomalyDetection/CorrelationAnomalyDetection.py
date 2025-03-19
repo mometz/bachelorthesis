@@ -122,5 +122,6 @@ class MDSWIFD:
         ax.set_title("Anomalie-Heatmap als Hintergrund")
         ax.set_ylabel("Wert")
         ax.set_xlabel("Zeit")
+        ax.set_xlim(df.index[0], df.index[-1])
         ax.legend()
         plt.show()

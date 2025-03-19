@@ -18,6 +18,41 @@
 \usepackage{slashbox}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{acronym}
+\makeatletter
+\renewcommand{\chapter}{%
+    \clearpage
+    \thispagestyle{plain}%
+    \vspace*{-70pt} % Hier kannst du den Abstand anpassen
+    \global\@topnum\z@ % Verhindert, dass Floats an den Anfang der Seite rutschen
+    \@afterindentfalse
+    \secdef\@chapter\@schapter
+}
+\makeatother
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+% Abstand für Inhalts-, Abbildungs- und Tabellenverzeichnis reduzieren
+\titleformat{\chapter}[display]
+  {\normalfont\Huge\bfseries} % Schriftart der Kapitelüberschrift
+  {\chaptername\ \thechapter}{30pt} % Abstand zwischen "Kapitel X" und Titel
+  {\vspace*{-40pt}} % Abstand vor der Kapitelüberschrift anpassen
+
+% Abstand für das Inhaltsverzeichnis reduzieren
+\renewcommand{\contentsname}{Inhaltsverzeichnis} % Falls du eine andere Bezeichnung möchtest
+\setlength{\cftbeforetoctitleskip}{-20pt} % Abstand vor dem Inhaltsverzeichnis-Titel
+\setlength{\cftaftertoctitleskip}{20pt}  % Abstand nach dem Inhaltsverzeichnis-Titel
+
+% Abstand für das Abbildungsverzeichnis reduzieren
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+\setlength{\cftbeforeloftitleskip}{-20pt}
+\setlength{\cftafterloftitleskip}{20pt}
+
+% Abstand für das Tabellenverzeichnis reduzieren
+\renewcommand{\listtablename}{Tabellenverzeichnis}
+\setlength{\cftbeforelottitleskip}{-20pt}
+\setlength{\cftafterlottitleskip}{20pt}
+
 
 % Seitenlayout anpassen
 % \setlength{\textheight}{25cm}
@@ -65,6 +100,8 @@
 \include{ch4_anomalien/anomalien}
 \newpage
 \include{ch5_anomalieerkennung/anomalieerkennung}
+\newpage
+\include{ch6_fazit/fazit}
 
 % Literaturverzeichnis hinzufügen und verlinken
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
